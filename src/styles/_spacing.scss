@@ -1,0 +1,34 @@
+$baseSpacer: 1em;
+
+$spacers: (
+        u: $baseSpacer * 1,
+        m: $baseSpacer * 1.25
+);
+
+.mx-m {
+  margin-left: map_get($spacers, m);
+  margin-right: map_get($spacers, m);
+}
+
+.my-u {
+  margin-top: map_get($spacers, u);
+  margin-bottom: map_get($spacers, u);
+}
+
+.py-m {
+  padding-top: map_get($spacers, m);
+  padding-bottom: map_get($spacers, m);
+}
+
+.py-u {
+  padding-top: map_get($spacers, u);
+  padding-bottom: map_get($spacers, u);
+}
+
+.pa-m {
+  padding: map_get($spacers, m);
+}
+
+.pa-u {
+  padding: map_get($spacers, u);
+}

@@ -8,9 +8,11 @@ export class AppRoot extends PureComponent {
     return (
       <React.Fragment>
         <Router>
-          <nav>Feast</nav>
-          <Route path={"/"} exact={true} component={RecipesDashboardScene} />
-          <Route path={"/create-recipe"} exact={true} component={CreateRecipeScene} />
+          <nav className="app-nav"><h1>Feast</h1></nav>
+          <div className="app-container container justify-center">
+            <Route path={"/"} exact={true} component={RecipesDashboardScene} />
+            <Route path={"/create-recipe"} exact={true} component={CreateRecipeScene} />
+          </div>
         </Router>
       </React.Fragment>
     );

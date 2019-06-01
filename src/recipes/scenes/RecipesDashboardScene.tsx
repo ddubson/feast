@@ -8,17 +8,21 @@ export interface RecipesDashboardSceneProps {
   recipes: Recipe[];
 }
 
+const renderRecipes = (recipes: Recipe[]) => {
+  return recipes.map((recipe: Recipe) => <div key={shortid.generate()}>{recipe.name}</div>);
+};
+
 class RecipesDashboardScene extends React.PureComponent<RecipesDashboardSceneProps> {
   public render() {
     return (
-      <div>
+      <div className="recipe-dashboard">
         <h1>Recipes Dashboard</h1>
-        <div>
-          <h1>Recipes</h1>
-          {this.props.recipes.map((recipe: Recipe) => <div key={shortid.generate()}>{recipe.name}</div>)}
+        <div className="recipe-list">
+          <div className="recipe-list-header"><h2>Recipes</h2></div>
+          {renderRecipes(this.props.recipes)}
         </div>
         <div>
-          <Link to={"/create-recipe"}>Create a Recipe</Link>
+          <Link to={"/create-recipe"}><button className="primary-button">+ Create a Recipe</button></Link>
         </div>
       </div>
     );
