@@ -17,12 +17,16 @@ class RecipesDashboardScene extends React.PureComponent<RecipesDashboardScenePro
     return (
       <div className="recipe-dashboard">
         <h1>Recipes Dashboard</h1>
+        <div>
+          <Link to={"/create-recipe"}>
+            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              + Create a Recipe
+            </button>
+          </Link>
+        </div>
         <div className="recipe-list">
           <div className="recipe-list-header"><h2>Recipes</h2></div>
           {renderRecipes(this.props.recipes)}
-        </div>
-        <div>
-          <Link to={"/create-recipe"}><button className="primary-button">+ Create a Recipe</button></Link>
         </div>
       </div>
     );
