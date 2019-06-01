@@ -25,18 +25,25 @@
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
+    "@types/enzyme": "^3.9.3",
+    "@types/jest": "^24.0.13",
     "babel-jest": "^24.5.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
     "enzyme-react-16-adapter-setup": "^0.1.0",
     "jest": "^24.5.0",
-    "parcel": "^1.12.3"
+    "parcel": "^1.12.3",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1"
   },
   "dependencies": {
     "@types/react": "^16.8.10",
     "@types/react-dom": "^16.8.3",
+    "@types/react-router-dom": "^4.3.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0"
   },
   "babel": {
     "presets": [
@@ -46,18 +53,23 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.tsx?$": "ts-jest"
     },
     "moduleFileExtensions": [
+      "ts",
+      "tsx",
       "js",
       "jsx",
       "json",
       "node"
     ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss|svg|png)$": "jest-transform-stub"
+    },
     "setupFiles": [
       "enzyme-react-16-adapter-setup"
     ],
-    "testRegex": "(/test/.*|(\\.|/)(test))\\.(test.jsx?)$",
+    "testRegex": "(/test/.*|(\\.|/)(test))\\.(test.tsx?)$",
     "testPathIgnorePatterns": [
       "/dist/"
     ]
