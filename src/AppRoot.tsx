@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import {RecipesDashboardScene} from "./recipes/scenes/RecipesDashboardScene";
-import {CreateRecipeScene} from "./recipes/scenes/CreateRecipeScene";
+import CreateRecipeScene from "./recipes/scenes/CreateRecipeScene";
+import RecipesDashboardScene from "./recipes/scenes/RecipesDashboardScene";
 
 export class AppRoot extends PureComponent {
   public render() {
