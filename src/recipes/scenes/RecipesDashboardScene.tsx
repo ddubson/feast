@@ -9,7 +9,8 @@ export interface RecipesDashboardSceneProps {
 }
 
 const renderRecipes = (recipes: Recipe[]) => {
-  return recipes.map((recipe: Recipe) => <div key={shortid.generate()}>{recipe.name}</div>);
+  return recipes.map((recipe: Recipe) =>
+    <div key={shortid.generate()}><Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link></div>);
 };
 
 class RecipesDashboardScene extends React.PureComponent<RecipesDashboardSceneProps> {
