@@ -1,10 +1,18 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
+import * as shortid from "shortid";
+import {emptyRecipe} from "../../core/recipe-store";
+import {Ingredient} from "../../shared-components/ingredient";
 import {Recipe} from "../../shared-components/recipe";
+import {BackToRecipesLink} from "../components/BackToRecipesLink";
 
 export interface RecipeOverviewSceneProps {
   recipe: Recipe;
 }
+
+const renderIngredient = (ingredient: Ingredient) => (
+  <div key={shortid.generate()}>{ingredient.quantity}x {ingredient.name}</div>
+);
 
 class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps> {
   constructor(props: RecipeOverviewSceneProps) {
@@ -14,9 +22,14 @@ class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps> {
   public render() {
     return (
       <div>
-        <div>Recipe Overview</div>
+        <BackToRecipesLink />
+
+        <h3>Recipe</h3>
+        <h1>{this.props.recipe.name}</h1>
+
         <div>
-          <div>{this.props.recipe.name}</div>
+          <h3>Ingredients</h3>
+          {this.props.recipe.ingredients.map(renderIngredient)}
         </div>
       </div>
     );
@@ -24,7 +37,7 @@ class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps> {
 }
 
 const mapStateToProps = (state: any, ownProps: any) => ({
-  recipe: state.recipeStore.find((recipe: Recipe) => recipe.id === ownProps.match.params.id),
+  recipe: state.recipeStore.find((recipe: Recipe) => recipe.id === ownProps.match.params.id) || emptyRecipe(),
 });
 
 export default connect<RecipeOverviewSceneProps>(mapStateToProps)(RecipeOverviewScene);

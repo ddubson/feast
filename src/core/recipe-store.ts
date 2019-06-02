@@ -15,3 +15,5 @@ export const RecipeActionTypes = {
 export const initialRecipeStore: () => Recipe[] = () => {
   return [];
 };
+
+export const emptyRecipe: () => Recipe = () => ({id: "0", name: "No recipe selected", ingredients: []});

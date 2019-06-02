@@ -1,14 +1,17 @@
 import update from "immutability-helper";
 import React, {ChangeEvent, FormEvent} from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom";
 import * as shortid from "shortid";
-import {saveRecipe} from "../../core/recipe-store";
+import {RecipeStoreAction, saveRecipe} from "../../core/recipe-store";
 import {Ingredient} from "../../shared-components/ingredient";
 import {Recipe} from "../../shared-components/recipe";
+import {BackToRecipesLink} from "../components/BackToRecipesLink";
 
 export interface CreateRecipeSceneProps {
-  saveRecipe: (recipe: Recipe) => void;
+  saveRecipe: (recipe: Recipe) => RecipeStoreAction;
+  history: {
+    push: (location: string) => void;
+  };
 }
 
 export interface CreateRecipeSceneState {
@@ -52,7 +55,7 @@ class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, Crea
     const {recipeForm} = this.state;
 
     return (<div>
-      <Link to={"/"}>Back to Recipes</Link>
+      <BackToRecipesLink />
 
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label htmlFor="recipeName">Recipe Name</label>
@@ -67,7 +70,7 @@ class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, Crea
           <div>
             {(recipeForm.ingredients.length > 0 ?
               recipeForm.ingredients.map((ingredient: Ingredient) => (
-                <div>{ingredient.quantity} {ingredient.name}</div>
+                <div key={shortid.generate()}>{ingredient.quantity} {ingredient.name}</div>
               )) : "No ingredients yet.")}
           </div>
           <div>
@@ -77,6 +80,8 @@ class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, Crea
                      value={this.state.ingredientToAdd.quantity}
                      onChange={this.addIngredientQuantity}
                      name="ingredientQuantity"
+                     min={0}
+                     max={100}
                      placeholder="Quantity" />
               <input type="text" value={this.state.ingredientToAdd.form}
                      onChange={this.addIngredientForm}
@@ -112,7 +117,8 @@ class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, Crea
     this.setState(update(this.state, {ingredientToAdd: {name: {$set: event.target.value}}}));
   }
 
-  private addIngredientToIngredientList() {
+  private addIngredientToIngredientList(event: FormEvent<HTMLInputElement>) {
+    event.preventDefault();
     const ingredient = this.state.ingredientToAdd;
     this.setState(update(this.state, {recipeForm: {ingredients: {$push: [ingredient]}}}));
   }
@@ -120,15 +126,16 @@ class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, Crea
   private handleSubmit(event: FormEvent): void {
     event.preventDefault();
 
-    const {name} = this.state.recipeForm;
+    const {name, ingredients} = this.state.recipeForm;
 
     const recipe: Recipe = {
       id: shortid.generate(),
-      ingredients: [],
+      ingredients,
       name,
     };
 
     this.props.saveRecipe(recipe);
+    this.props.history.push("/");
   }
 }
 
