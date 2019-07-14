@@ -35,7 +35,7 @@ class RecipesDashboardScene extends React.PureComponent<RecipesDashboardScenePro
 }
 
 const mapStateToProps = (state: any) => ({
-  recipes: state.recipeStore,
+  recipes: state.recipeStore || [],
 });
 
 export default connect<RecipesDashboardSceneProps>(mapStateToProps)(RecipesDashboardScene);

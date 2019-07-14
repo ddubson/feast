@@ -1,5 +1,5 @@
 import update from "immutability-helper";
-import React, {ChangeEvent, FormEvent} from "react";
+import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import {connect} from "react-redux";
 import * as shortid from "shortid";
 import {RecipeStoreAction, saveRecipe} from "../../core/recipe-store";
@@ -12,6 +12,10 @@ export interface CreateRecipeSceneProps {
   history: {
     push: (location: string) => void;
   };
+}
+
+interface IConnectedDispatch {
+  saveRecipe: typeof saveRecipe;
 }
 
 export interface CreateRecipeSceneState {
@@ -30,7 +34,7 @@ export interface CreateRecipeSceneState {
   };
 }
 
-class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, CreateRecipeSceneState> {
+class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnectedDispatch, CreateRecipeSceneState> {
   constructor(props: CreateRecipeSceneProps) {
     super(props);
     this.state = {
@@ -117,7 +121,7 @@ class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, Crea
     this.setState(update(this.state, {ingredientToAdd: {name: {$set: event.target.value}}}));
   }
 
-  private addIngredientToIngredientList(event: FormEvent<HTMLInputElement>) {
+  private addIngredientToIngredientList(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const ingredient = this.state.ingredientToAdd;
     this.setState(update(this.state, {recipeForm: {ingredients: {$push: [ingredient]}}}));
@@ -139,6 +143,4 @@ class CreateRecipeScene extends React.PureComponent<CreateRecipeSceneProps, Crea
   }
 }
 
-export default connect<CreateRecipeSceneProps, CreateRecipeSceneState>(
-  null,
-  {saveRecipe})(CreateRecipeScene);
+export default connect(null, { saveRecipe })(CreateRecipeScene);
