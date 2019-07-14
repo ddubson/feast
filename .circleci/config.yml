@@ -3,13 +3,10 @@ jobs:
   feast-web-test:
     docker:
       - image: 'node:12-alpine'
-    environment:
-      WORKING_DIRECTORY: web/
+    working_directory: ~/feast/web/
     steps:
-      - checkout
-      - run:
-          name: go-to-working-directory
-          command: cd $WORKING_DIRECTORY
+      - checkout:
+          path: ~/feast
       - run:
           name: install-yarn
           command: npm i -g yarn
@@ -22,11 +19,10 @@ jobs:
   feast-web-build:
     docker:
       - image: 'node:12-alpine'
+    working_directory: ~/feast/web/
     steps:
-      - checkout
-      - run:
-          name: go-to-working-directory
-          command: cd $WORKING_DIRECTORY
+      - checkout:
+          path: ~/feast
       - run:
           name: install-yarn
           command: npm i -g yarn
