@@ -49,7 +49,7 @@ jobs:
             - feast-web-*.tgz
   feast-web-deploy-to-pcf:
     docker:
-      - image: 'alpine'
+      - image: 'node:12-alpine'
     environment:
       EXTRACT_DEST: /tmp/extracted-archive
     steps:
