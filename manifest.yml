@@ -6,3 +6,9 @@ applications:
       - route: feast-web.apps.pcfone.io
     buildpacks:
       - https://github.com/cloudfoundry/staticfile-buildpack.git
+  - name: feast-api
+    path: .
+    routes:
+      - route: feast-api.apps.pcfone.io
+    buildpacks:
+      - https://github.com/cloudfoundry/staticfile-buildpack.git
