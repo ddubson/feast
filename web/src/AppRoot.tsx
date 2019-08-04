@@ -9,8 +9,14 @@ export class AppRoot extends PureComponent {
     return (
       <React.Fragment>
         <Router>
-          <nav className="app-nav"><h1>Feast</h1></nav>
-          <div className="app-container container justify-center">
+          <header className="mdc-top-app-bar">
+            <div className="mdc-top-app-bar__row">
+              <section className="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <span className="mdc-top-app-bar__title" data-test="app-title">Feast</span>
+              </section>
+            </div>
+          </header>
+          <div className="mdc-top-app-bar--fixed-adjust app-container container justify-center">
             <Route path={"/"} exact={true} component={RecipesDashboardScene} />
             <Route path={"/create-recipe"} exact={true} component={CreateRecipeScene} />
             <Route path={"/recipe/:id"} component={RecipeOverviewScene} />

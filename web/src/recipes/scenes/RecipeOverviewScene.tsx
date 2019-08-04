@@ -11,7 +11,7 @@ export interface RecipeOverviewSceneProps {
 }
 
 const renderIngredient = (ingredient: Ingredient) => (
-  <div key={shortid.generate()}>{ingredient.quantity}x {ingredient.name}</div>
+  <div key={shortid.generate()}>{ingredient.quantity}x {ingredient.name} - {ingredient.form}</div>
 );
 
 class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps> {

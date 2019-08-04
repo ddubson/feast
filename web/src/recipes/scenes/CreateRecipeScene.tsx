@@ -21,11 +21,7 @@ interface IConnectedDispatch {
 export interface CreateRecipeSceneState {
   recipeForm: {
     name: string;
-    ingredients: Array<{
-      name: string;
-      quantity: number;
-      form: string;
-    }>;
+    ingredients: Ingredient[];
   };
   ingredientToAdd: {
     name: string;
@@ -56,18 +52,23 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnecte
   }
 
   public render() {
-    const {recipeForm} = this.state;
+    const {recipeForm, ingredientToAdd} = this.state;
 
     return (<div>
       <BackToRecipesLink />
 
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <label htmlFor="recipeName">Recipe Name</label>
-        <input type="text"
-               name="recipeName"
-               value={this.state.recipeForm.name}
-               onChange={this.addRecipeName}
-               placeholder={"Enter a recipe name."} />
+        <div className="mdc-text-field mdc-text-field--outlined">
+          <input type="text"
+                 name="recipeName"
+                 className="mdc-text-field__input"
+                 value={this.state.recipeForm.name}
+                 onChange={this.addRecipeName}
+                 placeholder={"Enter a recipe name."} />
+          <div className="mdc-line-ripple"/>
+          <label className="mdc-floating-label"
+                 htmlFor="recipeName">Recipe Name</label>
+        </div>
 
         <div>
           <div>Ingredients</div>
@@ -81,21 +82,24 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnecte
             <div>Add Ingredient</div>
             <div>
               <input type="number"
-                     value={this.state.ingredientToAdd.quantity}
+                     value={ingredientToAdd.quantity}
                      onChange={this.addIngredientQuantity}
                      name="ingredientQuantity"
                      min={0}
                      max={100}
                      placeholder="Quantity" />
-              <input type="text" value={this.state.ingredientToAdd.form}
+              <input type="text" value={ingredientToAdd.form}
                      onChange={this.addIngredientForm}
                      name="ingredientForm"
                      placeholder="Form" />
-              <input type="text" value={this.state.ingredientToAdd.name}
+              <input type="text" value={ingredientToAdd.name}
                      onChange={this.addIngredientName}
                      name="ingredientName"
                      placeholder="Ingredient" />
-              <button onClick={this.addIngredientToIngredientList}>Add Ingredient</button>
+              <button className="mdc-button mdc-button--raised"
+                      onClick={this.addIngredientToIngredientList}>
+                <span className="mdc-button__label">Add Ingredient</span>
+              </button>
             </div>
           </div>
         </div>
@@ -123,7 +127,8 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnecte
 
   private addIngredientToIngredientList(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    const ingredient = this.state.ingredientToAdd;
+    const {name, form, quantity} = this.state.ingredientToAdd;
+    const ingredient: Ingredient = {name, form, quantity};
     this.setState(update(this.state, {recipeForm: {ingredients: {$push: [ingredient]}}}));
   }
 
@@ -143,4 +148,4 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnecte
   }
 }
 
-export default connect(null, { saveRecipe })(CreateRecipeScene);
+export default connect(null, {saveRecipe})(CreateRecipeScene);

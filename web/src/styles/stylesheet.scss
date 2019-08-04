@@ -1,52 +1,6 @@
 @import "reset";
-@import "flex";
-@import "typography";
-@import "spacing";
-@import "colors";
-
-$primaryFont: 'PT Sans', sans-serif;
-
-html, body {
-  height: 100%;
-  min-height: 100%;
-}
-
-body {
-  font-size: 14px;
-  font-family: $primaryFont;
-}
-
-input[type="button"], button {
-  border: 0;
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.app-nav {
-  @extend .container;
-  @extend .justify-center;
-  @extend .py-u;
-  color: $purewhite;
-  background-color: $darkblue;
-}
-
-.app-container {
-  width: 960px;
-}
-
-.recipe-dashboard {
-  .recipe-list {
-    border-radius: 4px;
-    @extend .my-u;
-  }
-}
-
-.primary-button {
-  background-color: $darkblue;
-  color: $purewhite;
-  border-radius: 4px;
-  min-height: 15px;
-  @extend .pa-u;
-}
-
+@import "~@material/top-app-bar/mdc-top-app-bar.scss";
+@import "~@material/button/mdc-button.scss";
+@import "~@material/floating-label/mdc-floating-label.scss";
+@import "~@material/textfield/mdc-text-field.scss";
+@import "~@material/line-ripple/mdc-line-ripple.scss";
