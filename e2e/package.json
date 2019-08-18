@@ -4,7 +4,8 @@
   "description": "end-to-end tests for feast",
   "main": "index.js",
   "scripts": {
-    "test:open": "cypress open"
+    "test:open": "cypress open",
+    "test:run": "cypress run"
   },
   "keywords": [
     "test"
