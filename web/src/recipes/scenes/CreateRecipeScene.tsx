@@ -1,21 +1,18 @@
+import {Button, Input} from "@material-ui/core";
 import update from "immutability-helper";
+import {observer} from "mobx-react";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
-import {connect} from "react-redux";
 import * as shortid from "shortid";
-import {RecipeStoreAction, saveRecipe} from "../../core/recipe-store";
+import {RecipeStore} from "../../core/RecipeStore";
 import {Ingredient} from "../../shared-components/ingredient";
 import {Recipe} from "../../shared-components/recipe";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
 
 export interface CreateRecipeSceneProps {
-  saveRecipe: (recipe: Recipe) => RecipeStoreAction;
+  recipeStore: RecipeStore;
   history: {
     push: (location: string) => void;
   };
-}
-
-interface IConnectedDispatch {
-  saveRecipe: typeof saveRecipe;
 }
 
 export interface CreateRecipeSceneState {
@@ -30,7 +27,8 @@ export interface CreateRecipeSceneState {
   };
 }
 
-class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnectedDispatch, CreateRecipeSceneState> {
+@observer
+class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateRecipeSceneState> {
   constructor(props: CreateRecipeSceneProps) {
     super(props);
     this.state = {
@@ -58,19 +56,14 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnecte
       <BackToRecipesLink />
 
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <div className="mdc-text-field mdc-text-field--outlined">
-          <input type="text"
-                 name="recipeName"
-                 className="mdc-text-field__input"
-                 value={this.state.recipeForm.name}
-                 onChange={this.addRecipeName}
-                 placeholder={"Enter a recipe name."} />
-          <div className="mdc-line-ripple"/>
-          <label className="mdc-floating-label"
-                 htmlFor="recipeName">Recipe Name</label>
-        </div>
+        <Input
+          inputProps={{"data-recipe-name-input": true}}
+          placeholder="Recipe Name"
+          value={this.state.recipeForm.name}
+          onChange={this.addRecipeName}
+        />
 
-        <div>
+        <div className="ingredient-list">
           <div>Ingredients</div>
           <div>
             {(recipeForm.ingredients.length > 0 ?
@@ -81,30 +74,34 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnecte
           <div>
             <div>Add Ingredient</div>
             <div>
-              <input type="number"
+              <input data-ingredient-quantity
+                     type="number"
                      value={ingredientToAdd.quantity}
                      onChange={this.addIngredientQuantity}
                      name="ingredientQuantity"
                      min={0}
                      max={100}
                      placeholder="Quantity" />
-              <input type="text" value={ingredientToAdd.form}
+              <input data-ingredient-form
+                     type="text"
+                     value={ingredientToAdd.form}
                      onChange={this.addIngredientForm}
                      name="ingredientForm"
                      placeholder="Form" />
-              <input type="text" value={ingredientToAdd.name}
+              <input data-ingredient-name
+                     type="text"
+                     value={ingredientToAdd.name}
                      onChange={this.addIngredientName}
                      name="ingredientName"
                      placeholder="Ingredient" />
-              <button className="mdc-button mdc-button--raised"
-                      onClick={this.addIngredientToIngredientList}>
-                <span className="mdc-button__label">Add Ingredient</span>
-              </button>
+              <Button data-add-ingredient color="primary" onClick={this.addIngredientToIngredientList}>
+                Add Ingredient
+              </Button>
             </div>
           </div>
         </div>
 
-        <input type="submit" value={"Create recipe"} />
+        <Input data-add-recipe type="submit" value={"Create recipe"} />
       </form>
     </div>);
   }
@@ -143,9 +140,11 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps & IConnecte
       name,
     };
 
-    this.props.saveRecipe(recipe);
-    this.props.history.push("/");
+    this.props.recipeStore.addRecipe(recipe)
+      .then(() => {
+        this.props.history.push("/");
+      });
   }
 }
 
-export default connect(null, {saveRecipe})(CreateRecipeScene);
+export default CreateRecipeScene;

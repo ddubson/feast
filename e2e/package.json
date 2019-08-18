@@ -1,0 +1,18 @@
+{
+  "name": "feast-e2e",
+  "version": "1.0.0",
+  "description": "end-to-end tests for feast",
+  "main": "index.js",
+  "scripts": {
+    "test:open": "cypress open"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "Dmitriy Dubson",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^3.4.1",
+    "typescript": "^3.5.3"
+  }
+}

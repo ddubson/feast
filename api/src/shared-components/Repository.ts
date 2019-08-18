@@ -1,4 +1,5 @@
 export interface Repository<T> {
   fetchAll(): T[];
-  findById(id: number): T;
+  findById(id: string): T | undefined;
+  save(t: T): T;
 }

@@ -8,7 +8,8 @@ applications:
       - https://github.com/cloudfoundry/staticfile-buildpack.git
   - name: feast-api
     path: .
+    command: node App.js
     routes:
       - route: feast-api.apps.pcfone.io
     buildpacks:
-      - https://github.com/cloudfoundry/staticfile-buildpack.git
+      - https://github.com/cloudfoundry/nodejs-buildpack.git

@@ -1,0 +1,2 @@
+PUSHD web
+yarn start

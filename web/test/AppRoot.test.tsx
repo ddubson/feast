@@ -1,5 +1,5 @@
 import React from "react";
-import {AppRoot} from "../src/AppRoot";
+import AppRoot from "../src/AppRoot";
 import {find, renderApp, textOf} from "./helpers/RenderApp";
 
 describe("AppRoot", () => {

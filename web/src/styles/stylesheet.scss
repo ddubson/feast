@@ -1,6 +1,23 @@
 @import "reset";
-@import "~@material/top-app-bar/mdc-top-app-bar.scss";
-@import "~@material/button/mdc-button.scss";
-@import "~@material/floating-label/mdc-floating-label.scss";
-@import "~@material/textfield/mdc-text-field.scss";
-@import "~@material/line-ripple/mdc-line-ripple.scss";
+@import "variables";
+@import "spacing";
+
+body {
+  font-size: $unitFont;
+}
+
+.app-title {
+  p {
+    @extend .mhxl;
+    @extend .mvl;
+  }
+}
+
+.app-body {
+  @extend .mvxl;
+  @extend .mhxl;
+}
+
+.ingredient-list {
+  @extend .mvxxl;
+}

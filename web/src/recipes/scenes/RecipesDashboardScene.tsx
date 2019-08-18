@@ -1,41 +1,65 @@
+import {Button, Typography} from "@material-ui/core";
+import {observer} from "mobx-react";
 import * as React from "react";
-import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import * as shortid from "shortid";
+import {RecipeStore} from "../../core/RecipeStore";
 import {Recipe} from "../../shared-components/recipe";
+import RecipeListItem from "../components/RecipeListItem";
 
-export interface RecipesDashboardSceneProps {
+interface Props {
+  recipeStore: RecipeStore;
+}
+
+interface State {
   recipes: Recipe[];
 }
 
 const renderRecipes = (recipes: Recipe[]) => {
+  if (recipes.length === 0) {
+    return ("No recipes yet.");
+  }
+
   return recipes.map((recipe: Recipe) =>
-    <div key={shortid.generate()}><Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link></div>);
+    <RecipeListItem key={shortid.generate()} recipe={recipe} />);
 };
 
-class RecipesDashboardScene extends React.PureComponent<RecipesDashboardSceneProps> {
+@observer
+class RecipesDashboardScene extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      recipes: [],
+    };
+  }
+
+  public componentDidMount(): void {
+    this.props.recipeStore.allRecipes.then((recipes: Recipe[]) => {
+      this.setState({recipes});
+    });
+  }
+
   public render() {
+    const {recipes} = this.state;
+
     return (
       <div className="recipe-dashboard">
-        <h1>Recipes Dashboard</h1>
         <div>
-          <Link to={"/create-recipe"}>
-            <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              + Create a Recipe
-            </button>
-          </Link>
+          <Button variant="outlined">
+            <Link to={"/create-recipe"} data-create-recipe-link>Create Recipe</Link>
+          </Button>
         </div>
         <div className="recipe-list">
-          <div className="recipe-list-header"><h2>Recipes</h2></div>
-          {renderRecipes(this.props.recipes)}
+          <div className="recipe-list-header">
+            <Typography variant="h5" component="h2" gutterBottom>
+              Recipes
+            </Typography>
+          </div>
+          {renderRecipes(recipes)}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: any) => ({
-  recipes: state.recipeStore || [],
-});
-
-export default connect<RecipesDashboardSceneProps>(mapStateToProps)(RecipesDashboardScene);
+export default RecipesDashboardScene;

@@ -1,22 +1,37 @@
+import {observer} from "mobx-react";
 import React, {PureComponent} from "react";
-import {connect} from "react-redux";
+import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
-import {emptyRecipe} from "../../core/recipe-store";
+import {emptyRecipe, RecipeStore} from "../../core/RecipeStore";
 import {Ingredient} from "../../shared-components/ingredient";
 import {Recipe} from "../../shared-components/recipe";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
 
-export interface RecipeOverviewSceneProps {
+interface RecipeOverviewSceneState {
   recipe: Recipe;
+}
+
+interface RecipeOverviewSceneProps extends RouteComponentProps {
+  recipeStore: RecipeStore;
 }
 
 const renderIngredient = (ingredient: Ingredient) => (
   <div key={shortid.generate()}>{ingredient.quantity}x {ingredient.name} - {ingredient.form}</div>
 );
 
-class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps> {
+@observer
+class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps, RecipeOverviewSceneState> {
   constructor(props: RecipeOverviewSceneProps) {
     super(props);
+    this.state = {
+      recipe: emptyRecipe(),
+    };
+  }
+
+  public componentDidMount(): void {
+    this.props.recipeStore.findById((this.props.match.params as any).id).then((recipe: Recipe) => {
+      this.setState({ recipe });
+    }).catch(error => console.error(error));
   }
 
   public render() {
@@ -25,19 +40,15 @@ class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps> {
         <BackToRecipesLink />
 
         <h3>Recipe</h3>
-        <h1>{this.props.recipe.name}</h1>
+        <h1>{this.state.recipe.name}</h1>
 
         <div>
           <h3>Ingredients</h3>
-          {this.props.recipe.ingredients.map(renderIngredient)}
+          {this.state.recipe.ingredients.map(renderIngredient)}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: any, ownProps: any) => ({
-  recipe: state.recipeStore.find((recipe: Recipe) => recipe.id === ownProps.match.params.id) || emptyRecipe(),
-});
-
-export default connect<RecipeOverviewSceneProps>(mapStateToProps)(RecipeOverviewScene);
+export default RecipeOverviewScene;

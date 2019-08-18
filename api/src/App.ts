@@ -8,6 +8,7 @@ const port: string = process.env.PORT || "8080";
 
 allowCrossOriginHeaders(app);
 
+app.use(express.json());
 app.use("/api", router);
 
 app.listen(port, () => {
