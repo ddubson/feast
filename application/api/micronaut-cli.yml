@@ -1,0 +1,6 @@
+profile: service
+defaultPackage: io.feast.api
+---
+testFramework: junit
+sourceLanguage: kotlin
+testLanguage: kotlin
