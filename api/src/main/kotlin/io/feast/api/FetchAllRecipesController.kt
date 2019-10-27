@@ -15,7 +15,7 @@ class FetchAllRecipesController(private val fetchAllRecipesQuery: FetchAllRecipe
     @Get("/recipes", produces = [MediaType.APPLICATION_JSON])
     fun index(): HttpResponse<*> = when (val result = fetchAllRecipesQuery.execute()) {
         is Either.Right -> when(result.b) {
-            is None -> HttpResponse.notFound<String>("No recipes to fetch.")
+            is None -> HttpResponse.notFound<String>("No recipes found.")
             is Some -> HttpResponse.ok((result.b as Some<List<Recipe>>).t)
         }
         is Either.Left -> HttpResponse.serverError("Something went wrong!")

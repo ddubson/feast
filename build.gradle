@@ -11,17 +11,29 @@ allprojects {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-        implementation 'io.arrow-kt:arrow-core:0.10.2'
+        implementation "org.jetbrains.kotlin:kotlin-reflect"
+        implementation "io.arrow-kt:arrow-core:0.10.2"
+
+        testImplementation "org.amshove.kluent:kluent:1.56"
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions {
+            jvmTarget = '1.8'
+            //Will retain parameter names for Java reflection
+            javaParameters = true
+        }
     }
+
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions {
+            jvmTarget = '1.8'
+            javaParameters = true
+        }
     }
 }
