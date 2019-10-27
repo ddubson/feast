@@ -1,0 +1,11 @@
+version: "2"
+exclude_patterns:
+  - ".gradle/"
+  - "*.md"
+  - ".gitignore"
+  - "*.yml"
+  - "*.json"
+  - "Dockerfile"
+  - "*.gradle"
+  - "*.lock"
+  - "*.xml"
