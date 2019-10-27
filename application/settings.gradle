@@ -1,4 +1,0 @@
-rootProject.name = 'feast-application'
-
-include "api"
-include "core"

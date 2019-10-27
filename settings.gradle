@@ -1,0 +1,4 @@
+rootProject.name = 'feast'
+
+include "api"
+include "application"
