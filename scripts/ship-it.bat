@@ -1,13 +1,5 @@
-PUSHD e2e
 call yarn test:run
-POPD
-
-PUSHD web
-call yarn test
-POPD
-
-PUSHD api
-call yarn test
-POPD
+call yarn test build
+call ./gradlew clean test build
 
 echo "All Tests Pass!"

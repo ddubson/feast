@@ -2,12 +2,12 @@
   "name": "feast",
   "version": "1.0.0",
   "description": "recipe and dish aggregator",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "test": "jest --bail",
-    "test:watch": "jest --watchAll"
+    "start": "./node_modules/.bin/parcel web/src/index.html",
+    "build": "./node_modules/.bin/parcel build web/src/index.html",
+    "test": "./node_modules/.bin/jest --bail",
+    "test:watch": "./web/node_modules/.bin/jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -63,6 +63,9 @@
     ]
   },
   "jest": {
+    "roots": [
+      "web/"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

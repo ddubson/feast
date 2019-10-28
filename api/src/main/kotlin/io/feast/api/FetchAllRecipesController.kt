@@ -10,7 +10,7 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 
-@Controller
+@Controller("/api")
 class FetchAllRecipesController(private val fetchAllRecipesQuery: FetchAllRecipesQuery) {
     @Get("/recipes", produces = [MediaType.APPLICATION_JSON])
     fun index(): HttpResponse<*> = when (val result = fetchAllRecipesQuery.execute()) {

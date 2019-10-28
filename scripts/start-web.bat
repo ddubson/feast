@@ -1,2 +1,1 @@
-PUSHD web
 yarn start

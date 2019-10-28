@@ -1,3 +1,10 @@
 micronaut:
   application:
     name: io.feast.api
+  server:
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowedOrigins:
+            - http://localhost:1234

@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-pushd api/ || exit
-yarn test
-yarn build
-popd || exit
+./gradlew clean test build
 
-pushd web/ || exit
-yarn test
-yarn run build
-popd || exit
+yarn test build

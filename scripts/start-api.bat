@@ -1,2 +1,1 @@
-PUSHD api
-yarn start
+gradlew.bat clean :api:run
