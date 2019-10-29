@@ -2,7 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "esModuleInterop": true,
-    "outDir": "./dist/",
+    "outDir": "./web/dist/",
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",

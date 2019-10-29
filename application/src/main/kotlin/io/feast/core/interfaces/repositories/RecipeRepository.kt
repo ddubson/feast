@@ -8,4 +8,6 @@ interface RecipeRepository {
     fun fetchAll(): Either<Exception, Option<List<Recipe>>>
 
     fun fetchById(id: String): Either<Exception, Option<Recipe>>
+
+    fun create(recipe: Recipe): Either<Exception, Option<Recipe>>
 }
