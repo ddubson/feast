@@ -26,10 +26,14 @@ class FetchAllRecipesControllerTest(@Client("/") val httpClient: RxHttpClient) {
     @Test
     fun whenInvoked_ShouldReturnAllRecipesInTheApplication() {
         val expectedRecipes = listOf(
-                Recipe("1", "Potato", listOf(Ingredient("1", "Potato", "Chopped", "1"))))
+                Recipe("1", "Potato", listOf(
+                        Ingredient("1", "Potato", "Chopped", 1))
+                )
+        )
         stubFetchAllRecipesQuery.allRecipes = expectedRecipes
 
-        val response = httpClient.toBlocking().retrieve(HttpRequest.GET<List<Recipe>>("/recipes"), Array<Recipe>::class.java)
+        val response = httpClient.toBlocking()
+                .retrieve(HttpRequest.GET<List<Recipe>>("/recipes"), Array<Recipe>::class.java)
         assertIterableEquals(stubFetchAllRecipesQuery.allRecipes, response.asList())
     }
 
@@ -50,5 +54,4 @@ class StubFetchAllRecipesQuery : FetchAllRecipesQuery {
 
     override fun execute(): Either<Exception, Option<List<Recipe>>> =
             Either.Right(if (allRecipes.isNotEmpty()) Some(allRecipes) else None)
-
 }
