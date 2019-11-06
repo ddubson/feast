@@ -2,6 +2,7 @@ package io.feast.api
 
 import arrow.core.Either
 import arrow.core.None
+import arrow.core.Option
 import arrow.core.Some
 import io.feast.api.dtos.CreateRecipeDto
 import io.feast.core.domain.Recipe
@@ -17,11 +18,19 @@ import io.micronaut.http.annotation.Post
 class CreateRecipeController(private val createRecipeCommand: CreateRecipeCommand) {
     @Post("/recipes")
     public fun createRecipe(@Body newRecipe: CreateRecipeDto): HttpResponse<*> {
-        val createRecipeRequest = newRecipe.let {
-            CreateRecipeRequest(it.name, ingredients = it.ingredients.map { ingredient ->
-                CreateIngredientRequest(ingredient.name, ingredient.form, ingredient.quantity)
-            })
+        val createRecipeRequest = newRecipe.let { createRecipeDto ->
+            CreateRecipeRequest(
+                    createRecipeDto.name,
+                    ingredients = Option.fromNullable(createRecipeDto.ingredients)
+                            .fold(
+                                    ifEmpty = { emptyList<CreateIngredientRequest>() },
+                                    ifSome = { ingredients ->
+                                        ingredients.map {
+                                            CreateIngredientRequest(it.name, it.form, it.quantity)
+                                        }
+                                    }))
         }
+
         return when (val result = createRecipeCommand.execute(createRecipeRequest)) {
             is Either.Right -> when (result.b) {
                 is None -> HttpResponse.serverError("No entity to return after creation.")
