@@ -4,14 +4,33 @@
 
 # feast
 
-## API
+## API (Micronaut / Kotlin / ArrowKt)
 
 Directory: `api`
 
-Start locally: `yarn start` -> port `8080`
-Build: `yarn build` -> build artifacts in `dist/` folder
+On *nix
 
-## Web
+```bash
+# Running locally
+./gradlew :api:run
+
+# Run tests
+./gradlew :api:test
+
+```
+
+## Application (Kotlin / ArrowKt)
+
+Directory: `application`
+
+On *nix
+
+```bash
+# Run tests
+./gradlew :application:test
+```
+
+## Web (React / Typescript)
 
 ### Running & Building
 
