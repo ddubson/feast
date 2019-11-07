@@ -26,15 +26,17 @@ object BaseFetchAllRecipesQuerySpec : Spek({
                 it("should steer right") {
                     val eitherResult: Either<Exception, Option<List<Recipe>>> = baseFetchAllRecipesQuery.execute()
                     eitherResult.isRight() shouldBe true
-                    eitherResult.fold({
-                        fail("Query returned an error!")
-                    }, { optionOfRecipes ->
-                        optionOfRecipes.fold({
-                            fail("There was no list!")
-                        }, { recipes ->
-                            recipes shouldHaveAtLeastSize 3
-                        })
-                    })
+                    eitherResult.fold(
+                            ifLeft = {
+                                fail("Query returned an error!")
+                            },
+                            ifRight = { optionOfRecipes ->
+                                optionOfRecipes.fold({
+                                    fail("There was no list!")
+                                }, { recipes ->
+                                    recipes shouldHaveAtLeastSize 3
+                                })
+                            })
                 }
             }
         }
