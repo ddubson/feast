@@ -31,7 +31,7 @@ class RecipesDashboardScene extends React.PureComponent<{}, State> {
   }
 
   public componentDidMount(): void {
-    this.context.recipeGateway.findAll().then((recipes: Recipe[]) => {
+    this.context.recipesGateway.findAll().then((recipes: Recipe[]) => {
       this.setState({recipes});
     });
   }

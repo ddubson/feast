@@ -33,7 +33,7 @@ class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps, Recipe
   }
 
   public componentDidMount(): void {
-    this.context.recipeGateway.findById((this.props.match.params as any).id).then((recipe: Recipe) => {
+    this.context.recipesGateway.findById((this.props.match.params as any).id).then((recipe: Recipe) => {
       this.setState({recipe});
     }).catch((error: Error) => console.error(error));
   }

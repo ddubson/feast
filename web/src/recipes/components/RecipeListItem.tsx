@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {Recipe} from "../../shared-components/recipe";
 
 const RecipeListItem = ({ recipe }: { recipe: Recipe }) => (
-  <ListItem data-recipe-list-item>
+  <ListItem data-testid="recipe">
     <ListItemText>
       <Link to={`/recipe/${recipe.id}`}>
         <Typography variant={"h6"}>

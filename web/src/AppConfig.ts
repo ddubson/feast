@@ -9,11 +9,11 @@ const recipesApiBaseUrl = process.env.RECIPES_API_URI || "http://localhost:8080"
 export const recipesApiClient: AxiosInstance = axios.create({baseURL: recipesApiBaseUrl,});
 
 export interface DIContainer {
-  recipeGateway: RecipesGateway;
+  recipesGateway: RecipesGateway;
 }
 
 export const diContainer: DIContainer = {
-  recipeGateway: new HttpRecipesGateway()
+  recipesGateway: new HttpRecipesGateway()
 };
 
 export const DIContainerContext: Context<DIContainer> = React.createContext<DIContainer>(diContainer);

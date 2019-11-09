@@ -140,7 +140,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
       name,
     };
 
-    this.context.recipeGateway.saveRecipe(recipe).then(() => {
+    this.context.recipesGateway.saveRecipe(recipe).then(() => {
       this.props.history.push("/");
     });
   }

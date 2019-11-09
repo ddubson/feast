@@ -1,34 +1,21 @@
-import React from "react";
-import * as ReactDOM from "react-dom";
-import AppRoot from "../../src/AppRoot";
+import React, {ReactElement} from "react";
+import {DIContainer, DIContainerContext} from "../../src/AppConfig";
+import {HttpRecipesGateway} from "../../src/recipes/gateways/HttpRecipesGateway";
+import { MemoryRouter } from "react-router-dom";
 
-export const renderApp = () => {
-  let div = document.querySelector("#root");
-  if (div) {
-    ReactDOM.unmountComponentAtNode(div);
-  } else {
-    div = document.createElement("div");
-    div.id = "root";
-    document.querySelector("body").appendChild(div);
-  }
-
-  ReactDOM.render(<AppRoot />, div);
-
-  return wait();
+const testDiContainer: DIContainer = {
+  recipesGateway: new HttpRecipesGateway()
 };
 
-export const wait = (timeout: number = 1) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, timeout);
-  });
-};
+export const buildComponent = (component: ReactElement,
+                               diContainer: Partial<DIContainer> = testDiContainer) => {
+  const container = {...testDiContainer, ...diContainer};
 
-export const find = (selector: string): HTMLElement => {
-  const el = document.querySelector(selector) as HTMLElement;
-  if (!el) {
-    fail(`Could not find element for selector: ${selector}`);
-  }
-  return el;
+  return (
+    <MemoryRouter>
+      <DIContainerContext.Provider value={container}>
+        {component}
+      </DIContainerContext.Provider>
+    </MemoryRouter>
+  );
 };
