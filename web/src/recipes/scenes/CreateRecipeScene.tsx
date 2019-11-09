@@ -1,15 +1,13 @@
 import {Button, Input} from "@material-ui/core";
 import update from "immutability-helper";
-import {observer} from "mobx-react";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import * as shortid from "shortid";
-import {RecipeStore} from "../../core/RecipeStore";
 import {Ingredient} from "../../shared-components/ingredient";
 import {Recipe} from "../../shared-components/recipe";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
+import {DIContainerContext} from "../../AppConfig";
 
 export interface CreateRecipeSceneProps {
-  recipeStore: RecipeStore;
   history: {
     push: (location: string) => void;
   };
@@ -27,8 +25,10 @@ export interface CreateRecipeSceneState {
   };
 }
 
-@observer
 class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateRecipeSceneState> {
+  public static contextType = DIContainerContext;
+  public context!: React.ContextType<typeof DIContainerContext>;
+
   constructor(props: CreateRecipeSceneProps) {
     super(props);
     this.state = {
@@ -53,7 +53,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
     const {recipeForm, ingredientToAdd} = this.state;
 
     return (<div>
-      <BackToRecipesLink />
+      <BackToRecipesLink/>
 
       <form onSubmit={this.handleSubmit.bind(this)}>
         <Input
@@ -81,19 +81,19 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
                      name="ingredientQuantity"
                      min={0}
                      max={100}
-                     placeholder="Quantity" />
+                     placeholder="Quantity"/>
               <input data-ingredient-form
                      type="text"
                      value={ingredientToAdd.form}
                      onChange={this.addIngredientForm}
                      name="ingredientForm"
-                     placeholder="Form" />
+                     placeholder="Form"/>
               <input data-ingredient-name
                      type="text"
                      value={ingredientToAdd.name}
                      onChange={this.addIngredientName}
                      name="ingredientName"
-                     placeholder="Ingredient" />
+                     placeholder="Ingredient"/>
               <Button data-add-ingredient color="primary" onClick={this.addIngredientToIngredientList}>
                 Add Ingredient
               </Button>
@@ -101,7 +101,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
           </div>
         </div>
 
-        <Input data-add-recipe type="submit" value={"Create recipe"} />
+        <Input data-add-recipe type="submit" value={"Create recipe"}/>
       </form>
     </div>);
   }
@@ -140,10 +140,9 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
       name,
     };
 
-    this.props.recipeStore.addRecipe(recipe)
-      .then(() => {
-        this.props.history.push("/");
-      });
+    this.context.recipeGateway.saveRecipe(recipe).then(() => {
+      this.props.history.push("/");
+    });
   }
 }
 

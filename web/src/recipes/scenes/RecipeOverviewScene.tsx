@@ -1,43 +1,47 @@
-import {observer} from "mobx-react";
 import React, {PureComponent} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
-import {emptyRecipe, RecipeStore} from "../../core/RecipeStore";
 import {Ingredient} from "../../shared-components/ingredient";
 import {Recipe} from "../../shared-components/recipe";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
+import {DIContainerContext} from "../../AppConfig";
 
 interface RecipeOverviewSceneState {
   recipe: Recipe;
 }
 
 interface RecipeOverviewSceneProps extends RouteComponentProps {
-  recipeStore: RecipeStore;
 }
 
 const renderIngredient = (ingredient: Ingredient) => (
   <div key={shortid.generate()}>{ingredient.quantity}x {ingredient.name} - {ingredient.form}</div>
 );
 
-@observer
 class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps, RecipeOverviewSceneState> {
+  public static contextType = DIContainerContext;
+  public context!: React.ContextType<typeof DIContainerContext>;
+
   constructor(props: RecipeOverviewSceneProps) {
     super(props);
     this.state = {
-      recipe: emptyRecipe(),
+      recipe: {
+        id: "0",
+        name: "",
+        ingredients: []
+      },
     };
   }
 
   public componentDidMount(): void {
-    this.props.recipeStore.findById((this.props.match.params as any).id).then((recipe: Recipe) => {
-      this.setState({ recipe });
-    }).catch(error => console.error(error));
+    this.context.recipeGateway.findById((this.props.match.params as any).id).then((recipe: Recipe) => {
+      this.setState({recipe});
+    }).catch((error: Error) => console.error(error));
   }
 
   public render() {
     return (
       <div>
-        <BackToRecipesLink />
+        <BackToRecipesLink/>
 
         <h3>Recipe</h3>
         <h1>{this.state.recipe.name}</h1>

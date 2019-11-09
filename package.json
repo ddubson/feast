@@ -4,8 +4,8 @@
   "description": "recipe and dish aggregator",
   "main": "src/index.js",
   "scripts": {
-    "start": "parcel web/src/index.html",
-    "build": "parcel build web/src/index.html",
+    "start": "tsc --noEmit -p . && parcel web/src/index.html",
+    "build": "tsc --noEmit -p src/ && parcel build web/src/index.html",
     "test": "jest --bail",
     "test:watch": "jest --watchAll"
   },
@@ -47,8 +47,6 @@
     "@types/shortid": "^0.0.29",
     "axios": "^0.19.0",
     "immutability-helper": "^3.0.0",
-    "mobx": "^5.13.0",
-    "mobx-react": "^6.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",

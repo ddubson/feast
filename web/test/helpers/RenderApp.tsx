@@ -32,7 +32,3 @@ export const find = (selector: string): HTMLElement => {
   }
   return el;
 };
-
-export const textOf = (element: HTMLElement): string => {
-  return element ? element.textContent : null;
-};

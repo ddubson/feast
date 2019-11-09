@@ -1,15 +1,10 @@
 import {Button, Typography} from "@material-ui/core";
-import {observer} from "mobx-react";
 import * as React from "react";
 import {Link} from "react-router-dom";
 import * as shortid from "shortid";
-import {RecipeStore} from "../../core/RecipeStore";
 import {Recipe} from "../../shared-components/recipe";
 import RecipeListItem from "../components/RecipeListItem";
-
-interface Props {
-  recipeStore: RecipeStore;
-}
+import {DIContainerContext} from "../../AppConfig";
 
 interface State {
   recipes: Recipe[];
@@ -24,9 +19,11 @@ const renderRecipes = (recipes: Recipe[]) => {
     <RecipeListItem key={shortid.generate()} recipe={recipe} />);
 };
 
-@observer
-class RecipesDashboardScene extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
+class RecipesDashboardScene extends React.PureComponent<{}, State> {
+  public static contextType = DIContainerContext;
+  public context!: React.ContextType<typeof DIContainerContext>;
+
+  constructor(props: {}) {
     super(props);
     this.state = {
       recipes: [],
@@ -34,7 +31,7 @@ class RecipesDashboardScene extends React.PureComponent<Props, State> {
   }
 
   public componentDidMount(): void {
-    this.props.recipeStore.allRecipes.then((recipes: Recipe[]) => {
+    this.context.recipeGateway.findAll().then((recipes: Recipe[]) => {
       this.setState({recipes});
     });
   }
