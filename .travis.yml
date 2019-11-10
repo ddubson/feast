@@ -1,44 +1,40 @@
 jobs:
   include:
-    - stage: web-test
-      language: node_js
-      node_js:
-        - "12"
-      cache:
-        yarn: true
-      before_script: |
-        npm i -g yarn
-      script: |
-        yarn test
-        yarn build
-    - stage: web-deploy
-      language: node_js
-      node_js:
-        - "12"
-      before_script: |
-        npm i -g yarn
-      script: |
-        yarn build
-      deploy: &heroku
-        provider: heroku
-        app: feast-web
-        api_key:
-          secure: "dpmxe3ssctkWemvPVs3vWIdanQ3lL9rgxi6NWrmED0hIzAQAl9Sj0/qE24rK/woDKPIcpCwk2H0EiCf3UHxZUI9oZ7cNuOVPG1PAbZj6eyRtt2usYrxgqusgxs4s6/OCW6I/B3JaG0AjxWLY6+aB3Cgv9LgAra6L1WSLXDkDh8bMNMjChYim2uNIcwyDR0zHc0K56+JlesTy8cx+gMonTTVkJKLAVQgFX2VtQtKjQilwXpy1N5FqMVwCTp0qrXoQBVQRtj2uaoSj99Gv/AVQ4l3HMk7MV8eyKR7ij+rp14BNKBkf9OSqrmjNXX2OnficR77shG0RlRa3LdKAhdzCweEPAAdjUGSwiRPDCBBlhEypaj4TGzjqbMlQL3b+qF2IBAh9zQJyhcOQ2BPp29IItqy91yOUeJgStNtEe2jLAMuKSkfwH/kQHC9AknA2QgN+tgrK1jluk4PQjK0C2GYGKLwhX3kMYO7NMJus/mKL7jpRGY31XTL114W0RfG/iWetFI/1LWWcCK8dkcLIoC/eAh99ZDj2a/VUNOY1FnjsyRLo4VJW+f5v5v9RchuduS1/Qb15OUfeaN4gdUwENjor9DyMHS4vzwfoydtdPn8myPG17FBEpfL+NkzoZUhjValqJEeFVZ3Hy+k/npiY/xzs74wz1rhSGTD3FH1WVPjoA7I="
-    - stage: api-test
-      language: java
-      jdk:
-        - openjdk8
-      before_cache:
-        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-      cache:
-        directories:
-          - $HOME/.gradle/caches/
-          - $HOME/.gradle/wrapper/
-      script: |
-        ./gradlew test
+  - stage: web-test
+    language: node_js
+    node_js:
+    - '12'
+    cache:
+      yarn: true
+    before_script: 'npm i -g yarn'
+    script: |
+      yarn test
+      yarn build
+  - stage: web-deploy
+    language: node_js
+    node_js:
+    - '12'
+    before_script: 'npm i -g yarn'
+    script: 'yarn build'
+    deploy:
+      provider: heroku
+      app: feast-web
+      api_key:
+        secure: Y2E+YZU/4KPzGrH2bYZSZt3yIkwrqLyVPzSnW/+gW7Id9wisyECYuo+ABulZ+WTJgOIZJGuTAmI3J0lfHfSY3766ntefl8oZIcS3MgFgzLM+XJEBVec78U2aQG8Uzexf11xmOcUFTvUCm9WR4lLm6ZNuo4TEC/UV6S2IGIcusdCsC8Og+DrBBYy5cf01wDzNU/oVOkIeOdGW5Rstnd2hjrX/AgHJ/GM6BXkVokxTpFM6D/DT7gehvHX4M4lEWehRYT/A2+oydjkxJgnY1x0t6SNIUbLGe5+AhavVwPE9baxYvbXiy8pJ7bWJ452zmn+pCpa06Q0y00VDAFH30mGnuOckm6r8rsEpEuYEyv0YlFJfpujk95en0u01Q4CcGDfIDu1ACTKamRXX68R+zxN/ymCKajkwrnR2osuRv0Q1AlZIybL3m+O9XUsK+ZXXZy2TlKC7A9H+H9z3vHplqs+zjf6PHO+SlocBTor0yjYyDJDMxbX8NZWqgHj1KBQd9TYen2xhjysAPyGCIFPe8BBsSrcF1eVh3ptNo9c8elBNXAn9eTLC85TpNixMVGgXX1Zn4sHlkzQWkDSqkkF5mGGR9n7vpMzAJ6JTs8tGyJJxmKim44qUn0BfcwbSmZJCMcMbdgaXUyxspk+bS3r8+t+PpRYOZwkYCb/rCmOnwghQqsM=
+  - stage: api-test
+    language: java
+    jdk:
+    - openjdk8
+    before_cache:
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    cache:
+      directories:
+      - "$HOME/.gradle/caches/"
+      - "$HOME/.gradle/wrapper/"
+    script: "./gradlew test"
 stages:
-  - web-test
-  - name: web-deploy
-    if: branch = master
-  - api-test
+- web-test
+- name: web-deploy
+  if: branch = master
+- api-test
