@@ -10,6 +10,19 @@ jobs:
         npm i -g yarn
       script: |
         yarn test
+    - stage: web-deploy
+      language: node_js
+      node_js:
+        - "12"
+      before_script: |
+        npm i -g yarn
+      deploy: &heroku
+        provider: heroku
+        app: feast-web
+        script: |
+          yarn build
+        api_key:
+          secure: "dpmxe3ssctkWemvPVs3vWIdanQ3lL9rgxi6NWrmED0hIzAQAl9Sj0/qE24rK/woDKPIcpCwk2H0EiCf3UHxZUI9oZ7cNuOVPG1PAbZj6eyRtt2usYrxgqusgxs4s6/OCW6I/B3JaG0AjxWLY6+aB3Cgv9LgAra6L1WSLXDkDh8bMNMjChYim2uNIcwyDR0zHc0K56+JlesTy8cx+gMonTTVkJKLAVQgFX2VtQtKjQilwXpy1N5FqMVwCTp0qrXoQBVQRtj2uaoSj99Gv/AVQ4l3HMk7MV8eyKR7ij+rp14BNKBkf9OSqrmjNXX2OnficR77shG0RlRa3LdKAhdzCweEPAAdjUGSwiRPDCBBlhEypaj4TGzjqbMlQL3b+qF2IBAh9zQJyhcOQ2BPp29IItqy91yOUeJgStNtEe2jLAMuKSkfwH/kQHC9AknA2QgN+tgrK1jluk4PQjK0C2GYGKLwhX3kMYO7NMJus/mKL7jpRGY31XTL114W0RfG/iWetFI/1LWWcCK8dkcLIoC/eAh99ZDj2a/VUNOY1FnjsyRLo4VJW+f5v5v9RchuduS1/Qb15OUfeaN4gdUwENjor9DyMHS4vzwfoydtdPn8myPG17FBEpfL+NkzoZUhjValqJEeFVZ3Hy+k/npiY/xzs74wz1rhSGTD3FH1WVPjoA7I="
     - stage: api-test
       language: java
       jdk:
@@ -23,3 +36,8 @@ jobs:
           - $HOME/.gradle/wrapper/
       script: |
         ./gradlew test
+stages:
+  - web-test
+  - web-deploy
+    if: branch = master
+  - api-test

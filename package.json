@@ -4,9 +4,10 @@
   "description": "recipe and dish aggregator",
   "main": "src/index.js",
   "scripts": {
-    "start": "tsc --noEmit -p . && parcel web/src/index.html",
-    "build": "tsc --noEmit -p src/ && parcel build web/src/index.html",
-    "test": "jest --bail",
+    "start": "tsc --noEmit -p ./web/ && parcel web/src/index.html",
+    "build": "tsc --noEmit -p ./web/ && parcel build web/src/index.html",
+    "serve": "serve -s dist/",
+    "test": "jest",
     "test:watch": "jest --watchAll"
   },
   "repository": {
@@ -35,6 +36,7 @@
     "node-sass": "^4.12.0",
     "parcel": "^1.12.3",
     "sass": "^1.22.7",
+    "serve": "^11.2.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "typescript": "^3.5.1"
@@ -59,9 +61,8 @@
     ]
   },
   "jest": {
-    "roots": [
-      "web/"
-    ],
+    "bail": true,
+    "rootDir": "web",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
