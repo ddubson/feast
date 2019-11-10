@@ -36,4 +36,8 @@ allprojects {
             javaParameters = true
         }
     }
+
+    task stage {
+        dependsOn build
+    }
 }

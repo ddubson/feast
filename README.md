@@ -4,6 +4,10 @@
 
 # feast
 
+Recipe aggregator app.
+
+[Deployed on Heroku](https://feast-web.herokuapp.com/)
+
 ## API (Micronaut / Kotlin / ArrowKt)
 
 Directory: `api`
