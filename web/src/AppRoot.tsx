@@ -1,4 +1,3 @@
-import {AppBar, Typography} from "@material-ui/core";
 import React, {PureComponent} from "react";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import CreateRecipeScene from "./recipes/scenes/CreateRecipeScene";
@@ -10,11 +9,11 @@ export default class AppRoot extends PureComponent {
     return (
       <React.Fragment>
         <Router>
-          <AppBar position="static" className={"app-title"}>
-            <Typography data-test="app-title" color="inherit" noWrap>
+          <section className={"app-title"}>
+            <h1 data-test="app-title" color="inherit">
               Feast
-            </Typography>
-          </AppBar>
+            </h1>
+          </section>
           <div className={"app-body"}>
             <Route path={"/"} exact={true} render={() => <RecipesDashboardScene />} />
             <Route path={"/create-recipe"} exact={true}

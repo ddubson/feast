@@ -1,4 +1,3 @@
-import {Button, Input} from "@material-ui/core";
 import update from "immutability-helper";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import * as shortid from "shortid";
@@ -56,8 +55,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
       <BackToRecipesLink/>
 
       <form onSubmit={this.handleSubmit.bind(this)}>
-        <Input
-          inputProps={{"data-recipe-name-input": true}}
+        <input
           placeholder="Recipe Name"
           value={this.state.recipeForm.name}
           onChange={this.addRecipeName}
@@ -94,14 +92,14 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
                      onChange={this.addIngredientName}
                      name="ingredientName"
                      placeholder="Ingredient"/>
-              <Button data-add-ingredient color="primary" onClick={this.addIngredientToIngredientList}>
+              <button data-add-ingredient color="primary" onClick={this.addIngredientToIngredientList}>
                 Add Ingredient
-              </Button>
+              </button>
             </div>
           </div>
         </div>
 
-        <Input data-add-recipe type="submit" value={"Create recipe"}/>
+        <input data-add-recipe type="submit" value={"Create recipe"}/>
       </form>
     </div>);
   }

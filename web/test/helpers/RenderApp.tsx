@@ -1,10 +1,12 @@
 import React, {ReactElement} from "react";
 import {DIContainer, DIContainerContext} from "../../src/AppConfig";
-import {HttpRecipesGateway} from "../../src/recipes/gateways/HttpRecipesGateway";
-import { MemoryRouter } from "react-router-dom";
+import {MemoryRouter} from "react-router-dom";
+import StubRecipesGateway from "../test-doubles/StubRecipesGateway";
+import {StubRecipesService} from "../test-doubles/services/StubRecipesService";
 
 const testDiContainer: DIContainer = {
-  recipesGateway: new HttpRecipesGateway()
+  recipesGateway: new StubRecipesGateway(),
+  recipesService: new StubRecipesService()
 };
 
 export const buildComponent = (component: ReactElement,

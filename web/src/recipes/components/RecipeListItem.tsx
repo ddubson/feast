@@ -1,17 +1,17 @@
-import {ListItem, ListItemText, Typography} from "@material-ui/core";
 import * as React from "react";
 import {Link} from "react-router-dom";
 import {Recipe} from "../../shared-components/recipe";
 
-const RecipeListItem = ({ recipe }: { recipe: Recipe }) => (
-  <ListItem data-testid="recipe">
-    <ListItemText>
+const RecipeListItem = ({recipe}: { recipe: Recipe }) => (
+  <ul data-testid="recipe">
+    <li>
       <Link to={`/recipe/${recipe.id}`}>
-        <Typography variant={"h6"}>
+        <h6>
           {recipe.name}
-        </Typography>
+        </h6>
       </Link>
-    </ListItemText>
-  </ListItem>);
+    </li>
+  </ul>
+);
 
 export default RecipeListItem;
