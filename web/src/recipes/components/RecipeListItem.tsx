@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
-import {Recipe} from "../../shared-components/recipe";
+import {Recipe} from "../../application/types";
 
 const RecipeListItem = ({recipe}: { recipe: Recipe }) => (
   <ul data-testid="recipe">

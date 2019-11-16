@@ -1,6 +1,6 @@
 import {RecipesObserver, RecipesService} from "./RecipesService";
 import {RecipesGateway} from "../gateways/RecipesGateway";
-import {Recipe} from "../../shared-components/recipe";
+import {Recipe} from "../types";
 
 export class BaseRecipesService implements RecipesService {
   private readonly observers: Array<RecipesObserver> = [];
@@ -11,7 +11,11 @@ export class BaseRecipesService implements RecipesService {
   dispatch() {
     this.recipesGateway.findAll()
       .then((recipes: Array<Recipe>) => {
-        this.observers.forEach(observer => observer.receivedRecipes(recipes));
+        if (recipes.length === 0) {
+          this.observers.forEach(observer => observer.receivedNoRecipes());
+        } else {
+          this.observers.forEach(observer => observer.receivedRecipes(recipes));
+        }
       })
   }
 
@@ -20,7 +24,7 @@ export class BaseRecipesService implements RecipesService {
   }
 
   unregisterObserver(observer: RecipesObserver): void {
-    let start = this.observers.findIndex((searchElement: RecipesObserver) => searchElement===observer);
+    let start = this.observers.findIndex((searchElement: RecipesObserver) => searchElement === observer);
     this.observers.splice(start, 1);
   }
 }

@@ -1,10 +1,9 @@
 import React, {PureComponent} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
-import {Ingredient} from "../../shared-components/ingredient";
-import {Recipe} from "../../shared-components/recipe";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
 import {DIContainerContext} from "../../AppConfig";
+import {Ingredient, Recipe} from "../../application/types";
 
 interface RecipeOverviewSceneState {
   recipe: Recipe;

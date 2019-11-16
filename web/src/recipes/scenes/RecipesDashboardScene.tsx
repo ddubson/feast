@@ -1,22 +1,25 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
 import * as shortid from "shortid";
-import {Recipe} from "../../shared-components/recipe";
 import RecipeListItem from "../components/RecipeListItem";
 import {DIContainerContext} from "../../AppConfig";
-import {RecipesObserver} from "../services/RecipesService";
+import {RecipesObserver} from "../../application/services/RecipesService";
+import {Recipe} from "../../application/types";
+import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 
 interface State {
-  recipes: Recipe[];
+  recipes: Maybe<Recipe[]>;
 }
 
-const renderRecipes = (recipes: Recipe[]) => {
-  if (recipes.length === 0) {
-    return ("No recipes yet.");
-  }
-
-  return recipes.map((recipe: Recipe) =>
-    <RecipeListItem key={shortid.generate()} recipe={recipe}/>);
+const renderRecipes = (recipes: Maybe<Recipe[]>) => {
+  return recipes
+    .mapOrDefault((recipes: Recipe[]) =>
+        (<React.Fragment>{
+          recipes.map((recipe: Recipe) => (<RecipeListItem key={shortid.generate()} recipe={recipe}/>))
+        }
+        </React.Fragment>),
+      (<div>No recipes yet.</div>)
+    );
 };
 
 class RecipesDashboardScene extends React.PureComponent<{}, State> implements RecipesObserver {
@@ -26,12 +29,8 @@ class RecipesDashboardScene extends React.PureComponent<{}, State> implements Re
   constructor(props: {}) {
     super(props);
     this.state = {
-      recipes: [],
+      recipes: Nothing,
     };
-  }
-
-  receivedRecipes(recipes: Recipe[]): void {
-    this.setState({recipes});
   }
 
   public componentDidMount(): void {
@@ -63,6 +62,14 @@ class RecipesDashboardScene extends React.PureComponent<{}, State> implements Re
         </div>
       </div>
     );
+  }
+
+  public receivedRecipes(recipes: Recipe[]): void {
+    this.setState({recipes: Just(recipes)});
+  }
+
+  public receivedNoRecipes(): void {
+    this.setState({recipes: Nothing});
   }
 }
 

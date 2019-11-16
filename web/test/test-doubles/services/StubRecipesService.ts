@@ -1,5 +1,5 @@
-import {RecipesObserver, RecipesService} from "../../../src/recipes/services/RecipesService";
-import {Recipe} from "../../../src/shared-components/recipe";
+import {RecipesObserver, RecipesService} from "../../../src/application/services/RecipesService";
+import {Recipe} from "../../../src/application/types";
 
 export class StubRecipesService implements RecipesService {
   private readonly observers: Array<RecipesObserver> = [];
@@ -10,8 +10,14 @@ export class StubRecipesService implements RecipesService {
   }
 
   dispatch(): void {
-    this.observers.forEach((observer: RecipesObserver) =>
-      observer.receivedRecipes(this.resolveRecipes()));
+    this.observers.forEach((observer: RecipesObserver) => {
+      const recipes = this.resolveRecipes();
+      if (recipes.length === 0) {
+        observer.receivedNoRecipes();
+      } else {
+        observer.receivedRecipes(this.resolveRecipes());
+      }
+    });
   }
 
   registerObserver(observer: RecipesObserver): void {

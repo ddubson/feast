@@ -1,5 +1,5 @@
-import {Recipe} from "../../src/shared-components/recipe";
 import * as shortid from "shortid";
+import {Recipe} from "../../src/application/types";
 
 export const buildRecipe = (recipe?: Partial<Recipe>): Recipe => {
   const defaultRecipe: Recipe = {

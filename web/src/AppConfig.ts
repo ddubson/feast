@@ -1,10 +1,10 @@
 import axios, {AxiosInstance} from "axios";
-import {HttpRecipesGateway} from "./recipes/gateways/HttpRecipesGateway";
-import {RecipesGateway} from "./recipes/gateways/RecipesGateway";
+import {HttpRecipesGateway} from "./application/gateways/HttpRecipesGateway";
+import {RecipesGateway} from "./application/gateways/RecipesGateway";
 import {Context} from "react";
 import * as React from "react";
-import {RecipesService} from "./recipes/services/RecipesService";
-import {BaseRecipesService} from "./recipes/services/BaseRecipesService";
+import {RecipesService} from "./application/services/RecipesService";
+import {BaseRecipesService} from "./application/services/BaseRecipesService";
 
 const recipesApiBaseUrl = process.env.RECIPES_API_URI || "http://localhost:8080";
 

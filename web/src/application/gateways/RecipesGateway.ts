@@ -1,4 +1,4 @@
-import {Recipe} from "../../shared-components/recipe";
+import {Recipe} from "../types";
 
 export interface RecipesGateway {
   saveRecipe(recipe: Recipe): Promise<Recipe>;
