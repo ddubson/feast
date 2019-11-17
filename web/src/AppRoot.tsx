@@ -3,25 +3,32 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import CreateRecipeScene from "./recipes/scenes/CreateRecipeScene";
 import RecipeOverviewScene from "./recipes/scenes/RecipeOverviewScene";
 import RecipesDashboardScene from "./recipes/scenes/RecipesDashboardScene";
+import {Container, Menu} from "semantic-ui-react";
+
+const FixedHeader = () => (
+  <Menu fixed="top">
+    <Container className={"app-title"}>
+      <Menu.Item data-test="app-title" as="a" header>
+        Feast
+      </Menu.Item>
+    </Container>
+  </Menu>
+);
 
 export default class AppRoot extends PureComponent {
   public render() {
     return (
       <React.Fragment>
         <Router>
-          <section className={"app-title"}>
-            <h1 data-test="app-title" color="inherit">
-              Feast
-            </h1>
-          </section>
-          <div className={"app-body"}>
-            <Route path={"/"} exact={true} render={() => <RecipesDashboardScene />} />
+          <FixedHeader/>
+          <Container className={"app-body"}>
+            <Route path={"/"} exact={true} render={() => <RecipesDashboardScene/>}/>
             <Route path={"/create-recipe"} exact={true}
-                   render={({history}) => <CreateRecipeScene history={history} />} />
+                   render={({history}) => <CreateRecipeScene history={history}/>}/>
             <Route path={"/recipe/:id"} render={(props) =>
               <RecipeOverviewScene {...props} />
-            } />
-          </div>
+            }/>
+          </Container>
         </Router>
       </React.Fragment>
     );

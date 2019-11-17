@@ -34,7 +34,7 @@ On *nix
 ./gradlew :application:test
 ```
 
-## Web (React / Typescript)
+## Web (React / Typescript with PurifyTS)
 
 ### Running & Building
 

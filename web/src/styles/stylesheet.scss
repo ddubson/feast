@@ -6,18 +6,6 @@ body {
   font-size: $unitFont;
 }
 
-.app-title {
-  p {
-    @extend .mhxl;
-    @extend .mvl;
-  }
-}
-
 .app-body {
-  @extend .mvxl;
-  @extend .mhxl;
-}
-
-.ingredient-list {
-  @extend .mvxxl;
+  margin-top: 4em;
 }
