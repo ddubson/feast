@@ -41,16 +41,16 @@
     "typescript": "^3.5.1"
   },
   "dependencies": {
-    "@types/react": "^16.8.10",
-    "@types/react-dom": "^16.8.3",
-    "@types/react-router-dom": "^4.3.3",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-router-dom": "^5.1.2",
     "@types/shortid": "^0.0.29",
     "axios": "^0.19.0",
     "immutability-helper": "^3.0.0",
     "purify-ts": "^0.13.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "semantic-ui-react": "^0.88.1",
     "shortid": "^2.2.14"
   },
