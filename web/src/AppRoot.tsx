@@ -4,6 +4,7 @@ import CreateRecipeScene from "./recipes/scenes/CreateRecipeScene";
 import RecipeOverviewScene from "./recipes/scenes/RecipeOverviewScene";
 import RecipesDashboardScene from "./recipes/scenes/RecipesDashboardScene";
 import {Container, Menu} from "semantic-ui-react";
+import {diContainer, DIContainerContext} from "./AppConfig";
 
 const FixedHeader = () => (
   <Menu fixed="top">
@@ -22,12 +23,17 @@ export default class AppRoot extends PureComponent {
         <Router>
           <FixedHeader/>
           <Container className={"app-body"}>
-            <Route path={"/"} exact={true} render={() => <RecipesDashboardScene/>}/>
-            <Route path={"/create-recipe"} exact={true}
-                   render={({history}) => <CreateRecipeScene history={history}/>}/>
-            <Route path={"/recipe/:id"} render={(props) =>
-              <RecipeOverviewScene {...props} />
-            }/>
+            <DIContainerContext.Consumer>
+              {({recipesService}) => (
+                <React.Fragment>
+                  <Route path={"/"} exact={true} render={() =>
+                    <RecipesDashboardScene recipesService={recipesService}/>}/>
+                  <Route path={"/create-recipe"} exact={true}
+                         render={({history}) => <CreateRecipeScene history={history}/>}/>
+                  <Route path={"/recipe/:id"} render={(props) => <RecipeOverviewScene {...props} />}/>
+                </React.Fragment>
+              )}
+            </DIContainerContext.Consumer>
           </Container>
         </Router>
       </React.Fragment>

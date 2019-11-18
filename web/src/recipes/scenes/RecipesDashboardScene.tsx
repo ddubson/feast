@@ -1,15 +1,11 @@
 import * as React from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import * as shortid from "shortid";
 import RecipeListItem from "../components/RecipeListItem";
-import {DIContainerContext} from "../../AppConfig";
-import {RecipesObserver} from "../../application/services/RecipesService";
+import {RecipesObserver, RecipesService} from "../../application/services/RecipesService";
 import {Recipe} from "../../application/types";
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-
-interface State {
-  recipes: Maybe<Recipe[]>;
-}
 
 const renderRecipes = (recipes: Maybe<Recipe[]>) => {
   return recipes
@@ -22,55 +18,44 @@ const renderRecipes = (recipes: Maybe<Recipe[]>) => {
     );
 };
 
-class RecipesDashboardScene extends React.PureComponent<{}, State> implements RecipesObserver {
-  public static contextType = DIContainerContext;
-  public context!: React.ContextType<typeof DIContainerContext>;
+function RecipesDashboardScene({recipesService}: { recipesService: RecipesService }) {
+  const [maybeRecipes, setRecipes] = useState<Maybe<Recipe[]>>(() => (Nothing));
 
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      recipes: Nothing,
-    };
-  }
+  const recipeObserver: RecipesObserver = {
+    receivedNoRecipes(): void {
+      setRecipes(Nothing);
+    },
+    receivedRecipes(recipes: Array<Recipe>): void {
+      setRecipes(Just(recipes));
+    }
+  };
 
-  public componentDidMount(): void {
-    this.context.recipesService.registerObserver(this);
-    this.context.recipesService.dispatch();
-  }
+  useEffect(() => {
+    recipesService.registerObserver(recipeObserver);
+    recipesService.dispatch();
 
-  public componentWillUnmount(): void {
-    this.context.recipesService.unregisterObserver(this);
-  }
+    return function cleanup() {
+      recipesService.unregisterObserver(recipeObserver);
+    }
+  });
 
-  public render() {
-    const {recipes} = this.state;
-
-    return (
-      <div className="recipe-dashboard">
-        <div>
-          <button>
-            <Link to={"/create-recipe"} data-create-recipe-link>Create Recipe</Link>
-          </button>
-        </div>
-        <div className="recipe-list">
-          <div className="recipe-list-header">
-            <h2>
-              Recipes
-            </h2>
-          </div>
-          {renderRecipes(recipes)}
-        </div>
+  return (
+    <div className="recipe-dashboard">
+      <div>
+        <button>
+          <Link to={"/create-recipe"} data-create-recipe-link>Create Recipe</Link>
+        </button>
       </div>
-    );
-  }
-
-  public receivedRecipes(recipes: Recipe[]): void {
-    this.setState({recipes: Just(recipes)});
-  }
-
-  public receivedNoRecipes(): void {
-    this.setState({recipes: Nothing});
-  }
+      <div className="recipe-list">
+        <div className="recipe-list-header">
+          <h2>
+            Recipes
+          </h2>
+        </div>
+        {renderRecipes(maybeRecipes)}
+      </div>
+    </div>
+  );
 }
 
 export default RecipesDashboardScene;
