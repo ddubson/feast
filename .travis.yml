@@ -8,6 +8,7 @@ jobs:
       yarn: true
     before_script: 'npm i -g yarn'
     script: |
+      yarn lint
       yarn test
       yarn build
   - stage: web-deploy

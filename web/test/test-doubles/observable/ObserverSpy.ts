@@ -3,17 +3,18 @@ import {Recipe} from "../../../src/application/types";
 
 export class RecipesObserverSpy implements RecipesObserver {
   public receivedRecipesWasCalled: boolean = false;
-  public recipesReceived: Array<Recipe>;
+  public recipesReceived: Recipe[];
 
-  receivedNoRecipes(): void {
+  public receivedNoRecipes(): void {
+    return;
   }
 
-  receivedRecipes(recipes: Array<Recipe>): void {
+  public receivedRecipes(recipes: Recipe[]): void {
     this.receivedRecipesWasCalled = true;
     this.recipesReceived = recipes;
   }
 
-  resetSpy() {
+  public resetSpy() {
     this.receivedRecipesWasCalled = false;
     this.recipesReceived = null;
   }

@@ -1,9 +1,9 @@
 import React, {PureComponent} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
-import {BackToRecipesLink} from "../components/BackToRecipesLink";
 import {DIContainerContext} from "../../AppConfig";
 import {Ingredient, Recipe} from "../../application/types";
+import {BackToRecipesLink} from "../components/BackToRecipesLink";
 
 interface RecipeOverviewSceneState {
   recipe: Recipe;
@@ -26,7 +26,7 @@ class RecipeOverviewScene extends PureComponent<RecipeOverviewSceneProps, Recipe
       recipe: {
         id: "0",
         name: "",
-        ingredients: []
+        ingredients: [],
       },
     };
   }

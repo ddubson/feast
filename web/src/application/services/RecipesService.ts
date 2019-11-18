@@ -1,8 +1,8 @@
-import {Recipe} from "../types";
 import {Observable, Observer} from "../observable/Observable";
+import {Recipe} from "../types";
 
 export interface RecipesObserver extends Observer {
-  receivedRecipes(recipes: Array<Recipe>): void;
+  receivedRecipes(recipes: Recipe[]): void;
   receivedNoRecipes(): void;
 }
 

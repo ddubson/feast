@@ -1,7 +1,7 @@
 import {AxiosResponse} from "axios";
 import { recipesApiClient } from "../../AppConfig";
-import {RecipesGateway} from "./RecipesGateway";
 import {Recipe} from "../types";
+import {RecipesGateway} from "./RecipesGateway";
 
 export class HttpRecipesGateway implements RecipesGateway {
   public saveRecipe(recipe: Recipe): Promise<Recipe> {

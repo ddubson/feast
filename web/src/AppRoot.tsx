@@ -1,10 +1,10 @@
 import React, {PureComponent} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {Container, Menu} from "semantic-ui-react";
+import {diContainer, DIContainerContext} from "./AppConfig";
 import CreateRecipeScene from "./recipes/scenes/CreateRecipeScene";
 import RecipeOverviewScene from "./recipes/scenes/RecipeOverviewScene";
 import RecipesDashboardScene from "./recipes/scenes/RecipesDashboardScene";
-import {Container, Menu} from "semantic-ui-react";
-import {diContainer, DIContainerContext} from "./AppConfig";
 
 const FixedHeader = () => (
   <Menu fixed="top">

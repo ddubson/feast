@@ -2,14 +2,14 @@ import {RecipesObserver, RecipesService} from "../../../src/application/services
 import {Recipe} from "../../../src/application/types";
 
 export class StubRecipesService implements RecipesService {
-  private readonly observers: Array<RecipesObserver> = [];
-  private resolveRecipes: () => Array<Recipe>;
+  private readonly observers: RecipesObserver[] = [];
+  private resolveRecipes: () => Recipe[];
 
-  setResolvedRecipes(fn: () => Array<Recipe>) {
+  public setResolvedRecipes(fn: () => Recipe[]) {
     this.resolveRecipes = fn;
   }
 
-  dispatch(): void {
+  public dispatch(): void {
     this.observers.forEach((observer: RecipesObserver) => {
       const recipes = this.resolveRecipes();
       if (recipes.length === 0) {
@@ -20,10 +20,11 @@ export class StubRecipesService implements RecipesService {
     });
   }
 
-  registerObserver(observer: RecipesObserver): void {
+  public registerObserver(observer: RecipesObserver): void {
     this.observers.push(observer);
   }
 
-  unregisterObserver(observer: RecipesObserver): void {
+  public unregisterObserver(observer: RecipesObserver): void {
+    return;
   }
 }

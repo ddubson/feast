@@ -1,20 +1,19 @@
-import * as React from "react";
-import {useEffect, useState} from "react";
+import {Just, Maybe, Nothing} from "purify-ts/Maybe";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import * as shortid from "shortid";
-import RecipeListItem from "../components/RecipeListItem";
 import {RecipesObserver, RecipesService} from "../../application/services/RecipesService";
 import {Recipe} from "../../application/types";
-import {Just, Maybe, Nothing} from "purify-ts/Maybe";
+import RecipeListItem from "../components/RecipeListItem";
 
-const renderRecipes = (recipes: Maybe<Recipe[]>) => {
-  return recipes
+const renderRecipes = (maybeRecipes: Maybe<Recipe[]>) => {
+  return maybeRecipes
     .mapOrDefault((recipes: Recipe[]) =>
         (<React.Fragment>{
           recipes.map((recipe: Recipe) => (<RecipeListItem key={shortid.generate()} recipe={recipe}/>))
         }
         </React.Fragment>),
-      (<div>No recipes yet.</div>)
+      (<div>No recipes yet.</div>),
     );
 };
 
@@ -24,9 +23,9 @@ function RecipesDashboardScene({recipesService}: { recipesService: RecipesServic
     receivedNoRecipes(): void {
       setRecipes(Nothing);
     },
-    receivedRecipes(recipes: Array<Recipe>): void {
+    receivedRecipes(recipes: Recipe[]): void {
       setRecipes(Just(recipes));
-    }
+    },
   });
 
   useEffect(() => {
@@ -35,7 +34,7 @@ function RecipesDashboardScene({recipesService}: { recipesService: RecipesServic
 
     return function cleanup() {
       recipesService.unregisterObserver(observer);
-    }
+    };
   }, [observer]);
 
   return (

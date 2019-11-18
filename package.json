@@ -8,7 +8,9 @@
     "build": "tsc --noEmit -p ./web/ && parcel build web/src/index.html",
     "serve": "serve -s dist/",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "lint": "tslint 'web/src/**/*.ts' 'web/src/**/*.tsx' 'web/test/**/*.ts' 'web/test/**/*.tsx'",
+    "lint:fix": "tslint 'web/src/**/*.ts' 'web/src/**/*.tsx' 'web/test/**/*.ts' 'web/test/**/*.tsx' --fix"
   },
   "repository": {
     "type": "git",

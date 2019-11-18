@@ -1,9 +1,9 @@
 import update from "immutability-helper";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import * as shortid from "shortid";
-import {BackToRecipesLink} from "../components/BackToRecipesLink";
 import {DIContainerContext} from "../../AppConfig";
 import {Ingredient, Recipe} from "../../application/types";
+import {BackToRecipesLink} from "../components/BackToRecipesLink";
 
 export interface CreateRecipeSceneProps {
   history: {
