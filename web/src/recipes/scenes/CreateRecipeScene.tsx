@@ -1,6 +1,6 @@
 import React from "react";
 import {Ingredient} from "../../application/types";
-import {useFormik} from "formik";
+import {Field, Form, Formik} from "formik";
 import {RecipesService} from "../../application/services/RecipesService";
 
 export interface CreateRecipeSceneProps {
@@ -23,29 +23,51 @@ export interface CreateRecipeSceneState {
 }
 
 interface RecipeForm {
-  name: string;
+  recipeName: string;
+  ingredients: Array<{
+    name: string;
+    quantity: number;
+    form: string;
+  }>;
 }
 
 function CreateRecipeScene(props: CreateRecipeSceneProps) {
-  const formik = useFormik<RecipeForm>({
-    initialValues: {
-      name: "",
-    },
-    onSubmit: (values: RecipeForm) => {
-      console.log("submitted: ", values);
-    },
-  });
+  const initialValues: RecipeForm = {
+    recipeName: "",
+    ingredients: [],
+  };
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); formik.handleSubmit(e); }}>
-      <label htmlFor={name}>Recipe Name</label>
-      <input type="text" id="name"
-             onChange={formik.handleChange}
-             value={formik.values.name}/>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values) => {
+        console.log("submitted: ", values);
+      }}
+    >
+      {({values, handleSubmit}) => (
+        <Form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}>
+          <label htmlFor="recipeName">Recipe Name</label>
+          <Field type="text" id="recipeName" name="recipeName"/>
 
-      <button type={"submit"}>Submit</button>
-    </form>
+          //TODO: FieldArray is next
+          {/*<label htmlFor="ingredient">Add Ingredient</label>
+          <Field type="text" id="ingredient" name={ingredient}/>
+
+          {values.ingredients.map((ingredient, index) => (
+            <React.Fragment>
+              <label htmlFor="ingredient">Ingredient {index + 1}</label>
+              <Field type="text" id="ingredient" name={ingredient}/>
+            </React.Fragment>
+          ))}*/}
+
+          <button type={"submit"}>Submit</button>
+        </Form>
+      )}
+    </Formik>
   );
-};
+}
 
 export default CreateRecipeScene;
