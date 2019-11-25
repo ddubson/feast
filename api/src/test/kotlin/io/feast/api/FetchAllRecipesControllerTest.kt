@@ -5,6 +5,7 @@ import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import io.feast.core.domain.Ingredient
+import io.feast.core.domain.Quantity
 import io.feast.core.domain.Recipe
 import io.feast.core.interfaces.queries.FetchAllRecipesQuery
 import io.micronaut.http.HttpRequest
@@ -36,7 +37,7 @@ class FetchAllRecipesControllerTest {
     fun whenInvoked_ShouldReturnAllRecipesInTheApplication() {
         val expectedRecipes = listOf(
                 Recipe("1", "Potato", listOf(
-                        Ingredient("1", "Potato", "Chopped", 1))
+                        Ingredient("1", "Potato", "Chopped", Some(Quantity(1f)), None))
                 )
         )
         (fetchAllRecipesQuery as StubFetchAllRecipesQuery).allRecipes = expectedRecipes

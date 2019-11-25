@@ -9,6 +9,8 @@ import io.feast.core.domain.Recipe
 import io.feast.core.interfaces.commands.CreateRecipeCommand
 import io.feast.core.interfaces.commands.requests.CreateIngredientRequest
 import io.feast.core.interfaces.commands.requests.CreateRecipeRequest
+import io.feast.core.interfaces.commands.requests.QuantityRequest
+import io.feast.core.interfaces.commands.requests.WeightRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
@@ -26,7 +28,13 @@ class CreateRecipeController(private val createRecipeCommand: CreateRecipeComman
                                     ifEmpty = { emptyList<CreateIngredientRequest>() },
                                     ifSome = { ingredients ->
                                         ingredients.map {
-                                            CreateIngredientRequest(it.name, it.form, it.quantity)
+                                            CreateIngredientRequest(
+                                                    it.name,
+                                                    it.form,
+                                                    QuantityRequest(it.quantity.value),
+                                                    it.weight.let { weight ->
+                                                        WeightRequest(weight.value, weight.type)
+                                                    })
                                         }
                                     }))
         }
