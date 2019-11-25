@@ -1,4 +1,4 @@
-package io.feast.core.base.repositories
+package io.feast.persistence.inmemory
 
 import arrow.core.Either
 import arrow.core.Option

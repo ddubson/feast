@@ -1,4 +1,6 @@
 rootProject.name = 'feast'
 
-include "api"
-include "application"
+include ":api"
+include ":application"
+include ":persistence:sqlite"
+include ":persistence:inmemory"

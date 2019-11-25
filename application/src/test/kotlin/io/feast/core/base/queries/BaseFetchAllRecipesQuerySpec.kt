@@ -2,8 +2,8 @@ package io.feast.core.base.queries
 
 import arrow.core.Either
 import arrow.core.Option
-import io.feast.core.base.repositories.InMemoryRecipeRepository
 import io.feast.core.domain.Recipe
+import io.feast.persistence.inmemory.InMemoryRecipeRepository
 import io.kotlintest.fail
 import io.kotlintest.matchers.collections.shouldHaveAtLeastSize
 import io.kotlintest.shouldBe
