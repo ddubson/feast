@@ -34,7 +34,7 @@ object BaseFetchAllRecipesQuerySpec : Spek({
                                 optionOfRecipes.fold({
                                     fail("There was no list!")
                                 }, { recipes ->
-                                    recipes shouldHaveAtLeastSize 3
+                                    recipes shouldHaveAtLeastSize 1
                                 })
                             })
                 }

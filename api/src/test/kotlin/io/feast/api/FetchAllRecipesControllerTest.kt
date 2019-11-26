@@ -4,11 +4,15 @@ import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
+import io.feast.api.dtos.IngredientDto
+import io.feast.api.dtos.QuantityDto
+import io.feast.api.dtos.RecipeDto
+import io.feast.api.dtos.WeightDto
 import io.feast.core.domain.Ingredient
 import io.feast.core.domain.Quantity
 import io.feast.core.domain.Recipe
 import io.feast.core.interfaces.queries.FetchAllRecipesQuery
-import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpRequest.GET
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.RxHttpClient
 import io.micronaut.http.client.annotation.Client
@@ -35,16 +39,20 @@ class FetchAllRecipesControllerTest {
 
     @Test
     fun whenInvoked_ShouldReturnAllRecipesInTheApplication() {
-        val expectedRecipes = listOf(
+        val recipes = listOf(
                 Recipe("1", "Potato", listOf(
                         Ingredient("1", "Potato", "Chopped", Some(Quantity(1f)), None))
                 )
         )
-        (fetchAllRecipesQuery as StubFetchAllRecipesQuery).allRecipes = expectedRecipes
+        (fetchAllRecipesQuery as StubFetchAllRecipesQuery).allRecipes = recipes
 
         val response = httpClient.toBlocking()
-                .retrieve(HttpRequest.GET<List<Recipe>>("/api/recipes"), Array<Recipe>::class.java)
-        assertIterableEquals((fetchAllRecipesQuery as StubFetchAllRecipesQuery).allRecipes, response.asList())
+                .retrieve(GET<List<RecipeDto>>("/api/recipes"), Array<RecipeDto>::class.java)
+        assertIterableEquals(
+                listOf(RecipeDto("1", "Potato",
+                        listOf(IngredientDto("1", "Potato", "Chopped",
+                                QuantityDto(1f), WeightDto.identity())))),
+                response.asList())
     }
 
     @Test

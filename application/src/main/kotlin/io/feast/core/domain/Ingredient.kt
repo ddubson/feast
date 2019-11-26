@@ -7,9 +7,17 @@ enum class WeightType(val weight: Int) {
     POUNDS(1)
 }
 
-data class Weight(val value: Float, val type: WeightType)
+data class Weight(val value: Float, val type: WeightType) {
+    companion object {
+        fun identity(): Weight = Weight(0f, WeightType.NONE)
+    }
+}
 
-data class Quantity(val value: Float)
+data class Quantity(val value: Float) {
+    companion object {
+        fun identity(): Quantity = Quantity(0f)
+    }
+}
 
 data class Ingredient(val id: String,
                       val name: String,

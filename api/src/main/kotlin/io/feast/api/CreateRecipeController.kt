@@ -4,7 +4,7 @@ import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
-import io.feast.api.dtos.CreateRecipeDto
+import io.feast.api.dtos.RecipeDto
 import io.feast.core.domain.Recipe
 import io.feast.core.interfaces.commands.CreateRecipeCommand
 import io.feast.core.interfaces.commands.requests.CreateIngredientRequest
@@ -19,11 +19,11 @@ import io.micronaut.http.annotation.Post
 @Controller("/api")
 class CreateRecipeController(private val createRecipeCommand: CreateRecipeCommand) {
     @Post("/recipes")
-    public fun createRecipe(@Body newRecipe: CreateRecipeDto): HttpResponse<*> {
-        val createRecipeRequest = newRecipe.let { createRecipeDto ->
+    public fun createRecipe(@Body newRecipe: RecipeDto): HttpResponse<*> {
+        val createRecipeRequest = newRecipe.let { recipeDto ->
             CreateRecipeRequest(
-                    createRecipeDto.name,
-                    ingredients = Option.fromNullable(createRecipeDto.ingredients)
+                    recipeDto.name,
+                    ingredients = Option.fromNullable(recipeDto.ingredients)
                             .fold(
                                     ifEmpty = { emptyList<CreateIngredientRequest>() },
                                     ifSome = { ingredients ->
@@ -31,10 +31,12 @@ class CreateRecipeController(private val createRecipeCommand: CreateRecipeComman
                                             CreateIngredientRequest(
                                                     it.name,
                                                     it.form,
-                                                    QuantityRequest(it.quantity.value),
-                                                    it.weight.let { weight ->
+                                                    it.quantity?.let { quantityDto ->
+                                                        QuantityRequest(quantityDto.value)
+                                                    } ?: QuantityRequest.identity(),
+                                                    it.weight?.let { weight ->
                                                         WeightRequest(weight.value, weight.type)
-                                                    })
+                                                    } ?: WeightRequest.identity())
                                         }
                                     }))
         }

@@ -3,6 +3,8 @@ package io.feast.api
 import arrow.core.Either
 import arrow.core.None
 import arrow.core.Some
+import io.feast.api.dtos.RecipeDto
+import io.feast.api.dtos.fromRecipe
 import io.feast.core.domain.Recipe
 import io.feast.core.interfaces.queries.FetchAllRecipesQuery
 import io.micronaut.http.HttpResponse
@@ -14,9 +16,9 @@ import io.micronaut.http.annotation.Get
 class FetchAllRecipesController(private val fetchAllRecipesQuery: FetchAllRecipesQuery) {
     @Get("/recipes", produces = [MediaType.APPLICATION_JSON])
     fun index(): HttpResponse<*> = when (val result = fetchAllRecipesQuery.execute()) {
-        is Either.Right -> when(result.b) {
+        is Either.Right -> when (result.b) {
             is None -> HttpResponse.notFound<String>("No recipes found.")
-            is Some -> HttpResponse.ok((result.b as Some<List<Recipe>>).t)
+            is Some -> HttpResponse.ok<List<RecipeDto>>((result.b as Some<List<Recipe>>).t.map { fromRecipe(it) })
         }
         is Either.Left -> HttpResponse.serverError("Something went wrong!")
     }
