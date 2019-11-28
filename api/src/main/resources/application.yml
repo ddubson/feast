@@ -8,3 +8,4 @@ micronaut:
         web:
           allowedOrigins:
             - http://localhost:1234
+            - https://feast-api-dev.herokuapp.com

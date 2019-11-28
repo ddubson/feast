@@ -10,7 +10,7 @@ jobs:
     script: |
       yarn lint
       yarn test
-      yarn build
+      yarn build:dev
   - stage: web-deploy
     language: node_js
     node_js:

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsc --noEmit -p ./web/ && parcel web/src/index.html",
     "build": "tsc --noEmit -p ./web/ && parcel build web/src/index.html",
+    "build:dev": "cross-env NODE_ENV=dev parcel build web/src/index.html --no-cache",
     "serve": "serve -s dist/",
     "test": "jest",
     "test:watch": "jest --watchAll",
@@ -33,6 +34,7 @@
     "@types/jest": "^24.0.13",
     "@types/node": "^12.12.7",
     "@types/testing-library__react": "^9.1.2",
+    "cross-env": "^6.0.3",
     "jest": "^24.5.0",
     "node-sass": "^4.12.0",
     "parcel": "^1.12.3",
