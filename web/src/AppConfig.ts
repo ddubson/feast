@@ -2,8 +2,9 @@ import axios, {AxiosInstance} from "axios";
 import * as React from "react";
 import {HttpRecipesGateway} from "./application/gateways/HttpRecipesGateway";
 import {RecipesGateway} from "./application/gateways/RecipesGateway";
-import {BaseRecipesService} from "./application/services/BaseRecipesService";
-import {RecipesService} from "./application/services/RecipesService";
+import {BaseFetchAllRecipesService} from "./application/services/BaseFetchAllRecipesService";
+import {FetchAllRecipesService, FetchByIdRecipesService} from "./application/services/Services";
+import {BaseFetchByIdRecipesService} from "./application/services/BaseFetchByIdRecipesService";
 
 const recipesApiBaseUrl = process.env.RECIPES_API_URI || "http://localhost:8080";
 
@@ -11,14 +12,18 @@ export const recipesApiClient: AxiosInstance = axios.create({baseURL: recipesApi
 
 export interface DIContainer {
   recipesGateway: RecipesGateway;
-  recipesService: RecipesService;
+  fetchAllRecipesService: FetchAllRecipesService;
+  fetchByIdRecipesService: FetchByIdRecipesService;
 }
 
 const recipesGateway = new HttpRecipesGateway();
-const recipesService = new BaseRecipesService(recipesGateway);
+const fetchAllRecipesService = new BaseFetchAllRecipesService(recipesGateway);
+const fetchByIdRecipesService = new BaseFetchByIdRecipesService(recipesGateway);
 
 export const diContainer: DIContainer = {
-  recipesGateway, recipesService,
+  recipesGateway,
+  fetchAllRecipesService,
+  fetchByIdRecipesService
 };
 
 export const DIContainerContext: React.Context<DIContainer> = React.createContext<DIContainer>(diContainer);

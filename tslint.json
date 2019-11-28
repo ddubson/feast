@@ -11,7 +11,9 @@
     "no-console": false,
     "no-empty-interface": false,
     "no-submodule-imports": false,
-    "no-implicit-dependencies": [true, "dev"]
+    "no-implicit-dependencies": [true, "dev"],
+    "ordered-imports": false,
+    "max-classes-per-file": false
   },
   "rulesDirectory": []
 }

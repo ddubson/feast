@@ -4,6 +4,7 @@ import * as shortid from "shortid";
 import {DIContainerContext} from "../../AppConfig";
 import {Ingredient, Recipe} from "../../application/types";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
+import {Nothing} from "purify-ts/Maybe";
 
 export interface CreateRecipeSceneProps {
   history: {
@@ -122,18 +123,18 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
   private addIngredientToIngredientList(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const {name, form, quantity} = this.state.ingredientToAdd;
-    const ingredient: Ingredient = {name, form, quantity};
+    const ingredient: Ingredient = {id: null, name, form, quantity: null, weight: null};
     this.setState(update(this.state, {recipeForm: {ingredients: {$push: [ingredient]}}}));
   }
 
   private handleSubmit(event: FormEvent): void {
     event.preventDefault();
 
-    const {name, ingredients} = this.state.recipeForm;
+    const {name} = this.state.recipeForm;
 
     const recipe: Recipe = {
       id: shortid.generate(),
-      ingredients,
+      ingredients: Nothing,
       name,
     };
 

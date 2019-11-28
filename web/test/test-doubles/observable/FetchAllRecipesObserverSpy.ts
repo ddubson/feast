@@ -1,7 +1,7 @@
-import {RecipesObserver} from "../../../src/application/services/RecipesService";
+import {FetchAllRecipesObserver} from "../../../src/application/services/Services";
 import {Recipe} from "../../../src/application/types";
 
-export class RecipesObserverSpy implements RecipesObserver {
+export class FetchAllRecipesObserverSpy implements FetchAllRecipesObserver {
   public receivedRecipesWasCalled: boolean = false;
   public recipesReceived: Recipe[];
 

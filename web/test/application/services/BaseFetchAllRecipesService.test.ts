@@ -1,25 +1,25 @@
 import {RecipesGateway} from "../../../src/application/gateways/RecipesGateway";
-import {BaseRecipesService} from "../../../src/application/services/BaseRecipesService";
+import {BaseFetchAllRecipesService} from "../../../src/application/services/BaseFetchAllRecipesService";
 import {buildRecipe} from "../../helpers/Builders";
-import {RecipesObserverSpy} from "../../test-doubles/observable/ObserverSpy";
-import StubRecipesGateway from "../../test-doubles/StubRecipesGateway";
+import {FetchAllRecipesObserverSpy} from "../../test-doubles/observable/FetchAllRecipesObserverSpy";
+import StubRecipesGateway from "../../test-doubles/gateways/StubRecipesGateway";
 
-describe("BaseRecipesService", () => {
+describe("BaseFetchAllRecipesService", () => {
   let stubRecipesGateway: RecipesGateway;
-  let recipesService: BaseRecipesService;
+  let recipesService: BaseFetchAllRecipesService;
 
   beforeEach(() => {
     stubRecipesGateway = new StubRecipesGateway();
-    recipesService = new BaseRecipesService(stubRecipesGateway);
+    recipesService = new BaseFetchAllRecipesService(stubRecipesGateway);
   });
 
   describe("when there is at least one registered observer", () => {
-    let firstObserverSpy: RecipesObserverSpy;
-    let secondObserverSpy: RecipesObserverSpy;
+    let firstObserverSpy: FetchAllRecipesObserverSpy;
+    let secondObserverSpy: FetchAllRecipesObserverSpy;
 
     beforeEach(() => {
-      firstObserverSpy = new RecipesObserverSpy();
-      secondObserverSpy = new RecipesObserverSpy();
+      firstObserverSpy = new FetchAllRecipesObserverSpy();
+      secondObserverSpy = new FetchAllRecipesObserverSpy();
       recipesService.registerObserver(firstObserverSpy);
       recipesService.registerObserver(secondObserverSpy);
     });

@@ -2,7 +2,7 @@ import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import * as shortid from "shortid";
-import {RecipesObserver, RecipesService} from "../../application/services/RecipesService";
+import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../application/services/Services";
 import {Recipe} from "../../application/types";
 import RecipeListItem from "../components/RecipeListItem";
 
@@ -17,9 +17,9 @@ const renderRecipes = (maybeRecipes: Maybe<Recipe[]>) => {
     );
 };
 
-function RecipesDashboardScene({recipesService}: { recipesService: RecipesService }) {
+function RecipesDashboardScene({recipesService}: { recipesService: FetchAllRecipesService }) {
   const [maybeRecipes, setRecipes] = useState<Maybe<Recipe[]>>(() => (Nothing));
-  const [observer] = useState<RecipesObserver>({
+  const [observer] = useState<FetchAllRecipesObserver>({
     receivedNoRecipes(): void {
       setRecipes(Nothing);
     },

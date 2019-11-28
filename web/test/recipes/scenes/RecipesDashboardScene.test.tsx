@@ -1,38 +1,40 @@
 import {render} from "@testing-library/react";
 import * as React from "react";
-import {RecipesService} from "../../../src/application/services/RecipesService";
+import {FetchAllRecipesService} from "../../../src/application/services/Services";
 import RecipesDashboardScene from "../../../src/recipes/scenes/RecipesDashboardScene";
 import {buildRecipe} from "../../helpers/Builders";
 import {buildComponent} from "../../helpers/RenderApp";
-import {StubRecipesService} from "../../test-doubles/services/StubRecipesService";
+import {StubFetchAllRecipesService} from "../../test-doubles/services/StubFetchAllRecipesService";
 
 describe("RecipesDashboardScene", () => {
-  let recipesService: RecipesService;
+  let fetchAllRecipesService: FetchAllRecipesService;
   let getAllByTestId: any;
   let getByText: any;
 
   beforeEach(() => {
-    recipesService = new StubRecipesService();
+    fetchAllRecipesService = new StubFetchAllRecipesService();
   });
 
   describe("when some recipes have loaded", () => {
     beforeEach(async () => {
-      (recipesService as StubRecipesService).setResolvedRecipes(() => [buildRecipe()]);
+      (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => [
+        buildRecipe({name: "Great Recipe"})]);
       ({getAllByTestId} = await render(
-        buildComponent(<RecipesDashboardScene recipesService={recipesService}/>)));
+        buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });
 
     it("should display the recipes", async () => {
       const recipesDisplayed = await getAllByTestId("recipe");
       expect(recipesDisplayed).toHaveLength(1);
+      expect(recipesDisplayed[0].textContent).toContain("Great Recipe");
     });
   });
 
   describe("when no recipes have loaded", () => {
     beforeEach(async () => {
-      (recipesService as StubRecipesService).setResolvedRecipes(() => []);
+      (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => []);
       ({getByText, getAllByTestId} = await render(
-        buildComponent(<RecipesDashboardScene recipesService={recipesService}/>)));
+        buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });
 
     it("should display a no recipes message", () => {
