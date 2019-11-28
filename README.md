@@ -42,3 +42,13 @@ On *nix
 - run test: `yarn test`
 - build bundle: `yarn build` -> build artifacts in `dist/` folder
 
+## Deploying to Heroku
+
+Web app uses the `heroku-buildpack-static` buildpack. This buildpack uses `static.json` file as config
+
+https://github.com/heroku/heroku-buildpack-static
+
+API uses the `heroku/gradle` buildpack with `heroku-buildpack-multi-procfile` with primary build commands as `assemble` as per
+requirement of Micronaut. This buildpack uses `api/Procfile`
+
+https://github.com/heroku/heroku-buildpack-gradle
