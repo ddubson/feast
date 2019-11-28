@@ -20,6 +20,7 @@ jobs:
     deploy:
       provider: heroku
       app: feast-web
+      skip_cleanup: true
       api_key:
         secure: "evtP+dEEdAcUNOnkrfEhu04H4G8g+LxCAc0nRKDILW10Z2K6dNqGwkdnuTls6OEpHZlO34zXS/K2Up+jyLfanIThak41PXxlyKUjEnAbJp3A25gZLMqHH3URCWZFDv1EioP1qSHI4/KrCg2BUMjUxALvx87wgFInTGAxzT/Nk2EKXC/JvczXP83fSDKFMephVQyN+k1DfY4b41dm1wiBb+kHpniA7q7NHGHSOzCmmTgvBABHWpMKcelsevk3XvqPCTvbrADZMYQm8JWsr268o8z0guof+P7h84R11V+HfkV6DBWicXEAPHVcW2H0WfzCw9ceu9Q6zrcbRnFq85dk0BmfAJXX6aX7kfJmhX9x6UEIe5FCgK3ib7UjDJp0nMSS3scwfSTgxNoftlfztm1eJRLQXlLqzpZxgZem5hlIsCxf/bq2WDwkkaxVX27Egk9MFkdFKTA2g8L+H+431v2yGqqgMBvFM3rB+1pLzkDWxa2iJRgxC/S6qNUjzDJnbVI+cxudXuJwfDIok/53yLmHSjWheOth5SnBZTd4CepW/j54BT94dzKjLZJ6u1x+ndebszN85bGcecWfRfY9mFtMHiEONaxAOMEVbBNt8xyjpJMe+08W7ajteRKMqIIbFSQkhFmivGQzycHLl4V5yFSE3iIcQu7bsMGVZOYZo3khzD8="
   - stage: api-test
@@ -43,6 +44,7 @@ jobs:
     deploy:
       provider: heroku
       app: feast-api-dev
+      skip_cleanup: true
       api_key:
         secure: "evtP+dEEdAcUNOnkrfEhu04H4G8g+LxCAc0nRKDILW10Z2K6dNqGwkdnuTls6OEpHZlO34zXS/K2Up+jyLfanIThak41PXxlyKUjEnAbJp3A25gZLMqHH3URCWZFDv1EioP1qSHI4/KrCg2BUMjUxALvx87wgFInTGAxzT/Nk2EKXC/JvczXP83fSDKFMephVQyN+k1DfY4b41dm1wiBb+kHpniA7q7NHGHSOzCmmTgvBABHWpMKcelsevk3XvqPCTvbrADZMYQm8JWsr268o8z0guof+P7h84R11V+HfkV6DBWicXEAPHVcW2H0WfzCw9ceu9Q6zrcbRnFq85dk0BmfAJXX6aX7kfJmhX9x6UEIe5FCgK3ib7UjDJp0nMSS3scwfSTgxNoftlfztm1eJRLQXlLqzpZxgZem5hlIsCxf/bq2WDwkkaxVX27Egk9MFkdFKTA2g8L+H+431v2yGqqgMBvFM3rB+1pLzkDWxa2iJRgxC/S6qNUjzDJnbVI+cxudXuJwfDIok/53yLmHSjWheOth5SnBZTd4CepW/j54BT94dzKjLZJ6u1x+ndebszN85bGcecWfRfY9mFtMHiEONaxAOMEVbBNt8xyjpJMe+08W7ajteRKMqIIbFSQkhFmivGQzycHLl4V5yFSE3iIcQu7bsMGVZOYZo3khzD8="
 stages:
