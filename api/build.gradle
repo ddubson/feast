@@ -40,7 +40,6 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api"
     testImplementation "org.mockito:mockito-junit-jupiter:2.22.0"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
-
 }
 
 test.classpath += configurations.developmentOnly
@@ -57,6 +56,10 @@ test {
 tasks.withType(JavaCompile){
     options.encoding = "UTF-8"
     options.compilerArgs.add('-parameters')
+}
+
+allOpen {
+    annotation("io.micronaut.aop.Around")
 }
 
 shadowJar {
