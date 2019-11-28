@@ -10,13 +10,13 @@ jobs:
     script: |
       yarn lint
       yarn test
-      yarn build:dev
+      yarn build
   - stage: web-deploy
     language: node_js
     node_js:
     - '12'
     before_script: 'npm i -g yarn'
-    script: 'yarn build'
+    script: 'yarn build:dev'
     deploy:
       provider: heroku
       app: feast-web
