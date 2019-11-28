@@ -4,9 +4,7 @@
 
 # feast
 
-Recipe aggregator app.
-
-[Deployed on Heroku](https://feast-web.herokuapp.com/)
+Recipe aggregator app. You can find it deployed on Heroku @ https://bit.ly/feast-app
 
 ## API (Micronaut / Kotlin / ArrowKt)
 
