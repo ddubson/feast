@@ -1,5 +1,5 @@
-call yarn test:run
-call yarn test build
-call ./gradlew clean test build
+call yarn lint
+call yarn build
+call yarn test
 
 echo "All Tests Pass!"

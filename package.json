@@ -4,14 +4,14 @@
   "description": "recipe and dish aggregator",
   "main": "src/index.js",
   "scripts": {
-    "start": "tsc --noEmit -p ./web/ && parcel web/src/index.html",
-    "build": "tsc --noEmit -p ./web/ && parcel build web/src/index.html",
-    "build:dev": "cross-env NODE_ENV=dev parcel build web/src/index.html --no-cache",
+    "start": "tsc --noEmit -p . && parcel src/index.html",
+    "build": "tsc --noEmit -p . && parcel build src/index.html",
+    "build:dev": "cross-env NODE_ENV=dev parcel build src/index.html --no-cache",
     "serve": "serve -s dist/",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "lint": "tslint 'web/src/**/*.ts' 'web/src/**/*.tsx' 'web/test/**/*.ts' 'web/test/**/*.tsx'",
-    "lint:fix": "tslint 'web/src/**/*.ts' 'web/src/**/*.tsx' 'web/test/**/*.ts' 'web/test/**/*.tsx' --fix"
+    "lint": "tslint 'src/**/*.ts' 'src/**/*.tsx' 'test/**/*.ts' 'test/**/*.tsx'",
+    "lint:fix": "tslint 'src/**/*.ts' 'src/**/*.tsx' 'test/**/*.ts' 'test/**/*.tsx' --fix"
   },
   "repository": {
     "type": "git",
@@ -66,7 +66,7 @@
   },
   "jest": {
     "bail": true,
-    "rootDir": "web",
+    "rootDir": ".",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

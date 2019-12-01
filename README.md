@@ -6,32 +6,6 @@
 
 Recipe aggregator app. You can find it deployed on Heroku @ https://bit.ly/feast-app
 
-## API (Micronaut / Kotlin / ArrowKt)
-
-Directory: `api`
-
-On *nix
-
-```bash
-# Running locally
-./gradlew :api:run
-
-# Run tests
-./gradlew :api:test
-
-```
-
-## Application (Kotlin / ArrowKt)
-
-Directory: `application`
-
-On *nix
-
-```bash
-# Run tests
-./gradlew :application:test
-```
-
 ## Web (React / Typescript with PurifyTS)
 
 ### Running & Building
@@ -45,8 +19,3 @@ On *nix
 Web app uses the `heroku-buildpack-static` buildpack. This buildpack uses `static.json` file as config
 
 https://github.com/heroku/heroku-buildpack-static
-
-API uses the `heroku/gradle` buildpack with `heroku-buildpack-multi-procfile` with primary build commands as `assemble` as per
-requirement of Micronaut. This buildpack uses `api/Procfile`
-
-https://github.com/heroku/heroku-buildpack-gradle

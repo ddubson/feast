@@ -23,7 +23,7 @@ const fetchByIdRecipesService = new BaseFetchByIdRecipesService(recipesGateway);
 export const diContainer: DIContainer = {
   recipesGateway,
   fetchAllRecipesService,
-  fetchByIdRecipesService
+  fetchByIdRecipesService,
 };
 
 export const DIContainerContext: React.Context<DIContainer> = React.createContext<DIContainer>(diContainer);

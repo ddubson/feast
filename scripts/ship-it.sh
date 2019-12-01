@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-./gradlew clean test build
+set -e
 
+yarn lint
 yarn build
 yarn test
