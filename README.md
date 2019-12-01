@@ -1,6 +1,5 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/517ed4cf27196fb7c2b0/maintainability)](https://codeclimate.com/github/ddubson/feast/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/517ed4cf27196fb7c2b0/test_coverage)](https://codeclimate.com/github/ddubson/feast/test_coverage)
 [![Build Status](https://travis-ci.org/ddubson/feast.svg?branch=master)](https://travis-ci.org/ddubson/feast)
+[![codebeat badge](https://codebeat.co/badges/b17a78c2-c882-4976-b308-7cd50e10a1f4)](https://codebeat.co/projects/github-com-ddubson-feast-app-feast-master)
 
 # feast
 
