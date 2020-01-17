@@ -135,6 +135,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
     const recipe: Recipe = {
       id: shortid.generate(),
       ingredients: Nothing,
+      steps: Nothing,
       name,
     };
 

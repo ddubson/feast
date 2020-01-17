@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
-import {Ingredient, Recipe} from "../../application/types";
+import {Ingredient, InstructionSet, Recipe} from "../../application/types";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../application/services/Services";
@@ -19,6 +19,10 @@ const eitherQuantityOrWeight = (ingredient: Ingredient) => {
 
 const renderIngredient = (ingredient: Ingredient) => (
   <div key={shortid.generate()}>{eitherQuantityOrWeight(ingredient)} {ingredient.name} - {ingredient.form}</div>
+);
+
+const renderStep = ([stepNumber, stepValue]: [string, string]) => (
+  <div key={shortid.generate()} data-testid="instruction-step">{stepValue}</div>
 );
 
 const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
@@ -41,7 +45,7 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
 
   return (
     <div>
-      <BackToRecipesLink/>
+      <BackToRecipesLink />
 
       {recipe.mapOrDefault(
         (r: Recipe) => (
@@ -54,6 +58,15 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
               {r.ingredients.mapOrDefault(
                 (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
                 (<div>No ingredients!</div>))
+              }
+            </div>
+            <div>
+              <h3>Instructions</h3>
+              {r.steps.mapOrDefault(
+                (instructionSet: InstructionSet) =>
+                  <div>{Object.entries(instructionSet).map(renderStep)}</div>,
+                (<div>No instructions yet.</div>),
+              )
               }
             </div>
           </React.Fragment>

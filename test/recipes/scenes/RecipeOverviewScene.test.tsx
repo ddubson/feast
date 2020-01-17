@@ -9,6 +9,7 @@ import {StubFetchByIdRecipesService} from "../../test-doubles/services/StubFetch
 
 describe("RecipeOverviewScene", () => {
   let getByText: any;
+  let getAllByTestId: any;
   let fetchByIdRecipesService: FetchByIdRecipesService;
 
   beforeEach(() => {
@@ -27,6 +28,10 @@ describe("RecipeOverviewScene", () => {
       (fetchByIdRecipesService as StubFetchByIdRecipesService).setResolvedRecipe(() =>
         buildRecipe({
           name: "Great Recipe",
+          steps: Just({
+            1: "Do this",
+            2: "Do that",
+          }),
           ingredients: Just([
             {
               id: "1",
@@ -50,7 +55,7 @@ describe("RecipeOverviewScene", () => {
           ]),
         }));
 
-      ({getByText} = await render(buildComponent(
+      ({getByText, getAllByTestId} = await render(buildComponent(
           <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} {...routeProps} />))
       );
     });
@@ -65,6 +70,14 @@ describe("RecipeOverviewScene", () => {
 
     it("should display recipe ingredients with a weight", () => {
       expect(getByText("2 POUNDS Another ingredient - Diced")).toBeTruthy();
+    });
+
+    it("should display the instructions step by step section", () => {
+      const instructionSet = getAllByTestId("instruction-step").map((step: Element) => step.textContent);
+      expect(instructionSet).toEqual([
+        "Do this",
+        "Do that",
+      ]);
     });
   });
 });

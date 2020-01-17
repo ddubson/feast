@@ -16,7 +16,7 @@ export interface DIContainer {
   fetchByIdRecipesService: FetchByIdRecipesService;
 }
 
-const recipesGateway = new HttpRecipesGateway();
+const recipesGateway = new HttpRecipesGateway(recipesApiClient);
 const fetchAllRecipesService = new BaseFetchAllRecipesService(recipesGateway);
 const fetchByIdRecipesService = new BaseFetchByIdRecipesService(recipesGateway);
 
