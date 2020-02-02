@@ -1,12 +1,12 @@
 import * as shortid from "shortid";
-import {Ingredient, InstructionSet, Recipe} from "../../src/application/types";
+import {Ingredient, Recipe, Step} from "../../src/application/types";
 import {Just, Nothing} from "purify-ts/Maybe";
 
 export const buildRecipe = (recipe?: Partial<Recipe>): Recipe => {
   const defaultRecipe: Recipe = {
     id: shortid.generate(),
     name: "Great Recipe",
-    steps: Just(buildInstructionSet()),
+    steps: Just([buildStep()]),
     ingredients: Just([buildIngredient()]),
   };
 
@@ -25,11 +25,8 @@ export const buildIngredient = (ingredient?: Partial<Ingredient>): Ingredient =>
   return {...defaultIngredient, ...ingredient};
 };
 
-export const buildInstructionSet = (instructionSet?: Partial<InstructionSet>): InstructionSet => {
-  const defaultInstructionSet: InstructionSet = {
-    1: "Do this",
-    2: "Do that",
-  };
+export const buildStep = (step?: Partial<Step>): Step => {
+  const defaultStep = { stepNumber: 1, value: "Do this first"};
 
-  return {...defaultInstructionSet, ...instructionSet};
+  return { ...defaultStep, ...step};
 };

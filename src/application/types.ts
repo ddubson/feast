@@ -4,11 +4,12 @@ interface Quantity {
   value: number;
 }
 
-export interface InstructionSet {
-  [key: number]: string;
+interface Step {
+  stepNumber: number;
+  value: string;
 }
 
-export type WeightType = "NONE" | "POUNDS";
+type WeightType = "NONE" | "POUNDS";
 
 interface Weight {
   value: number;
@@ -27,7 +28,7 @@ interface Recipe {
   id: string;
   name: string;
   ingredients: Maybe<Ingredient[]>;
-  steps: Maybe<InstructionSet>;
+  steps: Maybe<Step[]>;
 }
 
-export {Recipe, Ingredient};
+export {Recipe, Ingredient, Step, WeightType};

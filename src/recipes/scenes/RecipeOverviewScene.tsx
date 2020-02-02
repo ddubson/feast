@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
-import {Ingredient, InstructionSet, Recipe} from "../../application/types";
+import {Ingredient, Recipe, Step} from "../../application/types";
 import {BackToRecipesLink} from "../components/BackToRecipesLink";
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../application/services/Services";
@@ -21,8 +21,8 @@ const renderIngredient = (ingredient: Ingredient) => (
   <div key={shortid.generate()}>{eitherQuantityOrWeight(ingredient)} {ingredient.name} - {ingredient.form}</div>
 );
 
-const renderStep = ([stepNumber, stepValue]: [string, string]) => (
-  <div key={shortid.generate()} data-testid="instruction-step">{stepValue}</div>
+const renderStep = (step: Step) => (
+  <div key={shortid.generate()} data-testid="instruction-step">{step.value}</div>
 );
 
 const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
@@ -63,8 +63,8 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
             <div>
               <h3>Instructions</h3>
               {r.steps.mapOrDefault(
-                (instructionSet: InstructionSet) =>
-                  <div>{Object.entries(instructionSet).map(renderStep)}</div>,
+                (steps: Step[]) =>
+                  <div>{steps.map(renderStep)}</div>,
                 (<div>No instructions yet.</div>),
               )
               }

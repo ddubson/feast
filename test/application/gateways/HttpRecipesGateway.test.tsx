@@ -1,5 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
+import {Just} from "purify-ts/Maybe";
 import {HttpRecipesGateway} from "../../../src/application/gateways/HttpRecipesGateway";
 import {buildRecipe} from "../../helpers/Builders";
 import {RecipeDto} from "../../../src/application/gateways/dtos/RecipeDto";
@@ -15,7 +16,12 @@ describe("HttpRecipesGateway", () => {
 
       describe("when all fields are populated", () => {
         it("then returns a recipe successfully", async () => {
-          const expectedRecipe: Recipe = buildRecipe();
+          const expectedRecipe: Recipe = buildRecipe({
+            steps: Just([
+              {stepNumber: 1, value: "Do this first"},
+              {stepNumber: 2, value: "Do that"},
+            ]),
+          });
           const response: RecipeDto = {
             id: expectedRecipe.id,
             name: "Great Recipe",
@@ -28,10 +34,10 @@ describe("HttpRecipesGateway", () => {
                 weight: {value: 0, type: "NONE"},
               },
             ],
-            steps: {
-              1: "Do this",
-              2: "Do that",
-            },
+            steps: [
+              {stepNumber: 1, value: "Do this first"},
+              {stepNumber: 2, value: "Do that"},
+            ],
           };
 
           mockAxios

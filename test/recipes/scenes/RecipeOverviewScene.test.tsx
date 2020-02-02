@@ -28,10 +28,10 @@ describe("RecipeOverviewScene", () => {
       (fetchByIdRecipesService as StubFetchByIdRecipesService).setResolvedRecipe(() =>
         buildRecipe({
           name: "Great Recipe",
-          steps: Just({
-            1: "Do this",
-            2: "Do that",
-          }),
+          steps: Just([
+            { stepNumber: 1, value: "Do this"},
+            { stepNumber: 2, value: "Do that"},
+          ]),
           ingredients: Just([
             {
               id: "1",

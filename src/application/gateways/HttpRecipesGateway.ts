@@ -3,11 +3,12 @@ import {Recipe, WeightType} from "../types";
 import {RecipesGateway} from "./RecipesGateway";
 import {Just, Nothing} from "purify-ts/Maybe";
 import {IngredientDto} from "./dtos/IngredientDto";
-import {RecipeDto} from "./dtos/RecipeDto";
+import {RecipeDto, StepDto} from "./dtos/RecipeDto";
 
 export class HttpRecipesGateway implements RecipesGateway {
   constructor(private api: AxiosInstance) {
   }
+
   public saveRecipe(recipe: Recipe): Promise<Recipe> {
     return this.api.post("/api/recipes", recipe);
   }
@@ -23,7 +24,10 @@ export class HttpRecipesGateway implements RecipesGateway {
       .then((recipe: RecipeDto) => ({
         id: recipe.id,
         name: recipe.name,
-        steps: Just(recipe.steps),
+        steps: Just(recipe.steps.map((stepDto: StepDto) => ({
+          stepNumber: stepDto.stepNumber,
+          value: stepDto.value,
+        }))),
         ingredients: Just(recipe.ingredients.map((ingredient: IngredientDto) => ({
           id: ingredient.id,
           name: ingredient.name,
