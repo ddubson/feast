@@ -1,10 +1,10 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import {Just} from "purify-ts/Maybe";
-import {HttpRecipesGateway} from "../../../src/application/gateways/HttpRecipesGateway";
-import {buildRecipe} from "../../helpers/Builders";
-import {RecipeDto} from "../../../src/application/gateways/dtos/RecipeDto";
-import {Recipe} from "../../../src/application/types";
+import {HttpRecipesGateway} from "./HttpRecipesGateway";
+import {buildRecipe} from "../../../test/helpers/Builders";
+import {RecipeDto} from "./dtos/RecipeDto";
+import {Recipe} from "../types";
 
 describe("HttpRecipesGateway", () => {
   const mockAxios = new MockAdapter(axios);
@@ -35,8 +35,8 @@ describe("HttpRecipesGateway", () => {
               },
             ],
             steps: [
-              {stepNumber: 1, value: "Do this first"},
-              {stepNumber: 2, value: "Do that"},
+              {stepNumber: 1, stepText: "Do this first"},
+              {stepNumber: 2, stepText: "Do that"},
             ],
           };
 

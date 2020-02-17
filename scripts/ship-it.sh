@@ -5,3 +5,5 @@ set -e
 yarn lint
 yarn build
 yarn test
+
+echo ">>> All Tests Pass! <<<"

@@ -2,7 +2,7 @@ import {IngredientDto} from "./IngredientDto";
 
 export interface StepDto {
   stepNumber: number;
-  value: string;
+  stepText: string;
 }
 
 export interface RecipeDto {
