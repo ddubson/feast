@@ -26,7 +26,7 @@ export class HttpRecipesGateway implements RecipesGateway {
         name: recipe.name,
         steps: Just(recipe.steps.map((stepDto: StepDto) => ({
           stepNumber: stepDto.stepNumber,
-          value: stepDto.value,
+          value: stepDto.stepText,
         }))),
         ingredients: Just(recipe.ingredients.map((ingredient: IngredientDto) => ({
           id: ingredient.id,
