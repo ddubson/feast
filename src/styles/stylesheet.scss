@@ -9,3 +9,19 @@ body {
 .app-body {
   margin-top: 4em;
 }
+
+.display-flex {
+  display: flex;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.justify-space-around {
+  justify-content: space-around;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}

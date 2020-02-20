@@ -1,11 +1,11 @@
 import {render} from "@testing-library/react";
 import {Just, Nothing} from "purify-ts/Maybe";
 import * as React from "react";
-import {FetchByIdRecipesService} from "../../../src/application/services/Services";
-import RecipeOverviewScene from "../../../src/recipes/scenes/RecipeOverviewScene";
-import {buildRecipe} from "../../helpers/Builders";
-import {buildComponent} from "../../helpers/RenderApp";
-import {StubFetchByIdRecipesService} from "../../test-doubles/services/StubFetchByIdRecipesService";
+import {FetchByIdRecipesService} from "../../application/services/Services";
+import RecipeOverviewScene from "./RecipeOverviewScene";
+import {buildRecipe} from "../../__tests__/helpers/Builders";
+import {buildComponent} from "../../__tests__/helpers/RenderApp";
+import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services/StubFetchByIdRecipesService";
 
 describe("RecipeOverviewScene", () => {
   let getByText: any;
@@ -69,14 +69,14 @@ describe("RecipeOverviewScene", () => {
     });
 
     it("should display recipe ingredients with a weight", () => {
-      expect(getByText("2 POUNDS Another ingredient - Diced")).toBeTruthy();
+      expect(getByText("2 lbs Another ingredient - Diced")).toBeTruthy();
     });
 
     it("should display the instructions step by step section", () => {
       const instructionSet = getAllByTestId("instruction-step").map((step: Element) => step.textContent);
       expect(instructionSet).toEqual([
-        "Do this",
-        "Do that",
+        "1: Do this",
+        "2: Do that",
       ]);
     });
   });

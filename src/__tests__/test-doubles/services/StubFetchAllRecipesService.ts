@@ -1,5 +1,5 @@
-import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../../src/application/services/Services";
-import {Recipe} from "../../../src/application/types";
+import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../../application/services/Services";
+import {Recipe} from "../../../application/types";
 
 export class StubFetchAllRecipesService extends FetchAllRecipesService {
   private resolveRecipes: () => Recipe[];

@@ -2,7 +2,7 @@ import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
 import {Just} from "purify-ts/Maybe";
 import {HttpRecipesGateway} from "./HttpRecipesGateway";
-import {buildRecipe} from "../../../test/helpers/Builders";
+import {buildRecipe} from "../../__tests__/helpers/Builders";
 import {RecipeDto} from "./dtos/RecipeDto";
 import {Recipe} from "../types";
 

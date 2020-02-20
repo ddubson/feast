@@ -1,6 +1,6 @@
 import {Maybe} from "purify-ts/Maybe";
 
-interface Quantity {
+export interface Quantity {
   value: number;
 }
 
@@ -11,7 +11,7 @@ interface Step {
 
 type WeightType = "NONE" | "POUNDS";
 
-interface Weight {
+export interface Weight {
   value: number;
   type: WeightType;
 }

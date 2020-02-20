@@ -1,8 +1,8 @@
-import {RecipesGateway} from "../../../src/application/gateways/RecipesGateway";
-import {BaseFetchAllRecipesService} from "../../../src/application/services/BaseFetchAllRecipesService";
-import {buildRecipe} from "../../helpers/Builders";
-import {FetchAllRecipesObserverSpy} from "../../test-doubles/observable/FetchAllRecipesObserverSpy";
-import StubRecipesGateway from "../../test-doubles/gateways/StubRecipesGateway";
+import {RecipesGateway} from "../gateways/RecipesGateway";
+import {BaseFetchAllRecipesService} from "./BaseFetchAllRecipesService";
+import {buildRecipe} from "../../__tests__/helpers/Builders";
+import {FetchAllRecipesObserverSpy} from "../../__tests__/test-doubles/observable/FetchAllRecipesObserverSpy";
+import StubRecipesGateway from "../../__tests__/test-doubles/gateways/StubRecipesGateway";
 
 describe("BaseFetchAllRecipesService", () => {
   let stubRecipesGateway: RecipesGateway;

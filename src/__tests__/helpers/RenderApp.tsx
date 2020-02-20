@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
 import {MemoryRouter} from "react-router-dom";
-import {DIContainer, DIContainerContext} from "../../src/AppConfig";
+import {DIContainer, DIContainerContext} from "../../AppConfig";
 import {StubFetchAllRecipesService} from "../test-doubles/services/StubFetchAllRecipesService";
 import {StubFetchByIdRecipesService} from "../test-doubles/services/StubFetchByIdRecipesService";
 import StubRecipesGateway from "../test-doubles/gateways/StubRecipesGateway";

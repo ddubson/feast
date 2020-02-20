@@ -1,5 +1,5 @@
 import * as shortid from "shortid";
-import {Ingredient, Recipe, Step} from "../../src/application/types";
+import {Ingredient, Recipe, Step} from "../../application/types";
 import {Just, Nothing} from "purify-ts/Maybe";
 
 export const buildRecipe = (recipe?: Partial<Recipe>): Recipe => {

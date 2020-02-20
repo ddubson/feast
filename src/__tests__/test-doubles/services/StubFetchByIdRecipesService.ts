@@ -1,5 +1,5 @@
-import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../../src/application/services/Services";
-import {Recipe} from "../../../src/application/types";
+import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../../application/services/Services";
+import {Recipe} from "../../../application/types";
 
 export class StubFetchByIdRecipesService extends FetchByIdRecipesService {
   private resolvedRecipe: (recipeId: string) => Recipe;
