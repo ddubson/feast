@@ -13,15 +13,12 @@ interface RecipeOverviewSceneProps extends RouteComponentProps {
   fetchByIdRecipesService: FetchByIdRecipesService;
 }
 
-const eitherQuantityOrWeight = (ingredient: IngredientPresenter) => {
-  const quantityDisplay = ingredient.displayQuantity;
-  const weightDisplay = ingredient.displayWeight;
-  return (!!quantityDisplay) ? quantityDisplay : weightDisplay;
+const renderIngredient = ({form, displayCulinaryMeasure, name}: IngredientPresenter) => {
+  const resolvedForm = form.mapOrDefault((f) => `- ${f}`, ``);
+  return (
+    <div key={shortid.generate()}>{displayCulinaryMeasure} {name} {resolvedForm}</div>
+  );
 };
-
-const renderIngredient = (ingredient: IngredientPresenter) => (
-  <div key={shortid.generate()}>{eitherQuantityOrWeight(ingredient)} {ingredient.name} - {ingredient.form}</div>
-);
 
 const renderStep = (step: StepPresenter) => (
   <div key={shortid.generate()} data-testid="instruction-step">{step.stepNumber}: {step.stepValue}</div>

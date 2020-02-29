@@ -123,7 +123,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
   private addIngredientToIngredientList(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const {name, form, quantity} = this.state.ingredientToAdd;
-    const ingredient: Ingredient = {id: null, name, form, quantity: null, weight: null};
+    const ingredient: Ingredient = {id: null, name, form: null, volume: null, quantity: null, weight: null};
     this.setState(update(this.state, {recipeForm: {ingredients: {$push: [ingredient]}}}));
   }
 

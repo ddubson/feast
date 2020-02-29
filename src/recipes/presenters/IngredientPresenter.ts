@@ -1,5 +1,6 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import {Ingredient, Quantity, Weight, WeightType} from "../../application/types";
+import {Ingredient, IngredientForm, VolumeMeasure, Weight, WeightType, WeightTypeAbbrev} from "../../application/types";
+import {singleOrPlural, VolumeLabelPluralsLookup} from "../../application/Volumes";
 
 export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<IngredientPresenter[]> => {
   return ingredients.mapOrDefault(
@@ -8,7 +9,7 @@ export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<
 };
 
 export default class IngredientPresenter {
-  private readonly WeightDisplayLookup: { [key in WeightType]: string; } = {
+  private readonly WeightDisplayLookup: { [key in WeightType]: WeightTypeAbbrev; } = {
     NONE: "",
     POUNDS: "lbs",
   };
@@ -20,12 +21,30 @@ export default class IngredientPresenter {
     return this.ingredient.name;
   }
 
-  get form(): string {
+  get form(): Maybe<IngredientForm> {
     return this.ingredient.form;
   }
 
+  get displayCulinaryMeasure(): string {
+    if (this.ingredient.quantity.isJust()) {
+      return this.displayQuantity;
+    } else if (this.ingredient.weight.isJust()) {
+      return this.displayWeight;
+    } else {
+      return this.displayVolume;
+    }
+  }
+
+  get displayVolume(): string {
+    return this.ingredient.volume.mapOrDefault((q: VolumeMeasure) => `${q.value} ${singleOrPlural(q)}`, ``);
+  }
+
+  get displayForm(): string {
+    return this.ingredient.form.mapOrDefault((q: IngredientForm) => q, ``);
+  }
+
   get displayQuantity(): string {
-    return this.ingredient.quantity.mapOrDefault((q) => `${q.value}x`, ``);
+    return this.ingredient.quantity.mapOrDefault((q) => `${q.value}`, ``);
   }
 
   get displayWeight(): string {

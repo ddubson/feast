@@ -1,9 +1,13 @@
 import {AxiosInstance, AxiosResponse} from "axios";
-import {Recipe, WeightType} from "../types";
+import {IngredientForm, Recipe, WeightType} from "../types";
 import {RecipesGateway} from "./RecipesGateway";
 import {Just, Nothing} from "purify-ts/Maybe";
-import {IngredientDto} from "./dtos/IngredientDto";
-import {RecipeDto, StepDto} from "./dtos/RecipeDto";
+import {CookingVolume, Volumes} from "../Volumes";
+import {IngredientDto, RecipeDto, StepDto} from "./RecipeDtoTypes";
+
+const cookingVolumeApiToCookingVolume: { [key in string]: CookingVolume } = {
+  TABLESPOON: Volumes.tablespoon,
+};
 
 export class HttpRecipesGateway implements RecipesGateway {
   constructor(private api: AxiosInstance) {
@@ -31,12 +35,16 @@ export class HttpRecipesGateway implements RecipesGateway {
         ingredients: Just(recipe.ingredients.map((ingredient: IngredientDto) => ({
           id: ingredient.id,
           name: ingredient.name,
-          form: ingredient.form,
+          form: (ingredient.form === null) ? Nothing : Just(ingredient.form as IngredientForm),
           quantity: (ingredient.quantity.value === 0) ? Nothing : Just({value: ingredient.quantity.value}),
           weight: (ingredient.weight.type === "NONE") ? Nothing : Just({
             type: (ingredient.weight.type as WeightType),
             value: ingredient.weight.value,
           }),
+          volume: (ingredient.volume) ? Just({
+            value: ingredient.volume.value,
+            volumeType: cookingVolumeApiToCookingVolume[ingredient.volume.type],
+          }) : Nothing,
         }))),
       }));
   }

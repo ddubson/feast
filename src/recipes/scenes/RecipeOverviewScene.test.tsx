@@ -2,6 +2,7 @@ import {render} from "@testing-library/react";
 import {Just, Nothing} from "purify-ts/Maybe";
 import * as React from "react";
 import {FetchByIdRecipesService} from "../../application/services/Services";
+import {Volumes} from "../../application/Volumes";
 import RecipeOverviewScene from "./RecipeOverviewScene";
 import {buildRecipe} from "../../__tests__/helpers/Builders";
 import {buildComponent} from "../../__tests__/helpers/RenderApp";
@@ -29,27 +30,40 @@ describe("RecipeOverviewScene", () => {
         buildRecipe({
           name: "Great Recipe",
           steps: Just([
-            { stepNumber: 1, value: "Do this"},
-            { stepNumber: 2, value: "Do that"},
+            {stepNumber: 1, value: "Do this"},
+            {stepNumber: 2, value: "Do that"},
           ]),
           ingredients: Just([
             {
               id: "1",
               name: "An ingredient",
-              form: "Chopped",
+              form: Just("Chopped"),
               quantity: Just({
                 value: 1,
               }),
               weight: Nothing,
+              volume: Nothing,
             },
             {
               id: "2",
               name: "Another ingredient",
-              form: "Diced",
+              form: Just("Diced"),
               quantity: Nothing,
               weight: Just({
                 value: 2.0,
                 type: "POUNDS",
+              }),
+              volume: Nothing,
+            },
+            {
+              id: "3",
+              name: "Yet Another Ingredient",
+              form: Nothing,
+              quantity: Nothing,
+              weight: Nothing,
+              volume: Just({
+                value: 2,
+                volumeType: Volumes.tablespoon,
               }),
             },
           ]),
@@ -65,11 +79,15 @@ describe("RecipeOverviewScene", () => {
     });
 
     it("should display recipe ingredients with a quantity", () => {
-      expect(getByText("1x An ingredient - Chopped")).toBeTruthy();
+      expect(getByText("1 An ingredient - Chopped")).toBeTruthy();
     });
 
     it("should display recipe ingredients with a weight", () => {
       expect(getByText("2 lbs Another ingredient - Diced")).toBeTruthy();
+    });
+
+    it("should display recipe ingredient with a measure of volume", () => {
+      expect(getByText("2 tablespoons Yet Another Ingredient")).toBeTruthy();
     });
 
     it("should display the instructions step by step section", () => {
