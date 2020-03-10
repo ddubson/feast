@@ -1,15 +1,18 @@
 import {render} from "@testing-library/react";
 import {Just, Nothing} from "purify-ts/Maybe";
 import * as React from "react";
-import {FetchByIdRecipesService} from "../../application/services/Services";
-import {Volumes} from "../../application/Volumes";
-import RecipeOverviewScene from "./RecipeOverviewScene";
 import {buildRecipe} from "../../__tests__/helpers/Builders";
 import {buildComponent} from "../../__tests__/helpers/RenderApp";
+import {textsOf} from "../../__tests__/helpers/TestExtensions";
 import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services/StubFetchByIdRecipesService";
+import {FetchByIdRecipesService} from "../../application/services/Services";
+import RecipeOverviewScene from "./RecipeOverviewScene";
+import { Volumes } from "../../application/Volumes";
 
 describe("RecipeOverviewScene", () => {
   let getByText: any;
+  let getByLabelText: any;
+  let getAllByLabelText: any;
   let getAllByTestId: any;
   let fetchByIdRecipesService: FetchByIdRecipesService;
 
@@ -69,33 +72,34 @@ describe("RecipeOverviewScene", () => {
           ]),
         }));
 
-      ({getByText, getAllByTestId} = await render(buildComponent(
+      ({getByText, getByLabelText, getAllByLabelText, getAllByTestId} = await render(buildComponent(
           <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} {...routeProps} />))
       );
     });
 
     it("should display recipe name", () => {
-      expect(getByText("Great Recipe")).toBeTruthy();
+      expect(getByLabelText("Recipe name").textContent).toEqual("Great Recipe");
     });
 
     it("should display recipe ingredients with a quantity", () => {
-      expect(getByText("1 An ingredient - Chopped")).toBeTruthy();
+      expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("1 An ingredient - Chopped");
     });
 
     it("should display recipe ingredients with a weight", () => {
-      expect(getByText("2 lbs Another ingredient - Diced")).toBeTruthy();
+      expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("2 lbs Another ingredient - Diced");
     });
 
     it("should display recipe ingredient with a measure of volume", () => {
-      expect(getByText("2 tablespoons Yet Another Ingredient")).toBeTruthy();
+      expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("2 tablespoons Yet Another Ingredient ");
     });
 
     it("should display the instructions step by step section", () => {
-      const instructionSet = getAllByTestId("instruction-step").map((step: Element) => step.textContent);
+      const instructionSet = textsOf(getAllByTestId("instruction-step"));
       expect(instructionSet).toEqual([
         "1: Do this",
         "2: Do that",
       ]);
     });
-  });
+  })
+  ;
 });

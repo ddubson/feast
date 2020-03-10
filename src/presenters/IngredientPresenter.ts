@@ -1,6 +1,6 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import {Ingredient, IngredientForm, VolumeMeasure, Weight, WeightType, WeightTypeAbbrev} from "../../application/types";
-import {singleOrPlural, VolumeLabelPluralsLookup} from "../../application/Volumes";
+import {Ingredient, IngredientForm, VolumeMeasure, Weight, WeightType, WeightTypeAbbrev} from "../application/types";
+import {singleOrPlural} from "../application/Volumes";
 
 export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<IngredientPresenter[]> => {
   return ingredients.mapOrDefault(

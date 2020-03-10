@@ -4,18 +4,21 @@ import {Link} from "react-router-dom";
 import * as shortid from "shortid";
 import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../application/services/Services";
 import {Recipe} from "../../application/types";
-import RecipeListItem from "../components/RecipeListItem";
+import RecipeListItem from "./components/RecipeListItem";
 
-const renderRecipes = (maybeRecipes: Maybe<Recipe[]>) => {
-  return maybeRecipes
+const NoRecipesYet = <>
+  <div>No recipes yet.</div>
+</>;
+
+const renderRecipes = (maybeRecipes: Maybe<Recipe[]>) =>
+  maybeRecipes
     .mapOrDefault((recipes: Recipe[]) =>
         (<React.Fragment>{
-          recipes.map((recipe: Recipe) => (<RecipeListItem key={shortid.generate()} recipe={recipe}/>))
+          recipes.map((recipe: Recipe) => (<RecipeListItem key={shortid.generate()} recipe={recipe} />))
         }
         </React.Fragment>),
-      (<div>No recipes yet.</div>),
+      NoRecipesYet,
     );
-};
 
 function RecipesDashboardScene({recipesService}: { recipesService: FetchAllRecipesService }) {
   const [maybeRecipes, setRecipes] = useState<Maybe<Recipe[]>>(() => (Nothing));

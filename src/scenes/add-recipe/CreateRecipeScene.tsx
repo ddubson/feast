@@ -1,10 +1,10 @@
 import update from "immutability-helper";
+import {Nothing} from "purify-ts/Maybe";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import * as shortid from "shortid";
 import {DIContainerContext} from "../../AppConfig";
 import {Ingredient, Recipe} from "../../application/types";
-import {BackToRecipesLink} from "../components/BackToRecipesLink";
-import {Nothing} from "purify-ts/Maybe";
+import {BackToRecipesLink} from "../view-recipe/components/BackToRecipesLink";
 
 export interface CreateRecipeSceneProps {
   history: {

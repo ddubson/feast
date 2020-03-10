@@ -1,5 +1,5 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import {Step} from "../../application/types";
+import {Step} from "../application/types";
 
 export const toStepPresenters = (steps: Maybe<Step[]>): Maybe<StepPresenter[]> => {
   return steps.mapOrDefault(
