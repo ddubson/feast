@@ -3,6 +3,6 @@ import {Link} from "react-router-dom";
 
 export const BackToRecipesLink = () => (
   <Link to={"/"}>
-    <button>Back to Recipes</button>
+    <button className="ui button">Back to Recipes</button>
   </Link>
 );

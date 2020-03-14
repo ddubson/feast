@@ -3,15 +3,15 @@ import {Link} from "react-router-dom";
 import {Recipe} from "../../../application/types";
 
 const RecipeListItem = ({recipe}: { recipe: Recipe }) => (
-  <ul data-testid="recipe">
-    <li>
+  <div className="ui card" aria-label="Recipe card">
+    <div className="content">
       <Link to={`/recipe/${recipe.id}`}>
         <h6>
           {recipe.name}
         </h6>
       </Link>
-    </li>
-  </ul>
+    </div>
+  </div>
 );
 
 export default RecipeListItem;

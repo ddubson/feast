@@ -51,19 +51,19 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
       {recipePresenter.mapOrDefault(
         (r: RecipePresenter) => (
           <React.Fragment>
-            <h3>Recipe</h3>
-            <h1 aria-label="Recipe name">{r.name}</h1>
-
-            <div className="display-flex justify-space-around wrap">
-              <div>
-                <h3>Ingredients</h3>
+            <div className="ui header">Recipe
+              <div className="ui large header" aria-label="Recipe name">{r.name}</div>
+            </div>
+            <div className="ui raised horizontal segments">
+              <div className="ui segment">
+                <h3 className="ui dividing header">Ingredients</h3>
                 {r.ingredients.mapOrDefault(
                   (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
                   (<div>No ingredients!</div>))
                 }
               </div>
-              <div>
-                <h3>Instructions</h3>
+              <div className="ui segment">
+                <h3 className="ui dividing header">Instructions</h3>
                 {r.steps.mapOrDefault(
                   (steps: StepPresenter[]) =>
                     <div>{steps.map(renderStep)}</div>,

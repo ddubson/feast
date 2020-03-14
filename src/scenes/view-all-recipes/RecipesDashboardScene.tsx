@@ -42,17 +42,8 @@ function RecipesDashboardScene({recipesService}: { recipesService: FetchAllRecip
 
   return (
     <div className="recipe-dashboard">
-      <div>
-        <button>
-          <Link to={"/create-recipe"} data-create-recipe-link>Create Recipe</Link>
-        </button>
-      </div>
       <div className="recipe-list">
-        <div className="recipe-list-header">
-          <h2>
-            Recipes
-          </h2>
-        </div>
+        <h2 className="ui header">Recipes</h2>
         {renderRecipes(maybeRecipes)}
       </div>
     </div>

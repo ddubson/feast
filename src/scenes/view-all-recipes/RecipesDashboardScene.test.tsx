@@ -10,6 +10,7 @@ describe("RecipesDashboardScene", () => {
   let fetchAllRecipesService: FetchAllRecipesService;
   let getAllByTestId: any;
   let getByText: any;
+  let getAllByLabelText: any;
 
   beforeEach(() => {
     fetchAllRecipesService = new StubFetchAllRecipesService();
@@ -19,12 +20,12 @@ describe("RecipesDashboardScene", () => {
     beforeEach(async () => {
       (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => [
         buildRecipe({name: "Great Recipe"})]);
-      ({getAllByTestId} = await render(
+      ({getAllByTestId, getAllByLabelText} = await render(
         buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });
 
     it("should display the recipes", async () => {
-      const recipesDisplayed = await getAllByTestId("recipe");
+      const recipesDisplayed = await getAllByLabelText("Recipe card");
       expect(recipesDisplayed).toHaveLength(1);
       expect(recipesDisplayed[0].textContent).toContain("Great Recipe");
     });
