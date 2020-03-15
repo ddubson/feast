@@ -3,7 +3,7 @@
 
 # feast
 
-Recipe aggregator app. You can find it deployed on Heroku @ https://bit.ly/feast-app
+Recipe aggregator app. You can find it deployed on Netlify @ https://bit.ly/feast-web
 
 ## Web (React / Typescript with PurifyTS)
 
@@ -13,8 +13,6 @@ Recipe aggregator app. You can find it deployed on Heroku @ https://bit.ly/feast
 - run test: `yarn test`
 - build bundle: `yarn build` -> build artifacts in `dist/` folder
 
-## Deploying to Heroku
+## Deployment
 
-Web app uses the `heroku-buildpack-static` buildpack. This buildpack uses `static.json` file as config
-
-https://github.com/heroku/heroku-buildpack-static
+[Netlify Site](https://app.netlify.com/sites/feast-web/overview)
