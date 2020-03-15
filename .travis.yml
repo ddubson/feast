@@ -6,7 +6,7 @@ jobs:
     - '12'
     cache:
       yarn: true
-    before_script: 'npm i -g yarn'
+    before_script: npm i -g yarn
     script: |
       yarn lint
       yarn test
@@ -15,14 +15,16 @@ jobs:
     language: node_js
     node_js:
     - '12'
-    before_script: 'npm i -g yarn'
-    script: 'yarn build:dev'
+    before_script: npm i -g yarn
+    script: yarn build:dev
     deploy:
-      provider: heroku
-      app: feast-web
-      skip_cleanup: true
-      api_key:
-        secure: "evtP+dEEdAcUNOnkrfEhu04H4G8g+LxCAc0nRKDILW10Z2K6dNqGwkdnuTls6OEpHZlO34zXS/K2Up+jyLfanIThak41PXxlyKUjEnAbJp3A25gZLMqHH3URCWZFDv1EioP1qSHI4/KrCg2BUMjUxALvx87wgFInTGAxzT/Nk2EKXC/JvczXP83fSDKFMephVQyN+k1DfY4b41dm1wiBb+kHpniA7q7NHGHSOzCmmTgvBABHWpMKcelsevk3XvqPCTvbrADZMYQm8JWsr268o8z0guof+P7h84R11V+HfkV6DBWicXEAPHVcW2H0WfzCw9ceu9Q6zrcbRnFq85dk0BmfAJXX6aX7kfJmhX9x6UEIe5FCgK3ib7UjDJp0nMSS3scwfSTgxNoftlfztm1eJRLQXlLqzpZxgZem5hlIsCxf/bq2WDwkkaxVX27Egk9MFkdFKTA2g8L+H+431v2yGqqgMBvFM3rB+1pLzkDWxa2iJRgxC/S6qNUjzDJnbVI+cxudXuJwfDIok/53yLmHSjWheOth5SnBZTd4CepW/j54BT94dzKjLZJ6u1x+ndebszN85bGcecWfRfY9mFtMHiEONaxAOMEVbBNt8xyjpJMe+08W7ajteRKMqIIbFSQkhFmivGQzycHLl4V5yFSE3iIcQu7bsMGVZOYZo3khzD8="
+      provider: netlify
+      site: ec52f7e0-9d33-48e6-92e2-042e0d5f0fee
+      auth:
+        secure: B70bURqAAVuXiEcVrs8gwY50KvdivCOHllfnb1sFXeJMLbVTAxReyGcwxYDe9jWVf1PlRbCncCfzivqgCSpr1aVQS+434Nj8aFG4IvE5Kuvdd5fGnOT0eNAYWnDgul6u3q3cE/Ncx7eRQOwN8FO1ywhtR4tI4aw6uFZaOJFGHfoS/6I1fLJLjvHYXk0gG2yn3rSW2hWrelC1fCM8bbm+qG5Z6Qxve4hhW0G4aD83hOZV3b6wEcnZdRLFnPnoqsXXqn1cEUbElSmVRCvydwP5u+Hk0qua78wHUaMWK/9qk27UBf04cCLIQCqnj/xNeaGWeMnWE/kIpIfv+PqfiNDxVo69vpHAeTZ3X9g7yosEBSQhiFvdrTTXiZ6KCiGxZrqi+DLL60g+oRFd67Yk8tJrG5g5evQeJI+qO655eueAOoaqa+D56eskk6MFnwtOGkrsw9CBdJL3ETYFjEZniuA9chkglxSYTVg0bUOaNM14UySyD4bfI0kjBgiDpcfyJDLJYx+ie2tnIEuj3y7EbVypWsDPkYGDAI+9j6KU6VD0OLR7Z5Ruw1rt1iSodCKH4NhP+cN9nG4j8xKA5U991i+F7azUIUadD8R0y54WvpiXpw1dzRWRstDvNc8t3z9RIsFZZEfEikdNZySt7b7Ht/avialNhN9+xz7XIxBwIKXmi6s=
+      dir: dist
+      prod: true
+      edge: true
 stages:
 - web-test
 - name: web-deploy

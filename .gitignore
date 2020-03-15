@@ -7,4 +7,6 @@ node_modules/
 build/
 out/
 .gradle/
-.netlify/
+
+# Local Netlify folder
+.netlify
