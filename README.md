@@ -16,3 +16,5 @@ Recipe aggregator app. You can find it deployed on Netlify @ https://bit.ly/feas
 ## Deployment
 
 [Netlify Site](https://app.netlify.com/sites/feast-web/overview)
+
+Run `scripts/launch-dev.bat` to launch the development site.
