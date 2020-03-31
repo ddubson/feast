@@ -1,36 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
 import Auth0Client from "@auth0/auth0-spa-js/dist/typings/Auth0Client";
+import browserHistory from "../History";
+import {Auth0ContextShape, Auth0ProviderOptions} from "./Auth0Interfaces";
 
 const defaultRedirectCallback = () =>
   (window.history.replaceState({}, document.title, window.location.pathname));
 
-interface Auth0ContextShape {
-  isAuthenticated: boolean;
-  user: any;
-  loading: boolean;
-  popupOpen: boolean;
-
-  loginWithPopup(options: PopupLoginOptions): Promise<void>;
-
-  handleRedirectCallback(): Promise<RedirectLoginResult>;
-
-  getIdTokenClaims(o?: getIdTokenClaimsOptions): Promise<IdToken>;
-
-  loginWithRedirect(o: RedirectLoginOptions): Promise<void>;
-
-  getTokenSilently(o?: GetTokenSilentlyOptions): Promise<string | undefined>;
-
-  getTokenWithPopup(o?: GetTokenWithPopupOptions): Promise<string | undefined>;
-
-  logout(o?: LogoutOptions): void;
-}
-
-interface Auth0ProviderOptions {
-  children: React.ReactElement;
-
-  onRedirectCallback?(result: RedirectLoginResult): void;
-}
+export const onRedirectFn = (appState: any) => {
+  browserHistory.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : window.location.pathname
+  );
+};
 
 export const Auth0Context = React.createContext<Auth0ContextShape | null>(null);
 

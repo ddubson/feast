@@ -1,5 +1,5 @@
 import React from "react";
-import {useAuth0} from "../../browser/AuthFacade";
+import {useAuth0} from "../../browser/auth/AuthFacade";
 import {Redirect} from "react-router-dom";
 
 export const LoginScene: React.FC = () => {

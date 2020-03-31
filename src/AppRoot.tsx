@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {BrowserRouter as Router, Route, Switch, Redirect, RouteComponentProps} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {Container} from "semantic-ui-react";
 import {DIContainerContext} from "./AppConfig";
 import FixedHeader from "./FixedHeader";
@@ -8,9 +8,9 @@ import RecipeOverviewScene from "./scenes/view-recipe/RecipeOverviewScene";
 import RecipesDashboardScene from "./scenes/view-all-recipes/RecipesDashboardScene";
 import * as ReactDOM from "react-dom";
 import "./styles/stylesheet";
-import {Auth0Provider, useAuth0} from "./browser/AuthFacade";
-import browserHistory from "./browser/History";
-import {LoginScene, LoggedoutScene} from "./scenes/login/LoginScene";
+import {Auth0Provider, onRedirectFn, useAuth0} from "./browser/auth/AuthFacade";
+import {LoggedoutScene, LoginScene} from "./scenes/login/LoginScene";
+import {authConfig} from "./browser/auth/AuthConfig";
 
 const AppContainer: React.FC = ({children}) => {
   const {isAuthenticated} = useAuth0();
@@ -62,25 +62,12 @@ const AppRoot = () => {
   );
 };
 
-const onRedirectCallback = (appState: any) => {
-  browserHistory.push(
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : window.location.pathname
-  );
-};
-
-const config = {
-  "domain": "ddubson1.auth0.com",
-  "clientId": "qnwkoVRchNoKi7dCq0XHIfz1GA1xYgZf"
-};
-
 ReactDOM.render(
   <Auth0Provider
-    domain={config.domain}
-    client_id={config.clientId}
+    domain={authConfig.domain}
+    client_id={authConfig.clientId}
     redirect_uri={window.location.origin}
-    onRedirectCallback={onRedirectCallback}
+    onRedirectCallback={onRedirectFn}
   >
     <AppRoot />
   </Auth0Provider>,
