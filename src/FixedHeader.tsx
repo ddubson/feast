@@ -4,18 +4,23 @@ import {Link} from "react-router-dom";
 import {useAuth0} from "./browser/auth/AuthFacade";
 
 const FixedHeader = () => {
-  const {isAuthenticated, logout} = useAuth0();
+  const {isAuthenticated, logout, user} = useAuth0();
+
+  if (!user) {
+    return <></>;
+  }
 
   return (
     <Menu fixed="top">
       <Container className={"app-title"}>
-        <a className="header item">
-          <Link to={"/"}>
-            Feast
-          </Link>
-        </a>
+        <Link to={"/"} className="header item">
+          Feast
+        </Link>
         {isAuthenticated && (
-          <a className="item" onClick={() => logout()}>Log out</a>
+          <>
+            <a className="header item">{user.name}</a>
+            <a className="header item" onClick={() => logout()}>Log out</a>
+          </>
         )}
       </Container>
     </Menu>

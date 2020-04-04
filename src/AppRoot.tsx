@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import {Router, Redirect, Route, Switch} from "react-router-dom";
 import {Container} from "semantic-ui-react";
 import {DIContainerContext} from "./AppConfig";
 import FixedHeader from "./FixedHeader";
@@ -11,6 +11,7 @@ import "./styles/stylesheet";
 import {Auth0Provider, onRedirectFn, useAuth0} from "./browser/auth/AuthFacade";
 import {LoggedoutScene, LoginScene} from "./scenes/login/LoginScene";
 import {authConfig} from "./browser/auth/AuthConfig";
+import browserHistory from "./browser/History";
 
 const AppContainer: React.FC = ({children}) => {
   const {isAuthenticated} = useAuth0();
@@ -40,7 +41,7 @@ const AppRoot = () => {
     <React.Fragment>
       <DIContainerContext.Consumer>
         {({fetchAllRecipesService, fetchByIdRecipesService}) => (
-          <Router>
+          <Router history={browserHistory}>
             <Switch>
               <Route path={"/login"} exact={true} render={() => (<LoginScene />)} />
               <Route path={"/logout"} render={() => (<LoggedoutScene />)} />

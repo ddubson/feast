@@ -42,9 +42,10 @@ export const Auth0Provider: React.FC<Auth0ProviderOptions & Auth0ClientOptions> 
           onRedirectCallback(appState);
         }
 
-        setIsAuthenticated(await auth0FromHook.isAuthenticated());
+        const isAuthed = await auth0FromHook.isAuthenticated();
+        setIsAuthenticated(isAuthed);
 
-        if (isAuthenticated) {
+        if (isAuthed) {
           setUser(await auth0FromHook.getUser());
         }
 
