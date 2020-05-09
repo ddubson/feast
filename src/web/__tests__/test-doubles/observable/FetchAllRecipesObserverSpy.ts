@@ -1,5 +1,5 @@
 import {FetchAllRecipesObserver} from "../../../application/services/Services";
-import {Recipe} from "../../../application/types";
+import {Recipe} from "../../../../domain/types";
 
 export class FetchAllRecipesObserverSpy implements FetchAllRecipesObserver {
   public receivedRecipesWasCalled: boolean = false;

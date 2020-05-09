@@ -1,5 +1,5 @@
 import {RecipesGateway} from "../gateways/RecipesGateway";
-import {Recipe} from "../types";
+import {Recipe} from "../../../domain/types";
 import {FetchAllRecipesService} from "./Services";
 
 export class BaseFetchAllRecipesService extends FetchAllRecipesService {

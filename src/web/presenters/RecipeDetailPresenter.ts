@@ -1,5 +1,5 @@
 import {Maybe} from "purify-ts/Maybe";
-import {Recipe, RecipeDetail} from "../application/types";
+import {Recipe, RecipeDetail} from "../../domain/types";
 import IngredientPresenter, {toIngredientPresenters} from "./IngredientPresenter";
 import StepPresenter, {toStepPresenters} from "./StepPresenter";
 

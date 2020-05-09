@@ -7,7 +7,7 @@ import {textsOf} from "../../__tests__/helpers/TestExtensions";
 import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services/StubFetchByIdRecipesService";
 import {FetchByIdRecipesService} from "../../application/services/Services";
 import RecipeOverviewScene from "./RecipeOverviewScene";
-import {Volumes} from "../../application/Volumes";
+import {Volumes} from "../../../domain/Volumes";
 
 describe("RecipeOverviewScene", () => {
   let getByText: any;

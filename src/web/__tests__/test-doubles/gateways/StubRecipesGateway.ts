@@ -1,5 +1,5 @@
 import {RecipesGateway} from "../../../application/gateways/RecipesGateway";
-import {Recipe, RecipeDetail} from "../../../application/types";
+import {Recipe, RecipeDetail} from "../../../../domain/types";
 
 export default class StubRecipesGateway implements RecipesGateway {
   public resolvedRecipes: Recipe[];

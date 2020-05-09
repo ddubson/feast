@@ -1,4 +1,4 @@
-import {Recipe, RecipeDetail, WithoutId} from "../types";
+import {Recipe, RecipeDetail, WithoutId} from "../../../domain/types";
 
 export interface RecipesGateway {
   saveRecipe(recipe: WithoutId<Recipe>): Promise<Recipe>;

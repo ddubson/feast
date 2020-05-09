@@ -1,6 +1,6 @@
 import {FetchByIdRecipesService} from "./Services";
 import {RecipesGateway} from "../gateways/RecipesGateway";
-import {Recipe, RecipeDetail} from "../types";
+import {Recipe, RecipeDetail} from "../../../domain/types";
 
 export class BaseFetchByIdRecipesService extends FetchByIdRecipesService {
   constructor(private recipesGateway: RecipesGateway) {

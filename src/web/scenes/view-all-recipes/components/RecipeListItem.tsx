@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
-import {Recipe} from "../../../application/types";
+import {Recipe} from "../../../../domain/types";
 
 const RecipeListItem = ({recipe}: { recipe: Recipe }) => (
   <div className="ui card" aria-label="Recipe card">

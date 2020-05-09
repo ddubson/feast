@@ -1,14 +1,13 @@
 import express from "express";
 import * as path from "path";
+import {router} from "./api/router";
 
 const app = express();
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, "dist/web")));
 
-app.get("/api/hello", (req, res) => {
-  res.send("Hello, World!")
-})
+router(app);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/web/index.html`));

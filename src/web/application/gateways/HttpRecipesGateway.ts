@@ -1,5 +1,5 @@
 import {AxiosInstance, AxiosResponse} from "axios";
-import {Recipe, RecipeDetail} from "../types";
+import {Recipe, RecipeDetail} from "../../../domain/types";
 import {RecipesGateway} from "./RecipesGateway";
 import {toRecipeDetail, toRecipes} from "./RecipeDtoTypes";
 

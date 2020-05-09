@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import * as shortid from "shortid";
 import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../application/services/Services";
-import {Recipe} from "../../application/types";
+import {Recipe} from "../../../domain/types";
 import RecipeListItem from "./components/RecipeListItem";
 
 const NoRecipesYet = <>

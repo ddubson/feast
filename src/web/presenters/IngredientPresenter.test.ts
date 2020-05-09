@@ -1,6 +1,6 @@
 import {Just, Nothing} from "purify-ts/Maybe";
 import {buildIngredient} from "../__tests__/helpers/Builders";
-import {Volumes} from "../application/Volumes";
+import {Volumes} from "../../domain/Volumes";
 import IngredientPresenter from "./IngredientPresenter";
 
 describe("IngredientPresenter", () => {

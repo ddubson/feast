@@ -3,7 +3,7 @@ import {Nothing} from "purify-ts/Maybe";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import * as shortid from "shortid";
 import {DIContainerContext} from "../../AppConfig";
-import {Ingredient, RecipeDetail, WithoutId} from "../../application/types";
+import {Ingredient, RecipeDetail, WithoutId} from "../../../domain/types";
 import {BackToRecipesLink} from "../view-recipe/components/BackToRecipesLink";
 
 export interface CreateRecipeSceneProps {
