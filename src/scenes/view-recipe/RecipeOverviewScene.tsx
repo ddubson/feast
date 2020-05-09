@@ -3,14 +3,15 @@ import React, {useEffect, useState} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
 import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../application/services/Services";
-import {Recipe, RecipeDetail} from "../../application/types";
+import {RecipeDetail} from "../../application/types";
 import IngredientPresenter from "../../presenters/IngredientPresenter";
 import RecipeDetailPresenter from "../../presenters/RecipeDetailPresenter";
 import StepPresenter from "../../presenters/StepPresenter";
 import {BackToRecipesLink} from "./components/BackToRecipesLink";
 
-interface RecipeOverviewSceneProps extends RouteComponentProps {
+interface RecipeOverviewSceneProps {
   fetchByIdRecipesService: FetchByIdRecipesService;
+  recipeId: string;
 }
 
 const renderIngredient = ({form, displayCulinaryMeasure, name}: IngredientPresenter) => {
@@ -27,7 +28,7 @@ const renderStep = (step: StepPresenter) => (
 const NoRecipe = () => <div>No recipe!</div>;
 
 const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
-  const {fetchByIdRecipesService} = props;
+  const {fetchByIdRecipesService, recipeId} = props;
   const [recipePresenter, setRecipePresenter] = useState<Maybe<RecipeDetailPresenter>>(() => Nothing);
   const [observer] = useState<FetchByIdRecipesObserver>({
     receivedRecipe(resolvedRecipe: RecipeDetail): void {
@@ -37,7 +38,7 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
 
   useEffect(() => {
     fetchByIdRecipesService.registerObserver(observer);
-    fetchByIdRecipesService.dispatch((props.match.params as any).id);
+    fetchByIdRecipesService.dispatch(recipeId);
 
     return function cleanup() {
       fetchByIdRecipesService.unregisterObserver(observer);

@@ -47,12 +47,18 @@ const AppRoot = () => {
               <Route path={"/logout"} render={() => (<LoggedoutScene />)} />
 
               <Route path={"/"} exact={true} render={() =>
-                <AppContainer><RecipesDashboardScene recipesService={fetchAllRecipesService} /></AppContainer>} />
-              <Route path={"/create-recipe"} exact={true} render={({history}) =>
-                <AppContainer><CreateRecipeScene history={history} /></AppContainer>} />
-              <Route path={"/recipe/:id"} render={(props) =>
                 <AppContainer>
-                  <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} {...props} />
+                  <RecipesDashboardScene recipesService={fetchAllRecipesService} />
+                </AppContainer>
+              } />
+              <Route path={"/create-recipe"} exact={true} render={({history}) =>
+                <AppContainer>
+                  <CreateRecipeScene history={history} />
+                </AppContainer>
+              } />
+              <Route path={"/recipe/:id"} render={({match}) =>
+                <AppContainer>
+                  <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} recipeId={match.params.id} />
                 </AppContainer>
               } />
             </Switch>

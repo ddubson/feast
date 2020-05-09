@@ -1,5 +1,5 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import {Ingredient, IngredientForm, RecipeDetail, VolumeMeasure, WeightType} from "../types";
+import {Ingredient, IngredientForm, Recipe, RecipeDetail, VolumeMeasure, WeightType} from "../types";
 import {cookingVolumeApiToCookingVolume} from "../Volumes";
 
 type VolumeType = "TABLESPOON";
@@ -38,7 +38,12 @@ export interface IngredientDto {
   } | null;
 }
 
-export const toRecipe = (recipeDto: RecipeDetailDto): RecipeDetail => {
+export const toRecipes = (recipeResponse: Recipe[]) => recipeResponse.map((dto) => ({
+  id: dto.id,
+  name: dto.name,
+}));
+
+export const toRecipeDetail = (recipeDto: RecipeDetailDto): RecipeDetail => {
   const {id, name, steps, ingredients} = recipeDto;
   return {
     id,

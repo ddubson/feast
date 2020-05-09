@@ -13,6 +13,15 @@ export const buildRecipeDetail = (recipe?: Partial<RecipeDetail>): RecipeDetail 
   return {...defaultRecipe, ...recipe};
 };
 
+export const buildRecipe = (recipe?: Partial<Recipe>): Recipe => {
+  const defaultRecipe: Recipe = {
+    id: shortid.generate(),
+    name: "Greatest Recipe"
+  };
+
+  return {...defaultRecipe, ...recipe};
+};
+
 export const buildIngredient = (ingredient?: Partial<Ingredient>): Ingredient => {
   const defaultIngredient: Ingredient = {
     id: shortid.generate(),
@@ -27,7 +36,7 @@ export const buildIngredient = (ingredient?: Partial<Ingredient>): Ingredient =>
 };
 
 export const buildStep = (step?: Partial<Step>): Step => {
-  const defaultStep = { stepNumber: 1, value: "Do this first"};
+  const defaultStep = {stepNumber: 1, value: "Do this first"};
 
-  return { ...defaultStep, ...step};
+  return {...defaultStep, ...step};
 };
