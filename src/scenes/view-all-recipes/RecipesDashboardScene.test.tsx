@@ -20,7 +20,7 @@ describe("RecipesDashboardScene", () => {
     beforeEach(async () => {
       (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => [
         buildRecipeDetail({name: "Great Recipe"})]);
-      ({getAllByTestId, getAllByLabelText} = await render(
+      ({getAllByTestId, getAllByLabelText} = render(
         buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });
 
@@ -34,7 +34,7 @@ describe("RecipesDashboardScene", () => {
   describe("when no recipes have loaded", () => {
     beforeEach(async () => {
       (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => []);
-      ({getByText, getAllByTestId} = await render(
+      ({getByText, getAllByTestId} = render(
         buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });
 

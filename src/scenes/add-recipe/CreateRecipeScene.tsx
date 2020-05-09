@@ -7,9 +7,7 @@ import {Ingredient, RecipeDetail, WithoutId} from "../../application/types";
 import {BackToRecipesLink} from "../view-recipe/components/BackToRecipesLink";
 
 export interface CreateRecipeSceneProps {
-  history: {
-    push: (location: string) => void;
-  };
+  goToScene: (location: string) => void;
 }
 
 export interface CreateRecipeSceneState {
@@ -122,7 +120,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
 
   private addIngredientToIngredientList(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
-    const {name, form, quantity} = this.state.ingredientToAdd;
+    const {name} = this.state.ingredientToAdd;
     const ingredient: Ingredient = {id: null, name, form: null, volume: null, quantity: null, weight: null};
     this.setState(update(this.state, {recipeForm: {ingredients: {$push: [ingredient]}}}));
   }
@@ -139,7 +137,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
     };
 
     this.context.recipesGateway.saveRecipe(recipe).then(() => {
-      this.props.history.push("/");
+      this.props.goToScene("/");
     });
   }
 }

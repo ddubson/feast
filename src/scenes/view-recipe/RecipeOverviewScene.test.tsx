@@ -7,7 +7,7 @@ import {textsOf} from "../../__tests__/helpers/TestExtensions";
 import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services/StubFetchByIdRecipesService";
 import {FetchByIdRecipesService} from "../../application/services/Services";
 import RecipeOverviewScene from "./RecipeOverviewScene";
-import { Volumes } from "../../application/Volumes";
+import {Volumes} from "../../application/Volumes";
 
 describe("RecipeOverviewScene", () => {
   let getByText: any;
@@ -23,11 +23,6 @@ describe("RecipeOverviewScene", () => {
   describe("when a recipe has loaded successfully", () => {
     beforeEach(async () => {
       const recipeId = "123";
-      const routeProps: any = {
-        history: undefined,
-        location: undefined,
-        match: {params: {id: recipeId}},
-      };
 
       (fetchByIdRecipesService as StubFetchByIdRecipesService).setResolvedRecipe(() =>
         buildRecipeDetail({
@@ -72,8 +67,8 @@ describe("RecipeOverviewScene", () => {
           ]),
         }));
 
-      ({getByText, getByLabelText, getAllByLabelText, getAllByTestId} = await render(buildComponent(
-          <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} {...routeProps} />))
+      ({getByText, getByLabelText, getAllByLabelText, getAllByTestId} = render(buildComponent(
+          <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} recipeId={recipeId} />))
       );
     });
 

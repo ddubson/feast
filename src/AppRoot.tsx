@@ -53,7 +53,7 @@ const AppRoot = () => {
               } />
               <Route path={"/create-recipe"} exact={true} render={({history}) =>
                 <AppContainer>
-                  <CreateRecipeScene history={history} />
+                  <CreateRecipeScene goToScene={history.push} />
                 </AppContainer>
               } />
               <Route path={"/recipe/:id"} render={({match}) =>
