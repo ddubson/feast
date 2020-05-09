@@ -1,15 +1,15 @@
 import {RecipesGateway} from "../../../application/gateways/RecipesGateway";
-import {Recipe} from "../../../application/types";
+import {Recipe, RecipeDetail} from "../../../application/types";
 
 export default class StubRecipesGateway implements RecipesGateway {
   public resolvedRecipes: Recipe[];
-  public resolvedRecipe: Recipe;
+  public resolvedRecipe: RecipeDetail;
 
   public findAll(): Promise<Recipe[]> {
     return Promise.resolve(this.resolvedRecipes);
   }
 
-  public findById(id: string): Promise<Recipe> {
+  public findById(id: string): Promise<RecipeDetail> {
     return Promise.resolve(this.resolvedRecipe);
   }
 

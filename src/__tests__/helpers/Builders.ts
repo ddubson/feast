@@ -1,9 +1,9 @@
 import * as shortid from "shortid";
-import {Ingredient, Recipe, Step} from "../../application/types";
+import {Ingredient, Recipe, RecipeDetail, Step} from "../../application/types";
 import {Just, Nothing} from "purify-ts/Maybe";
 
-export const buildRecipe = (recipe?: Partial<Recipe>): Recipe => {
-  const defaultRecipe: Recipe = {
+export const buildRecipeDetail = (recipe?: Partial<RecipeDetail>): RecipeDetail => {
+  const defaultRecipe: RecipeDetail = {
     id: shortid.generate(),
     name: "Great Recipe",
     steps: Just([buildStep()]),

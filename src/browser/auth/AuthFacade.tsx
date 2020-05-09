@@ -17,7 +17,7 @@ export const onRedirectFn = (appState: any) => {
 
 export const Auth0Context = React.createContext<Auth0ContextShape | null>(null);
 
-export const useAuth0: () => Auth0ContextShape = () => useContext<Auth0ContextShape>(Auth0Context);
+export const useAuth0: () => Auth0ContextShape = () =>  useContext<Auth0ContextShape>(Auth0Context);
 
 export const Auth0Provider: React.FC<Auth0ProviderOptions & Auth0ClientOptions> =
   ({

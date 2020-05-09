@@ -1,7 +1,7 @@
 import {render} from "@testing-library/react";
 import {Just, Nothing} from "purify-ts/Maybe";
 import * as React from "react";
-import {buildRecipe} from "../../__tests__/helpers/Builders";
+import {buildRecipeDetail} from "../../__tests__/helpers/Builders";
 import {buildComponent} from "../../__tests__/helpers/RenderApp";
 import {textsOf} from "../../__tests__/helpers/TestExtensions";
 import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services/StubFetchByIdRecipesService";
@@ -30,7 +30,7 @@ describe("RecipeOverviewScene", () => {
       };
 
       (fetchByIdRecipesService as StubFetchByIdRecipesService).setResolvedRecipe(() =>
-        buildRecipe({
+        buildRecipeDetail({
           name: "Great Recipe",
           steps: Just([
             {stepNumber: 1, value: "Do this"},

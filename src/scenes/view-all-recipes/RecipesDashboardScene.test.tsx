@@ -2,7 +2,7 @@ import {render} from "@testing-library/react";
 import * as React from "react";
 import {FetchAllRecipesService} from "../../application/services/Services";
 import RecipesDashboardScene from "./RecipesDashboardScene";
-import {buildRecipe} from "../../__tests__/helpers/Builders";
+import {buildRecipeDetail} from "../../__tests__/helpers/Builders";
 import {buildComponent} from "../../__tests__/helpers/RenderApp";
 import {StubFetchAllRecipesService} from "../../__tests__/test-doubles/services/StubFetchAllRecipesService";
 
@@ -19,7 +19,7 @@ describe("RecipesDashboardScene", () => {
   describe("when some recipes have loaded", () => {
     beforeEach(async () => {
       (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => [
-        buildRecipe({name: "Great Recipe"})]);
+        buildRecipeDetail({name: "Great Recipe"})]);
       ({getAllByTestId, getAllByLabelText} = await render(
         buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });

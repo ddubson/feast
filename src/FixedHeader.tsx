@@ -1,5 +1,4 @@
 import React from "react";
-import {Container, Menu} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {useAuth0} from "./browser/auth/AuthFacade";
 
@@ -11,19 +10,23 @@ const FixedHeader = () => {
   }
 
   return (
-    <Menu fixed="top">
-      <Container className={"app-title"}>
-        <Link to={"/"} className="header item">
-          Feast
-        </Link>
-        {isAuthenticated && (
-          <>
-            <a className="header item">{user.name}</a>
-            <a className="header item" onClick={() => logout()}>Log out</a>
-          </>
-        )}
-      </Container>
-    </Menu>
+    <div className="ui medium menu fixed">
+      <div className="ui container">
+        <div className="item">
+          <Link to="/">Feast</Link>
+        </div>
+        <div className="right menu">
+          {isAuthenticated && (
+            <div className="ui dropdown item">
+              {user.name} <i className="dropdown icon"></i>
+              <div className="menu">
+                <a className="item" onClick={() => logout()}>Log out</a>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

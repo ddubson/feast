@@ -3,7 +3,7 @@ import {Nothing} from "purify-ts/Maybe";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import * as shortid from "shortid";
 import {DIContainerContext} from "../../AppConfig";
-import {Ingredient, Recipe} from "../../application/types";
+import {Ingredient, RecipeDetail, WithoutId} from "../../application/types";
 import {BackToRecipesLink} from "../view-recipe/components/BackToRecipesLink";
 
 export interface CreateRecipeSceneProps {
@@ -132,8 +132,7 @@ class CreateRecipeScene extends PureComponent<CreateRecipeSceneProps, CreateReci
 
     const {name} = this.state.recipeForm;
 
-    const recipe: Recipe = {
-      id: shortid.generate(),
+    const recipe: WithoutId<RecipeDetail> = {
       ingredients: Nothing,
       steps: Nothing,
       name,

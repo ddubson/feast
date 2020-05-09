@@ -1,5 +1,5 @@
 import {RecipesGateway} from "../gateways/RecipesGateway";
-import {buildRecipe} from "../../__tests__/helpers/Builders";
+import {buildRecipeDetail} from "../../__tests__/helpers/Builders";
 import {FetchByIdRecipesObserverSpy} from "../../__tests__/test-doubles/observable/FetchByIdRecipesObserverSpy";
 import StubRecipesGateway from "../../__tests__/test-doubles/gateways/StubRecipesGateway";
 import {BaseFetchByIdRecipesService} from "./BaseFetchByIdRecipesService";
@@ -25,7 +25,7 @@ describe("BaseFetchByIdRecipesService", () => {
     });
 
     describe("and data has been received", () => {
-      const recipe = buildRecipe({ id: "123" });
+      const recipe = buildRecipeDetail({ id: "123" });
 
       beforeEach(() => {
         (stubRecipesGateway as StubRecipesGateway).resolvedRecipe = recipe;
@@ -48,7 +48,7 @@ describe("BaseFetchByIdRecipesService", () => {
         });
 
         describe("and more data is received", () => {
-          const anotherRecipe = buildRecipe({ id: "456" });
+          const anotherRecipe = buildRecipeDetail({ id: "456" });
 
           beforeEach(() => {
             (stubRecipesGateway as StubRecipesGateway).resolvedRecipe = anotherRecipe;

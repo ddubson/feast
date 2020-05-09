@@ -1,5 +1,5 @@
 import {AbstractObservable, Observer} from "../observable/Observable";
-import {Recipe} from "../types";
+import {Recipe, RecipeDetail} from "../types";
 
 export interface FetchAllRecipesObserver extends Observer {
   receivedRecipes(recipes: Recipe[]): void;
@@ -7,7 +7,7 @@ export interface FetchAllRecipesObserver extends Observer {
 }
 
 export interface FetchByIdRecipesObserver extends Observer {
-  receivedRecipe(recipe: Recipe): void;
+  receivedRecipe(recipe: RecipeDetail): void;
 }
 
 export abstract class FetchAllRecipesService extends AbstractObservable<FetchAllRecipesObserver> {

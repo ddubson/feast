@@ -1,6 +1,6 @@
 import {RecipesGateway} from "../gateways/RecipesGateway";
 import {BaseFetchAllRecipesService} from "./BaseFetchAllRecipesService";
-import {buildRecipe} from "../../__tests__/helpers/Builders";
+import {buildRecipeDetail} from "../../__tests__/helpers/Builders";
 import {FetchAllRecipesObserverSpy} from "../../__tests__/test-doubles/observable/FetchAllRecipesObserverSpy";
 import StubRecipesGateway from "../../__tests__/test-doubles/gateways/StubRecipesGateway";
 
@@ -25,7 +25,7 @@ describe("BaseFetchAllRecipesService", () => {
     });
 
     describe("and data has been received", () => {
-      const recipes = [buildRecipe()];
+      const recipes = [buildRecipeDetail()];
 
       beforeEach(() => {
         (stubRecipesGateway as StubRecipesGateway).resolvedRecipes = recipes;
@@ -48,7 +48,7 @@ describe("BaseFetchAllRecipesService", () => {
         });
 
         describe("and more data is received", () => {
-          const moreRecipes = [buildRecipe(), buildRecipe()];
+          const moreRecipes = [buildRecipeDetail(), buildRecipeDetail()];
 
           beforeEach(() => {
             (stubRecipesGateway as StubRecipesGateway).resolvedRecipes = moreRecipes;

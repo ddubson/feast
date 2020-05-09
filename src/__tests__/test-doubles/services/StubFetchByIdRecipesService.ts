@@ -1,10 +1,10 @@
 import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../../application/services/Services";
-import {Recipe} from "../../../application/types";
+import {RecipeDetail} from "../../../application/types";
 
 export class StubFetchByIdRecipesService extends FetchByIdRecipesService {
-  private resolvedRecipe: (recipeId: string) => Recipe;
+  private resolvedRecipe: (recipeId: string) => RecipeDetail;
 
-  public setResolvedRecipe(fn: (recipeId: string) => Recipe) {
+  public setResolvedRecipe(fn: (recipeId: string) => RecipeDetail) {
     this.resolvedRecipe = fn;
   }
 

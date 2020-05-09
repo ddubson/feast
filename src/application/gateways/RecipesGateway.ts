@@ -1,7 +1,9 @@
-import {Recipe} from "../types";
+import {Recipe, RecipeDetail, WithoutId} from "../types";
 
 export interface RecipesGateway {
-  saveRecipe(recipe: Recipe): Promise<Recipe>;
+  saveRecipe(recipe: WithoutId<Recipe>): Promise<Recipe>;
+
   findAll(): Promise<Recipe[]>;
-  findById(id: string): Promise<Recipe>;
+
+  findById(id: string): Promise<RecipeDetail>;
 }

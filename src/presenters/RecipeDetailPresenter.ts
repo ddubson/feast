@@ -1,13 +1,13 @@
 import {Maybe} from "purify-ts/Maybe";
-import {Recipe} from "../application/types";
+import {Recipe, RecipeDetail} from "../application/types";
 import IngredientPresenter, {toIngredientPresenters} from "./IngredientPresenter";
 import StepPresenter, {toStepPresenters} from "./StepPresenter";
 
-export default class RecipePresenter {
+export default class RecipeDetailPresenter {
   private readonly ingredientPresenters: Maybe<IngredientPresenter[]>;
   private readonly stepPresenters: Maybe<StepPresenter[]>;
 
-  constructor(private recipe: Recipe) {
+  constructor(private recipe: RecipeDetail) {
     this.ingredientPresenters = toIngredientPresenters(recipe.ingredients);
     this.stepPresenters = toStepPresenters(recipe.steps);
   }

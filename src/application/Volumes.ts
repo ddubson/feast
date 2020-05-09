@@ -35,3 +35,7 @@ export const singleOrPlural = (volumeMeasure: VolumeMeasure): VolumeLabelSingula
 export const Volumes = {
   tablespoon,
 };
+
+export const cookingVolumeApiToCookingVolume: { [key in string]: CookingVolume } = {
+  TABLESPOON: Volumes.tablespoon,
+};

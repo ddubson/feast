@@ -3,9 +3,9 @@ import React, {useEffect, useState} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import * as shortid from "shortid";
 import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../application/services/Services";
-import {Recipe} from "../../application/types";
+import {Recipe, RecipeDetail} from "../../application/types";
 import IngredientPresenter from "../../presenters/IngredientPresenter";
-import RecipePresenter from "../../presenters/RecipePresenter";
+import RecipeDetailPresenter from "../../presenters/RecipeDetailPresenter";
 import StepPresenter from "../../presenters/StepPresenter";
 import {BackToRecipesLink} from "./components/BackToRecipesLink";
 
@@ -28,10 +28,10 @@ const NoRecipe = () => <div>No recipe!</div>;
 
 const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
   const {fetchByIdRecipesService} = props;
-  const [recipePresenter, setRecipePresenter] = useState<Maybe<RecipePresenter>>(() => Nothing);
+  const [recipePresenter, setRecipePresenter] = useState<Maybe<RecipeDetailPresenter>>(() => Nothing);
   const [observer] = useState<FetchByIdRecipesObserver>({
-    receivedRecipe(resolvedRecipe: Recipe): void {
-      setRecipePresenter(Just(new RecipePresenter(resolvedRecipe)));
+    receivedRecipe(resolvedRecipe: RecipeDetail): void {
+      setRecipePresenter(Just(new RecipeDetailPresenter(resolvedRecipe)));
     },
   });
 
@@ -49,7 +49,7 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
       <BackToRecipesLink />
 
       {recipePresenter.mapOrDefault(
-        (r: RecipePresenter) => (
+        (r: RecipeDetailPresenter) => (
           <React.Fragment>
             <div className="ui header">Recipe
               <div className="ui large header" aria-label="Recipe name">{r.name}</div>
