@@ -9,9 +9,10 @@ Recipe aggregator app. You can find it deployed on Netlify @ https://bit.ly/feas
 
 ### Running & Building
 
-- run local: `yarn start` -> port `1234`
-- run test: `yarn test`
-- build bundle: `yarn build` -> build artifacts in `dist/` folder
+> On Windows, run `npm install --global --production windows-build-tools` from an elevated shell to install required 
+> runtime tools to be able to install `node-gyp` transitive dependency
+
+- run: `./start-web.sh` (or `start-web.bat` on Windows)
 
 ## Deployment
 

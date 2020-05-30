@@ -3,6 +3,7 @@ import {RecipeRepository} from "./recipes/RecipeRepository";
 import {Recipe} from "../domain/types";
 import {APIMessage} from "./types";
 import {identity} from "purify-ts/Function";
+import {Maybe} from "purify-ts/Maybe";
 
 const recipeNotFound: APIMessage = {message: "Recipe not found."}
 
@@ -18,8 +19,8 @@ export const router = (app: Express) => {
   })
 
   app.get("/api/recipes/:id", (req, res) => {
-    let maybeRecipe = RecipeRepository().fetchById(req.params.id);
-
+    const maybeRecipe: Maybe<Recipe> = RecipeRepository().fetchById(req.params.id);
+    
     res.json(maybeRecipe.mapOrDefault<ResultOrApiMessage<Recipe>>(identity, recipeNotFound))
   });
 }

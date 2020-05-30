@@ -62,7 +62,7 @@ export const toIngredient = (ingredientDto: IngredientDto): Ingredient => {
     id,
     name,
     form: (form === null) ? Nothing : Just(form as IngredientForm),
-    quantity: (quantity.value === 0) ? Nothing : Just({value: quantity.value}),
+    quantity: (!!quantity || quantity.value === 0) ? Nothing : Just({value: quantity.value}),
     weight: (weight.type === "NONE") ? Nothing : Just({
       type: (weight.type as WeightType),
       value: weight.value,
