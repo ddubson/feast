@@ -3,6 +3,9 @@ import createAuth0Client from "@auth0/auth0-spa-js";
 import Auth0Client from "@auth0/auth0-spa-js/dist/typings/Auth0Client";
 import browserHistory from "../History";
 import {Auth0ContextShape, Auth0ProviderOptions} from "./Auth0Interfaces";
+import {DummyAuthContext} from "./DummyAuthProvider";
+
+declare var DUMMY_AUTH: boolean;
 
 const defaultRedirectCallback = () =>
   (window.history.replaceState({}, document.title, window.location.pathname));
@@ -15,9 +18,15 @@ export const onRedirectFn = (appState: any) => {
   );
 };
 
-export const Auth0Context = React.createContext<Auth0ContextShape | null>(null);
+export const Auth0Context: React.Context<Auth0ContextShape | null> = React.createContext<Auth0ContextShape | null>(null);
 
-export const useAuth0: () => Auth0ContextShape = () =>  useContext<Auth0ContextShape>(Auth0Context);
+export const useAuth0: () => Auth0ContextShape = () => {
+  if(DUMMY_AUTH) {
+    return useContext<Auth0ContextShape>(DummyAuthContext);
+  } else {
+    return useContext<Auth0ContextShape>(Auth0Context);
+  }
+}
 
 export const Auth0Provider: React.FC<Auth0ProviderOptions & Auth0ClientOptions> =
   ({

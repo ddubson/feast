@@ -12,17 +12,20 @@ import {Auth0Provider, onRedirectFn, useAuth0} from "./browser/auth/AuthFacade";
 import {LoggedoutScene, LoginScene} from "./scenes/login/LoginScene";
 import {authConfig} from "./browser/auth/AuthConfig";
 import browserHistory from "./browser/History";
+import {DummyAuthProvider} from "./browser/auth/DummyAuthProvider";
+
+declare var DUMMY_AUTH: boolean;
 
 const AppContainer: React.FC = ({children}) => {
   const {isAuthenticated} = useAuth0();
 
   if (!isAuthenticated) {
-    return <Redirect to={"/login"} />;
+    return <Redirect to={"/login"}/>;
   }
 
   return (
     <React.Fragment>
-      <FixedHeader />
+      <FixedHeader/>
       <Container className="app-body">
         {children}
       </Container>
@@ -43,24 +46,24 @@ const AppRoot = () => {
         {({fetchAllRecipesService, fetchByIdRecipesService}) => (
           <Router history={browserHistory}>
             <Switch>
-              <Route path={"/login"} exact={true} render={() => (<LoginScene />)} />
-              <Route path={"/logout"} render={() => (<LoggedoutScene />)} />
+              <Route path={"/login"} exact={true} render={() => (<LoginScene/>)}/>
+              <Route path={"/logout"} render={() => (<LoggedoutScene/>)}/>
 
               <Route path={"/"} exact={true} render={() =>
                 <AppContainer>
-                  <RecipesDashboardScene recipesService={fetchAllRecipesService} />
+                  <RecipesDashboardScene recipesService={fetchAllRecipesService}/>
                 </AppContainer>
-              } />
+              }/>
               <Route path={"/create-recipe"} exact={true} render={({history}) =>
                 <AppContainer>
-                  <CreateRecipeScene goToScene={history.push} />
+                  <CreateRecipeScene goToScene={history.push}/>
                 </AppContainer>
-              } />
+              }/>
               <Route path={"/recipe/:id"} render={({match}) =>
                 <AppContainer>
-                  <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} recipeId={match.params.id} />
+                  <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} recipeId={match.params.id}/>
                 </AppContainer>
-              } />
+              }/>
             </Switch>
           </Router>
         )}
@@ -69,14 +72,27 @@ const AppRoot = () => {
   );
 };
 
+console.log(DUMMY_AUTH);
+const AuthProvider: React.FC<{ children: any }> = ({children}) => {
+  if (DUMMY_AUTH) {
+    return <DummyAuthProvider>{children}</DummyAuthProvider>;
+  } else {
+    return (
+      <Auth0Provider
+        domain={authConfig.domain}
+        client_id={authConfig.clientId}
+        redirect_uri={window.location.origin}
+        onRedirectCallback={onRedirectFn}
+      >
+        {children}
+      </Auth0Provider>
+    )
+  }
+}
+
 ReactDOM.render(
-  <Auth0Provider
-    domain={authConfig.domain}
-    client_id={authConfig.clientId}
-    redirect_uri={window.location.origin}
-    onRedirectCallback={onRedirectFn}
-  >
-    <AppRoot />
-  </Auth0Provider>,
+  <AuthProvider>
+    <AppRoot/>
+  </AuthProvider>,
   document.getElementById("root"),
 );

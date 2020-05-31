@@ -6,9 +6,9 @@ import {BaseFetchAllRecipesService} from "./application/services/BaseFetchAllRec
 import {FetchAllRecipesService, FetchByIdRecipesService} from "./application/services/Services";
 import {BaseFetchByIdRecipesService} from "./application/services/BaseFetchByIdRecipesService";
 
-const recipesApiBaseUrl = process.env.RECIPES_API_URI || "http://localhost:8080";
+declare var RECIPES_API_URI: string;
 
-export const recipesApiClient: AxiosInstance = axios.create({baseURL: recipesApiBaseUrl});
+export const recipesApiClient: AxiosInstance = axios.create({baseURL: RECIPES_API_URI});
 
 export interface DIContainer {
   recipesGateway: RecipesGateway;
