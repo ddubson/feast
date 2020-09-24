@@ -12,10 +12,14 @@ Recipe aggregator app. You can find it deployed on Netlify @ https://bit.ly/feas
 > On Windows, run `npm install --global --production windows-build-tools` from an elevated shell to install required 
 > runtime tools to be able to install `node-gyp` transitive dependency
 
-- run: `./start-web.sh` (or `start-web.bat` on Windows)
+Run:
+
+```
+make start
+```
 
 ## Deployment
 
 [Netlify Site](https://app.netlify.com/sites/feast-web/overview)
 
-Run `scripts/launch-dev.bat` to launch the development site.
+Run `make open.webapp` to launch site in browser
