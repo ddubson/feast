@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Request, Response} from "express";
 import * as path from "path";
 import {router} from "./router";
 import cors from "cors";
@@ -11,8 +11,8 @@ app.use(cors({origin: "*"}))
 
 router(app);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(`${__dirname}/index.html`));
+app.get('*', (request: Request, response: Response) => {
+  response.sendFile(path.join(`${__dirname}/index.html`));
 });
 
 const port = process.env.PORT || 8080;

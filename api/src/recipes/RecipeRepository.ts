@@ -9,7 +9,7 @@ export const RecipeRepository = () => {
   const fetchAllRecipes = (): Recipe[] => recipes
 
   const fetchById = (recipeId: string): Maybe<Recipe> =>
-    Maybe.fromNullable(recipes.find((recipe) => recipe.id === recipeId))
+    Maybe.fromNullable(recipes.find((recipe: RecipeDetail) => recipe.id === recipeId))
 
   return {
     fetchAllRecipes,

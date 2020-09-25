@@ -39,6 +39,10 @@ install-deps: prereqs
 	@echo "Install dependencies locally needed to run the project"
 	yarn install || exit
 
+api.start:
+	@echo "Starting Feast API"
+	pushd api && yarn start
+
 start: all-env-var-check
 	@echo "Start process locally"
 	./node_modules/.bin/concurrently --names web,server --prefix-colors cyan,green "yarn start:web" "yarn start:server"

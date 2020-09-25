@@ -37,5 +37,5 @@ export const garlicLimeShrimp: WithoutId<RecipeDetail> = {
     "Stir in the zest and juice",
     "Taste and see if more salt is needed",
     "Serve"
-  ].map((value, index) => ({stepNumber: index + 1, value})))
+  ].map((value: string, index: number) => ({stepNumber: index + 1, value})))
 }
