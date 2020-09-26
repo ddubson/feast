@@ -1,7 +1,7 @@
-import {AxiosInstance, AxiosResponse} from "axios";
 import {Recipe, RecipeDetail} from "../../../../domain/src/types";
 import {RecipesGateway} from "./RecipesGateway";
 import {toRecipeDetail, toRecipes} from "./RecipeDtoTypes";
+import { AxiosInstance, AxiosResponse } from "axios";
 
 export class HttpRecipesGateway implements RecipesGateway {
   constructor(private api: AxiosInstance) {

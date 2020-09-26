@@ -1,13 +1,13 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
 import {RouteComponentProps} from "react-router-dom";
-import * as shortid from "shortid";
 import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../application/services/Services";
 import {RecipeDetail} from "../../../../domain/src/types";
 import IngredientPresenter from "../../presenters/IngredientPresenter";
 import RecipeDetailPresenter from "../../presenters/RecipeDetailPresenter";
 import StepPresenter from "../../presenters/StepPresenter";
 import {BackToRecipesLink} from "./components/BackToRecipesLink";
+import shortid from "shortid";
 
 interface RecipeOverviewSceneProps {
   fetchByIdRecipesService: FetchByIdRecipesService;

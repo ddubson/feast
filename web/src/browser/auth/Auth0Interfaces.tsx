@@ -1,4 +1,4 @@
-import React from "react";
+import {ReactElement} from "react";
 
 export interface Auth0ContextShape {
   isAuthenticated: boolean;
@@ -22,7 +22,7 @@ export interface Auth0ContextShape {
 }
 
 export interface Auth0ProviderOptions {
-  children: React.ReactElement;
+  children: ReactElement;
 
   onRedirectCallback?(result: RedirectLoginResult): void;
 }

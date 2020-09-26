@@ -1,6 +1,6 @@
-import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import {Ingredient, IngredientForm, Recipe, RecipeDetail, VolumeMeasure, WeightType} from "../../../../domain/src/types";
 import {cookingVolumeApiToCookingVolume} from "../../../../domain/src/Volumes";
+import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 
 type VolumeType = "TABLESPOON";
 

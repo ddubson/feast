@@ -1,4 +1,4 @@
-import {Maybe} from "purify-ts/Maybe";
+import { Maybe } from "purify-ts";
 import {Recipe, RecipeDetail} from "../../../domain/src/types";
 import IngredientPresenter, {toIngredientPresenters} from "./IngredientPresenter";
 import StepPresenter, {toStepPresenters} from "./StepPresenter";

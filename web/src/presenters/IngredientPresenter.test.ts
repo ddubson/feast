@@ -1,7 +1,7 @@
-import {Just, Nothing} from "purify-ts/Maybe";
 import {buildIngredient} from "../__tests__/helpers/Builders";
 import {Volumes} from "../../../domain/src/Volumes";
 import IngredientPresenter from "./IngredientPresenter";
+import {Just, Nothing } from "purify-ts";
 
 describe("IngredientPresenter", () => {
   let ingredientPresenter: IngredientPresenter;

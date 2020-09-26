@@ -1,6 +1,6 @@
-import * as shortid from "shortid";
+import { Just, Nothing } from "purify-ts";
+import shortid from "shortid";
 import {Ingredient, Recipe, RecipeDetail, Step} from "../../../../domain/src/types";
-import {Just, Nothing} from "purify-ts/Maybe";
 
 export const buildRecipeDetail = (recipe?: Partial<RecipeDetail>): RecipeDetail => {
   const defaultRecipe: RecipeDetail = {

@@ -1,10 +1,10 @@
-import {render} from "@testing-library/react";
 import * as React from "react";
 import {FetchAllRecipesService} from "../../application/services/Services";
 import RecipesDashboardScene from "./RecipesDashboardScene";
 import {buildRecipeDetail} from "../../__tests__/helpers/Builders";
 import {buildComponent} from "../../__tests__/helpers/RenderApp";
 import {StubFetchAllRecipesService} from "../../__tests__/test-doubles/services/StubFetchAllRecipesService";
+import { render } from "@testing-library/react";
 
 describe("RecipesDashboardScene", () => {
   let fetchAllRecipesService: FetchAllRecipesService;

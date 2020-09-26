@@ -4,7 +4,7 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
-  entry: './src/web/AppRoot.tsx',
+  entry: './src/AppRoot.tsx',
   devServer: {
     contentBase: './public',
     port: 1234

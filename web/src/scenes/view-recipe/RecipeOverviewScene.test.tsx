@@ -1,5 +1,3 @@
-import {render} from "@testing-library/react";
-import {Just, Nothing} from "purify-ts/Maybe";
 import * as React from "react";
 import {buildRecipeDetail} from "../../__tests__/helpers/Builders";
 import {buildComponent} from "../../__tests__/helpers/RenderApp";
@@ -8,6 +6,8 @@ import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services
 import {FetchByIdRecipesService} from "../../application/services/Services";
 import RecipeOverviewScene from "./RecipeOverviewScene";
 import {Volumes} from "../../../../domain/src/Volumes";
+import { Just, Nothing } from "purify-ts";
+import {render} from "@testing-library/react";
 
 describe("RecipeOverviewScene", () => {
   let getByText: any;

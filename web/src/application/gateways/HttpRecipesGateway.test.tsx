@@ -1,11 +1,11 @@
-import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import {Just, Nothing} from "purify-ts/Maybe";
 import {HttpRecipesGateway} from "./HttpRecipesGateway";
 import {buildIngredient, buildRecipe, buildRecipeDetail} from "../../__tests__/helpers/Builders";
 import {Volumes} from "../../../../domain/src/Volumes";
 import {RecipeDetailDto} from "./RecipeDtoTypes";
 import {Recipe} from "../../../../domain/src/types";
+import {Just, Nothing} from "purify-ts";
+import MockAdapter from "axios-mock-adapter";
 
 describe("findAll", () => {
   test("resolves recipes response", async () => {

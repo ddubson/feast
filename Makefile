@@ -40,6 +40,10 @@ api.start:
 	@echo "Starting Feast API"
 	pushd api && yarn start
 
+web.start:
+	@echo "Starting Feast Web"
+	pushd web && yarn start
+
 start: all-env-var-check
 	@echo "Start process locally"
 	./node_modules/.bin/concurrently --names web,server --prefix-colors cyan,green "yarn start:web" "yarn start:server"
