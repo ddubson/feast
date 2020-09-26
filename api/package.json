@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc -w --outDir dist/ | nodemon --watch dist/",
     "clean": "rimraf dist/",
-    "compile": "tsc --noEmit -p src/"
+    "compile": "tsc --noEmit -p . --outDir dist/"
   },
   "devDependencies": {
     "@types/cors": "^2.8.7",

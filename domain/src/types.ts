@@ -1,4 +1,4 @@
-import {Maybe} from "purify-ts/Maybe";
+import { Maybe } from "purify-ts/Maybe";
 import {CookingVolume} from "./Volumes";
 
 export type WithoutId<T> = Omit<T, "id">

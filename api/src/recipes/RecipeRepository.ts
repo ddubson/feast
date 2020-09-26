@@ -1,7 +1,7 @@
 import {garlicLimeShrimp} from "./SampleRecipes";
 import shortid from "shortid";
 import {Maybe} from "purify-ts/Maybe";
-import {Recipe} from "feast-domain";
+import {Recipe, RecipeDetail} from "../../../domain/src/types";
 
 const recipes: RecipeDetail[] = [garlicLimeShrimp].map(r => ({...r, id: shortid.generate()}));
 

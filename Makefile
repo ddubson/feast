@@ -32,6 +32,7 @@ prereqs:
 install-deps: prereqs
 	@echo "Install dependencies locally needed to run the project"
 	pushd e2e && yarn install || exit
+	pushd domain && yarn install || exit
 	pushd api && yarn install || exit
 	pushd web && yarn install || exit
 
