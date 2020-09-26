@@ -1,5 +1,5 @@
 {
-  "name": "feast-domain",
+  "name": "@feast/domain",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

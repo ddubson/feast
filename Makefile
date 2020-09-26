@@ -1,14 +1,9 @@
-# Makefile template
-#
-# Just clone and customize!
-#
-
 # Set environment variables
 OS_TYPE 			   	:=unix
 
 # Check if OS is Windows
 ifeq ($(OS),Windows_NT)
-    OS_TYPE = windows
+    OS_TYPE=windows
 endif
 
 define ensure_unix_program_exists
@@ -32,12 +27,13 @@ all-env-var-check:
 	@echo "Ensure env vars are set in the environment"
 
 prereqs:
-	$(call ensure_program_exists,echo)
-	@echo "Ensure the right programs for the project are available"
+	$(call ensure_program_exists,yarn)
 
 install-deps: prereqs
 	@echo "Install dependencies locally needed to run the project"
-	yarn install || exit
+	pushd e2e && yarn install || exit
+	pushd api && yarn install || exit
+	pushd web && yarn install || exit
 
 api.start:
 	@echo "Starting Feast API"
@@ -68,3 +64,6 @@ ship-it: install-deps format build test
 
 open.webapp:
 	@open https://feast-web.netlify.app
+
+e2e.open:
+	pushd e2e && yarn e2e:open

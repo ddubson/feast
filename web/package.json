@@ -1,5 +1,5 @@
 {
-  "name": "feast",
+  "name": "@feast/web",
   "version": "1.0.0",
   "description": "recipe and dish aggregator",
   "main": "index.js",

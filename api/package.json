@@ -1,5 +1,5 @@
 {
-  "name": "feast-api",
+  "name": "@feast/api",
   "version": "1.0.0",
   "main": "dist/api/src/application.js",
   "license": "MIT",
