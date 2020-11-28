@@ -1,4 +1,4 @@
-import { Maybe } from "purify-ts/Maybe";
+import {Maybe} from "purify-ts/Maybe";
 import {CookingVolume} from "./Volumes";
 
 export type WithoutId<T> = Omit<T, "id">
@@ -7,12 +7,12 @@ export interface Quantity {
   value: number;
 }
 
-interface Step {
+export interface Step {
   stepNumber: number;
   value: string;
 }
 
-type WeightType = "NONE" | "POUNDS";
+export type WeightType = "NONE" | "POUNDS";
 
 export type WeightTypeAbbrev = "" | "lbs";
 
@@ -28,7 +28,7 @@ export interface VolumeMeasure {
   volumeType: CookingVolume;
 }
 
-interface Ingredient {
+export interface Ingredient {
   id: string;
   name: string;
   form: Maybe<IngredientForm>;
@@ -37,14 +37,12 @@ interface Ingredient {
   volume: Maybe<VolumeMeasure>;
 }
 
-interface Recipe {
+export interface Recipe {
   id: string;
   name: string;
 }
 
-interface RecipeDetail extends Recipe {
+export interface RecipeDetail extends Recipe {
   ingredients: Maybe<Ingredient[]>;
   steps: Maybe<Step[]>;
 }
-
-export {Recipe, RecipeDetail, Ingredient, Step, WeightType};

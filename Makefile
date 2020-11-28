@@ -31,16 +31,15 @@ prereqs:
 
 install-deps: prereqs
 	@echo "Install dependencies locally needed to run the project"
-	pushd e2e && yarn install || exit
 	pushd domain && yarn install || exit
 	pushd api && yarn install || exit
 	pushd web && yarn install || exit
 
-api.start:
+api-start:
 	@echo "Starting Feast API"
 	pushd api && yarn start
 
-web.start:
+web-start:
 	@echo "Starting Feast Web"
 	pushd web && yarn start
 
@@ -48,10 +47,10 @@ start: all-env-var-check
 	@echo "Start process locally"
 	./node_modules/.bin/concurrently --names web,server --prefix-colors cyan,green "yarn start:web" "yarn start:server"
 
-format:
+lint:
 	@yarn lint
 
-format.fix:
+lint-fix:
 	@yarn lint --fix
 
 test:
@@ -64,7 +63,7 @@ stop:
 build:
 	@yarn build
 
-ship-it: install-deps format build test
+ship-it: install-deps lint build test
 	@echo "Ready to ship!"
 
 open.webapp:

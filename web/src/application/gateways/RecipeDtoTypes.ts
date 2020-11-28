@@ -1,6 +1,13 @@
-import {Ingredient, IngredientForm, Recipe, RecipeDetail, VolumeMeasure, WeightType} from "../../../../domain/src/types";
+import {
+  Ingredient,
+  IngredientForm,
+  Recipe,
+  RecipeDetail,
+  VolumeMeasure,
+  WeightType
+} from "../../../../domain/src/types";
 import {cookingVolumeApiToCookingVolume} from "../../../../domain/src/Volumes";
-import {Just, Maybe, Nothing} from "purify-ts/Maybe";
+import {Just, Maybe} from "purify-ts/Maybe";
 
 type VolumeType = "TABLESPOON";
 
@@ -59,7 +66,7 @@ export const toIngredient = (ingredientDto: IngredientDto): Ingredient => {
   return {
     id,
     name,
-    form: (form === null) ? Nothing : Just(form as IngredientForm),
+    form: Maybe.fromNullable(form).map(t => t as IngredientForm),
     quantity: Maybe.fromNullable(quantity).map(q => ({ value: q.value})),
     weight: Maybe.fromNullable(weight).map(w => ({
       type: (w.type as WeightType),

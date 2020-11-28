@@ -1,6 +1,6 @@
 import {RecipesGateway} from "../gateways/RecipesGateway";
-import {Recipe} from "../../../../domain/src/types";
 import {FetchAllRecipesService} from "./Services";
+import {Recipe} from "@feast/domain";
 
 export class BaseFetchAllRecipesService extends FetchAllRecipesService {
   constructor(private recipesGateway: RecipesGateway) {

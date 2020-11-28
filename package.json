@@ -1,0 +1,16 @@
+{
+  "name": "feast",
+  "version": "0.1.0",
+  "repository": "git@github.com:ddubson/feast.git",
+  "author": "Dmitriy Dubson <d.dubson@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "web",
+    "api",
+    "domain"
+  ],
+  "dependencies": {
+    "typescript": "4.0.3"
+  }
+}

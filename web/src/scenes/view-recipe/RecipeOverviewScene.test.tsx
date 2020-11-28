@@ -6,7 +6,7 @@ import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services
 import {FetchByIdRecipesService} from "../../application/services/Services";
 import RecipeOverviewScene from "./RecipeOverviewScene";
 import {Volumes} from "../../../../domain/src/Volumes";
-import { Just, Nothing } from "purify-ts";
+import {Just, Nothing} from "purify-ts";
 import {render} from "@testing-library/react";
 
 describe("RecipeOverviewScene", () => {
@@ -14,58 +14,53 @@ describe("RecipeOverviewScene", () => {
   let getByLabelText: any;
   let getAllByLabelText: any;
   let getAllByTestId: any;
-  let fetchByIdRecipesService: FetchByIdRecipesService;
-
-  beforeEach(() => {
-    fetchByIdRecipesService = new StubFetchByIdRecipesService();
-  });
 
   describe("when a recipe has loaded successfully", () => {
-    beforeEach(async () => {
-      const recipeId = "123";
+    const recipeId = "123";
+    let fetchByIdRecipesService: FetchByIdRecipesService;
 
-      (fetchByIdRecipesService as StubFetchByIdRecipesService).setResolvedRecipe(() =>
-        buildRecipeDetail({
-          name: "Great Recipe",
-          steps: Just([
-            {stepNumber: 1, value: "Do this"},
-            {stepNumber: 2, value: "Do that"},
-          ]),
-          ingredients: Just([
-            {
-              id: "1",
-              name: "An ingredient",
-              form: Just("Chopped"),
-              quantity: Just({
-                value: 1,
-              }),
-              weight: Nothing,
-              volume: Nothing,
-            },
-            {
-              id: "2",
-              name: "Another ingredient",
-              form: Just("Diced"),
-              quantity: Nothing,
-              weight: Just({
-                value: 2.0,
-                type: "POUNDS",
-              }),
-              volume: Nothing,
-            },
-            {
-              id: "3",
-              name: "Yet Another Ingredient",
-              form: Nothing,
-              quantity: Nothing,
-              weight: Nothing,
-              volume: Just({
-                value: 2,
-                volumeType: Volumes.tablespoon,
-              }),
-            },
-          ]),
-        }));
+    beforeEach(async () => {
+      fetchByIdRecipesService = new StubFetchByIdRecipesService(() => buildRecipeDetail({
+        name: "Great Recipe",
+        steps: Just([
+          {stepNumber: 1, value: "Do this"},
+          {stepNumber: 2, value: "Do that"},
+        ]),
+        ingredients: Just([
+          {
+            id: "1",
+            name: "An ingredient",
+            form: Just("Chopped"),
+            quantity: Just({
+              value: 1,
+            }),
+            weight: Nothing,
+            volume: Nothing,
+          },
+          {
+            id: "2",
+            name: "Another ingredient",
+            form: Just("Diced"),
+            quantity: Nothing,
+            weight: Just({
+              value: 2.0,
+              type: "POUNDS",
+            }),
+            volume: Nothing,
+          },
+          {
+            id: "3",
+            name: "Yet Another Ingredient",
+            form: Nothing,
+            quantity: Nothing,
+            weight: Nothing,
+            volume: Just({
+              value: 2,
+              volumeType: Volumes.tablespoon,
+            }),
+          },
+        ]),
+      }));
 
       ({getByText, getByLabelText, getAllByLabelText, getAllByTestId} = render(buildComponent(
           <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} recipeId={recipeId} />))
@@ -95,6 +90,5 @@ describe("RecipeOverviewScene", () => {
         "2: Do that",
       ]);
     });
-  })
-  ;
+  });
 });

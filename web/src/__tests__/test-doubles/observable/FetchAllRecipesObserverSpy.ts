@@ -3,7 +3,7 @@ import {Recipe} from "../../../../../domain/src/types";
 
 export class FetchAllRecipesObserverSpy implements FetchAllRecipesObserver {
   public receivedRecipesWasCalled: boolean = false;
-  public recipesReceived: Recipe[];
+  public recipesReceived?: Recipe[];
 
   public receivedNoRecipes(): void {
     return;
@@ -16,6 +16,6 @@ export class FetchAllRecipesObserverSpy implements FetchAllRecipesObserver {
 
   public resetSpy() {
     this.receivedRecipesWasCalled = false;
-    this.recipesReceived = null;
+    this.recipesReceived = undefined;
   }
 }

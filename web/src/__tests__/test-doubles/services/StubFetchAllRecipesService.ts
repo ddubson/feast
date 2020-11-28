@@ -2,10 +2,11 @@ import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../../applicat
 import {Recipe} from "../../../../../domain/src/types";
 
 export class StubFetchAllRecipesService extends FetchAllRecipesService {
-  private resolveRecipes: () => Recipe[];
+  private readonly resolveRecipes: () => Recipe[];
 
-  public setResolvedRecipes(fn: () => Recipe[]) {
-    this.resolveRecipes = fn;
+  constructor(resolveRecipesFn: () => Recipe[]) {
+    super();
+    this.resolveRecipes = resolveRecipesFn;
   }
 
   public dispatch(): void {
@@ -14,7 +15,7 @@ export class StubFetchAllRecipesService extends FetchAllRecipesService {
       if (recipes.length === 0) {
         observer.receivedNoRecipes();
       } else {
-        observer.receivedRecipes(this.resolveRecipes());
+        observer.receivedRecipes(recipes);
       }
     });
   }

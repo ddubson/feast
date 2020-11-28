@@ -4,11 +4,12 @@ import {DIContainer, DIContainerContext} from "../../AppConfig";
 import {StubFetchAllRecipesService} from "../test-doubles/services/StubFetchAllRecipesService";
 import {StubFetchByIdRecipesService} from "../test-doubles/services/StubFetchByIdRecipesService";
 import StubRecipesGateway from "../test-doubles/gateways/StubRecipesGateway";
+import {emptyRecipeDetail} from "./Builders";
 
 const testDiContainer: DIContainer = {
   recipesGateway: new StubRecipesGateway(),
-  fetchAllRecipesService: new StubFetchAllRecipesService(),
-  fetchByIdRecipesService: new StubFetchByIdRecipesService(),
+  fetchAllRecipesService: new StubFetchAllRecipesService(() => []),
+  fetchByIdRecipesService: new StubFetchByIdRecipesService((id) => (emptyRecipeDetail)),
 };
 
 export const buildComponent = (component: ReactElement,

@@ -1,9 +1,8 @@
 import React from "react";
-import {useAuth0} from "../../browser/auth/AuthFacade";
 import {Redirect} from "react-router-dom";
 
 export const LoginScene: React.FC = () => {
-  const {loginWithRedirect} = useAuth0();
+  // const {loginWithRedirect} = useAuth0();
 
   return (
     <div className="ui container segment mtxxl">
@@ -12,7 +11,7 @@ export const LoginScene: React.FC = () => {
         <h3 className="ui header center aligned">A place for recipes.</h3>
       </div>
       <div className="row center-text mtxl">
-        <button className="ui primary center floated button" onClick={() => loginWithRedirect({})}>Log in</button>
+        <button className="ui primary center floated button">Log in</button>
       </div>
     </div>
   );

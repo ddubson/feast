@@ -2,15 +2,16 @@ import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../../applic
 import {RecipeDetail} from "../../../../../domain/src/types";
 
 export class StubFetchByIdRecipesService extends FetchByIdRecipesService {
-  private resolvedRecipe: (recipeId: string) => RecipeDetail;
+  private readonly resolvedRecipeDetail: (recipeId: string) => RecipeDetail;
 
-  public setResolvedRecipe(fn: (recipeId: string) => RecipeDetail) {
-    this.resolvedRecipe = fn;
+  constructor(resolvedRecipeDetail: (recipeId: string) => RecipeDetail) {
+    super();
+    this.resolvedRecipeDetail = resolvedRecipeDetail;
   }
 
   public dispatch(recipeId: string): void {
     this.observers.forEach((observer: FetchByIdRecipesObserver) => {
-      observer.receivedRecipe(this.resolvedRecipe(recipeId));
+      observer.receivedRecipe(this.resolvedRecipeDetail(recipeId));
     });
   }
 }

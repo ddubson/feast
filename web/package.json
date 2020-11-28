@@ -1,110 +1,59 @@
 {
   "name": "@feast/web",
-  "version": "1.0.0",
-  "description": "recipe and dish aggregator",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js",
-    "clean": "rimraf dist/",
-    "compile": "tsc --noEmit -p ..",
-    "build": "webpack --config webpack.prod.js",
-    "build:dev": "cross-env NODE_ENV=dev parcel build public/index.html --out-dir dist/web --no-cache",
-    "serve": "serve -s dist/",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
-    "lint": "tslint 'src/**/*.ts' 'src/**/*.tsx' 'test/**/*.ts' 'test/**/*.tsx'",
-    "lint:fix": "tslint 'src/**/*.ts' 'src/**/*.tsx' 'test/**/*.ts' 'test/**/*.tsx' --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ddubson/feast.git"
-  },
-  "keywords": [
-    "feast"
-  ],
-  "author": "Dmitriy Dubson",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ddubson/feast/issues"
-  },
-  "homepage": "https://github.com/ddubson/feast#readme",
-  "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-react": "^7.0.0",
-    "@testing-library/react": "^9.3.2",
-    "@types/chai": "^4.2.11",
-    "@types/history": "^4.7.5",
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.12.7",
-    "@types/react": "16.9.49",
-    "@types/react-dom": "16.9.8",
-    "@types/react-router-dom": "5.1.5",
-    "@types/shortid": "^0.0.29",
-    "@types/testing-library__react": "^9.1.2",
-    "axios-mock-adapter": "^1.17.0",
-    "clean-webpack-plugin": "^3.0.0",
-    "concurrently": "^5.2.0",
-    "cross-env": "^6.0.3",
-    "css-loader": "^3.5.3",
-    "html-webpack-plugin": "^4.3.0",
-    "jest": "^24.5.0",
-    "node-sass": "^4.12.0",
-    "rimraf": "^3.0.2",
-    "sass": "^1.22.7",
-    "sass-loader": "^8.0.2",
-    "serve": "^11.2.0",
-    "source-map-loader": "^1.0.0",
-    "style-loader": "^1.2.1",
-    "ts-jest": "^24.0.2",
-    "ts-loader": "^7.0.5",
-    "tslint": "^6.1.0",
-    "typescript": "^4.0.3",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^4.2.2"
-  },
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.6.4",
-    "@babel/polyfill": "^7.10.1",
-    "axios": "^0.19.0",
-    "history": "^4.10.1",
-    "immutability-helper": "^3.0.0",
-    "purify-ts": "^0.16.0-beta.5",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-router-dom": "5.2.0",
-    "semantic-ui-react": "^0.88.1",
-    "shortid": "^2.2.14"
+    "@auth0/auth0-spa-js": "^1.13.3",
+    "axios": "^0.21.0",
+    "history": "^5.0.0",
+    "immutability-helper": "^3.1.1",
+    "purify-ts": "0.16.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1",
+    "semantic-ui-react": "^2.0.1",
+    "shortid": "^2.2.16",
+    "typescript": "4.0.3",
+    "web-vitals": "^0.2.4",
+    "@feast/domain": "0.1.0"
   },
-  "babel": {
-    "presets": [
-      "@babel/env",
-      "@babel/react"
+  "scripts": {
+    "start": "./node_modules/.bin/react-scripts start",
+    "build": "./node_modules/.bin/react-scripts build",
+    "test": "./node_modules/.bin/react-scripts test",
+    "eject": "./node_modules/.bin/react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ]
   },
-  "jest": {
-    "bail": true,
-    "rootDir": ".",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
-    "moduleNameMapper": {
-      "\\.(css|less|sass|scss|svg|png)$": "jest-transform-stub"
-    },
-    "testRegex": "(/(src|test)/.*|(\\.|/)(test))\\.(test.tsx?)$",
-    "testPathIgnorePatterns": [
-      "/dist/"
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/history": "^4.7.8",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/shortid": "^0.0.29",
+    "axios-mock-adapter": "^1.19.0",
+    "node-sass": "^4.14.1"
   }
 }

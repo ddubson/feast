@@ -7,19 +7,15 @@ import {StubFetchAllRecipesService} from "../../__tests__/test-doubles/services/
 import { render } from "@testing-library/react";
 
 describe("RecipesDashboardScene", () => {
-  let fetchAllRecipesService: FetchAllRecipesService;
   let getAllByTestId: any;
   let getByText: any;
   let getAllByLabelText: any;
 
-  beforeEach(() => {
-    fetchAllRecipesService = new StubFetchAllRecipesService();
-  });
-
   describe("when some recipes have loaded", () => {
     beforeEach(async () => {
-      (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => [
+      const fetchAllRecipesService = new StubFetchAllRecipesService(() => [
         buildRecipeDetail({name: "Great Recipe"})]);
+
       ({getAllByTestId, getAllByLabelText} = render(
         buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });
@@ -33,7 +29,7 @@ describe("RecipesDashboardScene", () => {
 
   describe("when no recipes have loaded", () => {
     beforeEach(async () => {
-      (fetchAllRecipesService as StubFetchAllRecipesService).setResolvedRecipes(() => []);
+      const fetchAllRecipesService = new StubFetchAllRecipesService(() => []);
       ({getByText, getAllByTestId} = render(
         buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService}/>)));
     });
