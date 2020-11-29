@@ -3,10 +3,9 @@ dist/
 node_modules/
 .idea
 *.iml
-*.log
+**/*.log
 build/
 out/
-.gradle/
 
 # Local Netlify folder
 .netlify

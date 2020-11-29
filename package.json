@@ -1,93 +1,28 @@
 {
   "name": "feast",
-  "version": "1.0.0",
-  "description": "recipe and dish aggregator",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "tsc --noEmit -p . && parcel src/index.html",
-    "build": "tsc --noEmit -p . && parcel build src/index.html",
-    "build:dev": "cross-env NODE_ENV=dev parcel build src/index.html --no-cache",
-    "serve": "serve -s dist/",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
-    "lint": "tslint 'src/**/*.ts' 'src/**/*.tsx' 'test/**/*.ts' 'test/**/*.tsx'",
-    "lint:fix": "tslint 'src/**/*.ts' 'src/**/*.tsx' 'test/**/*.ts' 'test/**/*.tsx' --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ddubson/feast.git"
-  },
-  "keywords": [
-    "feast"
-  ],
-  "author": "Dmitriy Dubson",
+  "version": "0.1.0",
+  "repository": "git@github.com:ddubson/feast.git",
+  "author": "Dmitriy Dubson <d.dubson@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ddubson/feast/issues"
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "web/**/webpack-dev-server",
+      "**/babel-loader",
+      "**/babel-jest"
+    ]
   },
-  "homepage": "https://github.com/ddubson/feast#readme",
-  "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-react": "^7.0.0",
-    "@testing-library/react": "^9.3.2",
-    "@types/history": "^4.7.5",
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.12.7",
-    "@types/react": "^16.9.11",
-    "@types/react-dom": "^16.9.4",
-    "@types/react-router-dom": "^5.1.2",
-    "@types/shortid": "^0.0.29",
-    "@types/testing-library__react": "^9.1.2",
-    "axios-mock-adapter": "^1.17.0",
-    "cross-env": "^6.0.3",
-    "jest": "^24.5.0",
-    "node-sass": "^4.12.0",
-    "parcel": "^1.12.4",
-    "sass": "^1.22.7",
-    "serve": "^11.2.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^6.1.0",
-    "typescript": "^3.8.3"
+  "scripts": {
+    "build-all": "lerna run build",
+    "clean-all": "lerna run clean"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.6.4",
-    "axios": "^0.19.0",
-    "history": "^4.10.1",
-    "immutability-helper": "^3.0.0",
-    "purify-ts": "^0.13.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-router-dom": "^5.1.2",
-    "semantic-ui-react": "^0.88.1",
-    "shortid": "^2.2.14"
+    "lerna": "3.22.1"
   },
-  "babel": {
-    "presets": [
-      "@babel/env",
-      "@babel/react"
-    ]
-  },
-  "jest": {
-    "bail": true,
-    "rootDir": ".",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "moduleNameMapper": {
-      "\\.(css|less|sass|scss|svg|png)$": "jest-transform-stub"
-    },
-    "testRegex": "(/(src|test)/.*|(\\.|/)(test))\\.(test.tsx?)$",
-    "testPathIgnorePatterns": [
-      "/dist/"
-    ]
+  "devDependencies": {
+    "rimraf": "3.0.2"
   }
 }
