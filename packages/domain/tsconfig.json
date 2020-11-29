@@ -5,14 +5,14 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es5",
     "declaration": true,
     "isolatedModules": true,
     "noEmit": false,
     "lib": [
       "es6",
-      "es2019"
+      "esnext"
     ],
     "moduleResolution": "node"
   },
