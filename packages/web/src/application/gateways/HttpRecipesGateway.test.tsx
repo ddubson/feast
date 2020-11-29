@@ -1,6 +1,6 @@
 import axios from "axios";
 import {HttpRecipesGateway} from "./HttpRecipesGateway";
-import {buildIngredient, buildRecipe, buildRecipeDetail} from "../../__tests__/helpers/Builders";
+import {buildIngredient, buildRecipe, buildRecipeDetail} from "../../test-helpers/helpers/Builders";
 import {Volumes} from "@feast/domain";
 import {RecipeDetailDto} from "./RecipeDtoTypes";
 import {Recipe} from "@feast/domain";
@@ -37,7 +37,11 @@ describe("findById", () => {
 
 });
 
-const expectedRecipe = buildRecipe();
+const expectedRecipe = buildRecipe({
+  weight: Just({
+    typ
+  })
+});
 
 const expectedRecipeDetail = buildRecipeDetail({
   steps: Just([

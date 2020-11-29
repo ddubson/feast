@@ -1,4 +1,4 @@
-import {buildIngredient} from "../__tests__/helpers/Builders";
+import {buildIngredient} from "../test-helpers/helpers/Builders";
 import {Volumes} from "@feast/domain";
 import IngredientPresenter from "./IngredientPresenter";
 import {Just, Nothing } from "purify-ts";

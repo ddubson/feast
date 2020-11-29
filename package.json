@@ -17,7 +17,8 @@
   },
   "scripts": {
     "build-all": "lerna run build",
-    "clean-all": "lerna run clean"
+    "clean-all": "lerna run clean",
+    "test-all": "lerna run test"
   },
   "dependencies": {
     "lerna": "3.22.1"

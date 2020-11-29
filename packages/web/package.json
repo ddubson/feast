@@ -1,6 +1,7 @@
 {
   "name": "@feast/web",
   "version": "0.1.0",
+  "license": "MIT",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.13.3",
     "@feast/domain": "0.1.0",

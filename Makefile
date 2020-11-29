@@ -53,7 +53,7 @@ lint-fix:
 
 test:
 	@echo "Run all test cases"
-	@yarn test
+	@yarn test-all
 
 stop:
 	@echo "Stop process(es) gracefully (SIGTERM > SIGKILL ideally)"

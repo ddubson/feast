@@ -1,8 +1,8 @@
 import * as React from "react";
-import {buildRecipeDetail} from "../../__tests__/helpers/Builders";
-import {buildComponent} from "../../__tests__/helpers/RenderApp";
-import {textsOf} from "../../__tests__/helpers/TestExtensions";
-import {StubFetchByIdRecipesService} from "../../__tests__/test-doubles/services/StubFetchByIdRecipesService";
+import {buildRecipeDetail} from "../../test-helpers/helpers/Builders";
+import {buildComponent} from "../../test-helpers/helpers/RenderApp";
+import {textsOf} from "../../test-helpers/helpers/TestExtensions";
+import {StubFetchByIdRecipesService} from "../../test-helpers/test-doubles/services/StubFetchByIdRecipesService";
 import {FetchByIdRecipesService} from "../../application/services/Services";
 import RecipeOverviewScene from "./RecipeOverviewScene";
 import {Volumes} from "@feast/domain";
