@@ -29,19 +29,17 @@ all-env-var-check:
 prereqs:
 	$(call ensure_program_exists,yarn)
 
-install-deps: prereqs
+install: prereqs
 	@echo "Install dependencies locally needed to run the project"
-	pushd domain && yarn install || exit
-	pushd api && yarn install || exit
-	pushd web && yarn install || exit
+	@yarn install
 
 api-start:
 	@echo "Starting Feast API"
-	pushd api && yarn start
+	@yarn workspace @feast/api start
 
 web-start:
 	@echo "Starting Feast Web"
-	pushd web && yarn start
+	@yarn workspace @feast/web start
 
 start: all-env-var-check
 	@echo "Start process locally"
@@ -61,7 +59,10 @@ stop:
 	@echo "Stop process(es) gracefully (SIGTERM > SIGKILL ideally)"
 
 build:
-	@yarn build
+	@yarn build-all
+
+clean:
+	@yarn clean-all
 
 ship-it: install-deps lint build test
 	@echo "Ready to ship!"
