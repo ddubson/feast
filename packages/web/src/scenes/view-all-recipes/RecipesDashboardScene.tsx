@@ -1,6 +1,5 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import * as shortid from "shortid";
 import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../application/services/Services";
 import {Recipe} from "@feast/domain";
@@ -43,7 +42,7 @@ function RecipesDashboardScene({recipesService}: { recipesService: FetchAllRecip
   return (
     <div className="recipe-dashboard">
       <div className="recipe-list">
-        <h2 className="ui header">Recipes</h2>
+        <h2 className="">Recipes</h2>
         {renderRecipes(maybeRecipes)}
       </div>
     </div>

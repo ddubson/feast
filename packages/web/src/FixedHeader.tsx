@@ -9,7 +9,7 @@ const FixedHeader = () => {
   // }
 
   return (
-    <div className="ui medium menu fixed">
+    <div className="p-menubar">
       <div className="ui container">
         <div className="item">
           <Link to="/">Feast</Link>

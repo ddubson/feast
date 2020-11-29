@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Route, Router, Switch} from "react-router-dom";
-import {Container} from "semantic-ui-react";
 import {DIContainerContext} from "./AppConfig";
 import FixedHeader from "./FixedHeader";
 import CreateRecipeScene from "./scenes/add-recipe/CreateRecipeScene";
@@ -14,9 +13,9 @@ const AppContainer: React.FC = ({children}) => {
   return (
     <React.Fragment>
       <FixedHeader />
-      <Container className="app-body">
+      <div className="app-body">
         {children}
-      </Container>
+      </div>
     </React.Fragment>
   );
 };
