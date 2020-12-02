@@ -5,6 +5,24 @@
 
 Recipe aggregator app. You can find it deployed on Netlify @ https://bit.ly/feast-web
 
+The composition of this repository is as follows:
+
+- web app - React & Typescript
+- api - Express & Typescript
+- domain - Typescript
+
+Composition made possible by: Lerna + Yarn workspaces
+
+## Tools required
+
+- GNU Make
+- Node 15.x+
+- Yarn 1.20+
+
+## Getting started
+
+TODO
+
 ## Web (React / Typescript with PurifyTS)
 
 ### Running & Building

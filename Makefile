@@ -31,7 +31,7 @@ prereqs:
 
 install: prereqs
 	@echo "Install dependencies locally needed to run the project"
-	@yarn install
+	@yarn install-all
 
 api-start:
 	@echo "Starting Feast API"
