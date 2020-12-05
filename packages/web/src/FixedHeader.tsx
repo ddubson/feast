@@ -1,29 +1,12 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {ReactElement} from "react";
+import {Toolbar} from "primereact/toolbar";
 
 const FixedHeader = () => {
-  // const {isAuthenticated, logout, user} = useAuth0();
-
-  // if (!user) {
-  //   return <></>;
-  // }
+  const leftBar = () => <h1>Feast!</h1>
+  const rightBar = () => <></>
 
   return (
-    <div className="p-menubar">
-      <div className="ui container">
-        <div className="item">
-          <Link to="/">Feast</Link>
-        </div>
-        <div className="right menu">
-          <div className="ui dropdown item">
-            Some User <i className="dropdown icon"></i>
-            <div className="menu">
-              <a className="item">Log out</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Toolbar left={leftBar} right={rightBar} />
   );
 };
 

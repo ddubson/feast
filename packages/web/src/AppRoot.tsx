@@ -5,7 +5,7 @@ import FixedHeader from "./FixedHeader";
 import CreateRecipeScene from "./scenes/add-recipe/CreateRecipeScene";
 import RecipeOverviewScene from "./scenes/view-recipe/RecipeOverviewScene";
 import RecipesDashboardScene from "./scenes/view-all-recipes/RecipesDashboardScene";
-import "./styles/stylesheet.scss";
+import "./styles/main.scss";
 import {LoggedoutScene, LoginScene} from "./scenes/login/LoginScene";
 import browserHistory from "./browser/History";
 

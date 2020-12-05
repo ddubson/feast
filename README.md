@@ -41,3 +41,10 @@ make start
 [Netlify Site](https://app.netlify.com/sites/feast-web/overview)
 
 Run `make open.webapp` to launch site in browser
+
+## Practices
+
+- Sass styling approach: **7-1 pattern** 
+    - [About 7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
+    - [In-depth on 7-1 pattern](https://hugogiraudel.com/2015/06/18/styling-react-components-in-sass/)
+    - [Understanding Sass architecture](https://sass-guidelin.es/#architecture)

@@ -43,7 +43,9 @@ function RecipesDashboardScene({recipesService}: { recipesService: FetchAllRecip
     <div className="recipe-dashboard">
       <div className="recipe-list">
         <h2 className="">Recipes</h2>
-        {renderRecipes(maybeRecipes)}
+        <section className="p-d-flex">
+          {renderRecipes(maybeRecipes)}
+        </section>
       </div>
     </div>
   );

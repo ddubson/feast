@@ -1,6 +1,5 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
-import {RouteComponentProps} from "react-router-dom";
 import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../application/services/Services";
 import {RecipeDetail} from "@feast/domain";
 import IngredientPresenter from "../../presenters/IngredientPresenter";
