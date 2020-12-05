@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ddubson-feast-app/feast.svg?branch=master)](https://travis-ci.org/ddubson-feast-app/feast)
+![Node.js CI](https://github.com/ddubson/feast/workflows/Node.js%20CI/badge.svg)
 [![codebeat badge](https://codebeat.co/badges/b17a78c2-c882-4976-b308-7cd50e10a1f4)](https://codebeat.co/projects/github-com-ddubson-feast-app-feast-master)
 
 # feast
