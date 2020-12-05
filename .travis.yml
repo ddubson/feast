@@ -3,29 +3,12 @@ jobs:
   - stage: web-test
     language: node_js
     node_js:
-    - '12'
+    - '15'
     cache:
       yarn: true
     before_script: npm i -g yarn
     script: |
-      yarn lint
-      yarn test
-      yarn build
-  - stage: web-deploy
-    language: node_js
-    node_js:
-    - '12'
-    before_script: npm i -g yarn
-    script: yarn build:dev
-    deploy:
-      provider: netlify
-      site: ec52f7e0-9d33-48e6-92e2-042e0d5f0fee
-      auth:
-        secure: B70bURqAAVuXiEcVrs8gwY50KvdivCOHllfnb1sFXeJMLbVTAxReyGcwxYDe9jWVf1PlRbCncCfzivqgCSpr1aVQS+434Nj8aFG4IvE5Kuvdd5fGnOT0eNAYWnDgul6u3q3cE/Ncx7eRQOwN8FO1ywhtR4tI4aw6uFZaOJFGHfoS/6I1fLJLjvHYXk0gG2yn3rSW2hWrelC1fCM8bbm+qG5Z6Qxve4hhW0G4aD83hOZV3b6wEcnZdRLFnPnoqsXXqn1cEUbElSmVRCvydwP5u+Hk0qua78wHUaMWK/9qk27UBf04cCLIQCqnj/xNeaGWeMnWE/kIpIfv+PqfiNDxVo69vpHAeTZ3X9g7yosEBSQhiFvdrTTXiZ6KCiGxZrqi+DLL60g+oRFd67Yk8tJrG5g5evQeJI+qO655eueAOoaqa+D56eskk6MFnwtOGkrsw9CBdJL3ETYFjEZniuA9chkglxSYTVg0bUOaNM14UySyD4bfI0kjBgiDpcfyJDLJYx+ie2tnIEuj3y7EbVypWsDPkYGDAI+9j6KU6VD0OLR7Z5Ruw1rt1iSodCKH4NhP+cN9nG4j8xKA5U991i+F7azUIUadD8R0y54WvpiXpw1dzRWRstDvNc8t3z9RIsFZZEfEikdNZySt7b7Ht/avialNhN9+xz7XIxBwIKXmi6s=
-      dir: dist
-      prod: true
-      edge: true
+      make install
+      make test
 stages:
 - web-test
-- name: web-deploy
-  if: branch = master

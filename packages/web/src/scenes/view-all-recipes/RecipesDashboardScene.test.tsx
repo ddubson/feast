@@ -7,21 +7,18 @@ import {render} from "@testing-library/react";
 
 let getAllByTestId: any;
 let getByText: any;
-let getAllByLabelText: any;
 
 describe("when recipes have loaded successfully", () => {
   beforeEach(async () => {
     const fetchAllRecipesService = new StubFetchAllRecipesService(() => [
       buildRecipeDetail({name: "Great Recipe"})]);
 
-    ({getAllByTestId, getAllByLabelText} = render(
+    ({getByText} = render(
       buildComponent(<RecipesDashboardScene recipesService={fetchAllRecipesService} />)));
   });
 
   it("should display the recipes", async () => {
-    const recipesDisplayed = await getAllByLabelText("Recipe card");
-    expect(recipesDisplayed).toHaveLength(1);
-    expect(recipesDisplayed[0].textContent).toContain("Great Recipe");
+    expect(await getByText("Great Recipe")).toBeTruthy();
   });
 });
 

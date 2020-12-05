@@ -34,14 +34,9 @@ describe("findById", () => {
     const foundRecipe = await recipesGateway.findById(recipeId);
     expect(foundRecipe).toEqual(expectedRecipeDetail);
   });
-
 });
 
-const expectedRecipe = buildRecipe({
-  weight: Just({
-    typ
-  })
-});
+const expectedRecipe = buildRecipe();
 
 const expectedRecipeDetail = buildRecipeDetail({
   steps: Just([
@@ -49,9 +44,13 @@ const expectedRecipeDetail = buildRecipeDetail({
     {stepNumber: 2, value: "Do that"},
   ]),
   ingredients: Just([
-    buildIngredient(),
     buildIngredient({
-      weight: Nothing,
+      form: Just("Chopped"),
+      quantity: Just({value: 2}),
+    }),
+    buildIngredient({
+      name: "Another Great Ingredient",
+      form: Just("Diced"),
       quantity: Nothing,
       volume: Just({
         value: 2,
@@ -70,15 +69,15 @@ const response: RecipeDetailDto = {
       name: "Great Ingredient",
       form: "Chopped",
       quantity: {value: 2},
-      weight: {value: 0, type: "NONE"},
+      weight: null,
       volume: null,
     },
     {
       id: expectedRecipeDetail.ingredients.orDefault([])[1].id,
-      name: "Great Ingredient",
-      form: "Chopped",
-      quantity: {value: 0},
-      weight: {value: 0, type: "NONE"},
+      name: "Another Great Ingredient",
+      form: "Diced",
+      quantity: null,
+      weight: null,
       volume: {value: 2, type: "TABLESPOON"},
     },
   ],
