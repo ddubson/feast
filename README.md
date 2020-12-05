@@ -1,5 +1,6 @@
 ![Node.js CI](https://github.com/ddubson/feast/workflows/Node.js%20CI/badge.svg)
-[![codebeat badge](https://codebeat.co/badges/b17a78c2-c882-4976-b308-7cd50e10a1f4)](https://codebeat.co/projects/github-com-ddubson-feast-app-feast-master)
+[![codebeat badge](https://codebeat.co/badges/6b21a97f-2129-4f59-994e-f2098526e7c6)](https://codebeat.co/projects/github-com-ddubson-feast-main)
+[![Maintainability](https://api.codeclimate.com/v1/badges/517ed4cf27196fb7c2b0/maintainability)](https://codeclimate.com/github/ddubson/feast/maintainability)
 
 # feast
 
