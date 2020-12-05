@@ -12,10 +12,10 @@ const NoRecipesYet = <>
 const renderRecipes = (maybeRecipes: Maybe<Recipe[]>) =>
   maybeRecipes
     .mapOrDefault((recipes: Recipe[]) =>
-        (<React.Fragment>{
+        (<>{
           recipes.map((recipe: Recipe) => (<RecipeListItem key={shortid.generate()} recipe={recipe} />))
         }
-        </React.Fragment>),
+        </>),
       NoRecipesYet,
     );
 

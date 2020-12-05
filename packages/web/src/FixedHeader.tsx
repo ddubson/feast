@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React from "react";
 import {Toolbar} from "primereact/toolbar";
 
 const FixedHeader = () => {

@@ -25,5 +25,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: make install
-    - run: make build
+    - run: CI=false make build
     - run: make test
