@@ -16,7 +16,6 @@
     ]
   },
   "scripts": {
-    "install-all": "lerna run install",
     "build-all": "lerna run build",
     "clean-all": "lerna run clean",
     "test-all": "lerna run test"

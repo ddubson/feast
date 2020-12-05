@@ -23,6 +23,12 @@ define env_var_check
 	@: $(if $(value $1),,$(error $1 is not set. The task cannot continue))
 endef
 
+.PHONY = help
+.DEFAULT_GOAL = help
+
+help: ## Describe all make tasks (default task)
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
 all-env-var-check:
 	@echo "Ensure env vars are set in the environment"
 
@@ -30,8 +36,7 @@ prereqs:
 	$(call ensure_program_exists,yarn)
 
 install: prereqs
-	@echo "Install dependencies locally needed to run the project"
-	@yarn install-all
+	@yarn install
 
 api-start:
 	@echo "Starting Feast API"
@@ -40,10 +45,6 @@ api-start:
 web-start:
 	@echo "Starting Feast Web"
 	@yarn workspace @feast/web start
-
-start: all-env-var-check
-	@echo "Start process locally"
-	./node_modules/.bin/concurrently --names web,server --prefix-colors cyan,green "yarn start:web" "yarn start:server"
 
 lint:
 	@yarn lint
@@ -64,11 +65,8 @@ build:
 clean:
 	@yarn clean-all
 
-ship-it: install-deps lint build test
+ship-it: install lint build test
 	@echo "Ready to ship!"
 
-open.webapp:
+open-webapp:
 	@open https://feast-web.netlify.app
-
-e2e.open:
-	pushd e2e && yarn e2e:open

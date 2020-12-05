@@ -21,7 +21,7 @@ Composition made possible by: Lerna + Yarn workspaces
 
 ## Getting started
 
-TODO
+
 
 ## Web (React / Typescript with PurifyTS)
 
@@ -40,10 +40,15 @@ make start
 
 [Netlify Site](https://app.netlify.com/sites/feast-web/overview)
 
-Run `make open.webapp` to launch site in browser
+Run `make open-webapp` to launch site in browser
 
-## Practices
+## Practices, Techniques, Tools
 
+- React UI component library: [PrimeReact](https://www.primefaces.org/primereact/)
+- Modular typescript approach with Lerna and Yarn workspaces
+    - [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
+- Build management: Self-documenting Makefile
+    - [More on self-documenting Makefiles](https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html)
 - Sass styling approach: **7-1 pattern** 
     - [About 7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
     - [In-depth on 7-1 pattern](https://hugogiraudel.com/2015/06/18/styling-react-components-in-sass/)
