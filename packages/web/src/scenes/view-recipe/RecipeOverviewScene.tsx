@@ -1,15 +1,15 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
-import {FetchByIdRecipesObserver, FetchByIdRecipesService} from "../../application/services/Services";
 import {RecipeDetail} from "@feast/domain";
 import IngredientPresenter from "../../presenters/IngredientPresenter";
 import RecipeDetailPresenter from "../../presenters/RecipeDetailPresenter";
 import StepPresenter from "../../presenters/StepPresenter";
 import {BackToRecipesLink} from "./components/BackToRecipesLink";
 import shortid from "shortid";
+import {RecipesGateway} from "../../application/gateways/RecipesGateway";
 
 interface RecipeOverviewSceneProps {
-  fetchByIdRecipesService: FetchByIdRecipesService;
+  recipesGateway: RecipesGateway
   recipeId: string;
 }
 
@@ -27,22 +27,14 @@ const renderStep = (step: StepPresenter) => (
 const NoRecipe = () => <div>No recipe!</div>;
 
 const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
-  const {fetchByIdRecipesService, recipeId} = props;
+  const {recipesGateway, recipeId} = props;
   const [recipePresenter, setRecipePresenter] = useState<Maybe<RecipeDetailPresenter>>(() => Nothing);
-  const [observer] = useState<FetchByIdRecipesObserver>({
-    receivedRecipe(resolvedRecipe: RecipeDetail): void {
-      setRecipePresenter(Just(new RecipeDetailPresenter(resolvedRecipe)));
-    },
-  });
 
   useEffect(() => {
-    fetchByIdRecipesService.registerObserver(observer);
-    fetchByIdRecipesService.dispatch(recipeId);
-
-    return function cleanup() {
-      fetchByIdRecipesService.unregisterObserver(observer);
-    };
-  }, [observer]);
+    recipesGateway.findById(recipeId)
+      .then((recipe: RecipeDetail) => setRecipePresenter(Just(new RecipeDetailPresenter(recipe))))
+      .catch(() => setRecipePresenter(Nothing));
+  }, [recipesGateway, recipeId]);
 
   return (
     <div>
@@ -50,7 +42,7 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
 
       {recipePresenter.mapOrDefault(
         (r: RecipeDetailPresenter) => (
-          <React.Fragment>
+          <>
             <div className="ui header">Recipe
               <div className="ui large header" aria-label="Recipe name">{r.name}</div>
             </div>
@@ -72,7 +64,7 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
                 }
               </div>
             </div>
-          </React.Fragment>
+          </>
         ),
         <NoRecipe />,
       )}

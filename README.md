@@ -46,6 +46,8 @@ Run `make open-webapp` to launch site in browser
 ## Practices, Techniques, Tools
 
 - React UI component library: [PrimeReact](https://www.primefaces.org/primereact/)
+- React state management: React Context API + React Hooks
+    - [React Hooks examples](https://usehooks.com/)
 - Modular typescript approach with Lerna and Yarn workspaces
     - [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
 - Build management: Self-documenting Makefile

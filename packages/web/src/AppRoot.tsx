@@ -24,7 +24,7 @@ export const AppRoot = () => {
   return (
     <React.Fragment>
       <DIContainerContext.Consumer>
-        {({fetchAllRecipesService, fetchByIdRecipesService}) => (
+        {({recipesGateway}) => (
           <Router history={browserHistory}>
             <Switch>
               <Route path={"/login"} exact={true} render={() => (<LoginScene />)} />
@@ -32,7 +32,7 @@ export const AppRoot = () => {
 
               <Route path={"/"} exact={true} render={() =>
                 <AppContainer>
-                  <RecipesDashboardScene recipesService={fetchAllRecipesService} />
+                  <RecipesDashboardScene recipesGateway={recipesGateway} />
                 </AppContainer>
               } />
               <Route path={"/create-recipe"} exact={true} render={({history}) =>
@@ -42,7 +42,7 @@ export const AppRoot = () => {
               } />
               <Route path={"/recipe/:id"} render={({match}) =>
                 <AppContainer>
-                  <RecipeOverviewScene fetchByIdRecipesService={fetchByIdRecipesService} recipeId={match.params.id} />
+                  <RecipeOverviewScene recipesGateway={recipesGateway} recipeId={match.params.id} />
                 </AppContainer>
               } />
             </Switch>

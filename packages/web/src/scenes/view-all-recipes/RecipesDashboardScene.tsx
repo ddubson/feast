@@ -1,9 +1,9 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
 import * as shortid from "shortid";
-import {FetchAllRecipesObserver, FetchAllRecipesService} from "../../application/services/Services";
 import {Recipe} from "@feast/domain";
 import RecipeListItem from "./components/RecipeListItem";
+import {RecipesGateway} from "../../application/gateways/RecipesGateway";
 
 const NoRecipesYet = <>
   <div>No recipes yet.</div>
@@ -19,25 +19,14 @@ const renderRecipes = (maybeRecipes: Maybe<Recipe[]>) =>
       NoRecipesYet,
     );
 
-function RecipesDashboardScene({recipesService}: { recipesService: FetchAllRecipesService }) {
+function RecipesDashboardScene({recipesGateway}: { recipesGateway: RecipesGateway }) {
   const [maybeRecipes, setRecipes] = useState<Maybe<Recipe[]>>(() => (Nothing));
-  const [observer] = useState<FetchAllRecipesObserver>({
-    receivedNoRecipes(): void {
-      setRecipes(Nothing);
-    },
-    receivedRecipes(recipes: Recipe[]): void {
-      setRecipes(Just(recipes));
-    },
-  });
 
   useEffect(() => {
-    recipesService.registerObserver(observer);
-    recipesService.dispatch();
-
-    return function cleanup() {
-      recipesService.unregisterObserver(observer);
-    };
-  }, [observer]);
+    recipesGateway.findAll().then((recipes: Recipe[]) => {
+      setRecipes(Just(recipes))
+    }).catch(() => setRecipes(Nothing));
+  }, [recipesGateway]);
 
   return (
     <div className="recipe-dashboard">

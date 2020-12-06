@@ -46,6 +46,9 @@ web-start:
 	@echo "Starting Feast Web"
 	@yarn workspace @feast/web start
 
+web-test-watch:
+	@yarn workspace @feast/web test:watch
+
 lint:
 	@yarn lint
 
