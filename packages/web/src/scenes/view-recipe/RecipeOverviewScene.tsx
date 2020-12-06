@@ -7,6 +7,7 @@ import StepPresenter from "../../presenters/StepPresenter";
 import {BackToRecipesLink} from "./components/BackToRecipesLink";
 import shortid from "shortid";
 import {RecipesGateway} from "../../application/gateways/RecipesGateway";
+import {Panel} from "primereact/panel";
 
 interface RecipeOverviewSceneProps {
   recipesGateway: RecipesGateway
@@ -43,27 +44,22 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
       {recipePresenter.mapOrDefault(
         (r: RecipeDetailPresenter) => (
           <>
-            <div className="ui header">Recipe
-              <div className="ui large header" aria-label="Recipe name">{r.name}</div>
-            </div>
-            <div className="ui raised horizontal segments">
-              <div className="ui segment">
-                <h3 className="ui dividing header">Ingredients</h3>
-                {r.ingredients.mapOrDefault(
-                  (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
-                  (<div>No ingredients!</div>))
-                }
-              </div>
-              <div className="ui segment">
-                <h3 className="ui dividing header">Instructions</h3>
-                {r.steps.mapOrDefault(
-                  (steps: StepPresenter[]) =>
-                    <div>{steps.map(renderStep)}</div>,
-                  (<div>No instructions yet.</div>),
-                )
-                }
-              </div>
-            </div>
+            <h3>{r.name}</h3>
+
+            <Panel header="Ingredients" className="p-mt-2">
+              {r.ingredients.mapOrDefault(
+                (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
+                (<div>No ingredients!</div>))
+              }
+            </Panel>
+            <Panel header="Instructions" className="p-mt-2">
+              {r.steps.mapOrDefault(
+                (steps: StepPresenter[]) =>
+                  <div>{steps.map(renderStep)}</div>,
+                (<div>No instructions yet.</div>),
+              )
+              }
+            </Panel>
           </>
         ),
         <NoRecipe />,
