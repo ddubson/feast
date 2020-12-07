@@ -1,8 +1,8 @@
-import {RecipeDetail, VolumeMeasure, Volumes, WithoutId } from "@ddubson/feast-domain";
+import {RecipeDetail, VolumeMeasure, Volumes, WithoutId} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts/Maybe";
 
 export const garlicLimeShrimp: WithoutId<RecipeDetail> = {
-  name: "Garlic Lime Shrimp",
+  name: "Garlic Lime Shrimp Tacos",
   ingredients: Just([
     {
       id: "1",
@@ -11,18 +11,56 @@ export const garlicLimeShrimp: WithoutId<RecipeDetail> = {
       quantity: Nothing,
       weight: Nothing,
       volume: Just<VolumeMeasure>({value: 1, volumeType: Volumes.tablespoon}),
-      // Ingredient(1L, name = "Canola Oil",
-      // form = "", quantity = None, weight = None,
-      // volume = Some(IngredientVolume(1f, VolumeMeasureName.TABLESPOON))),
-      // Ingredient(2L, name = "Corn Tortillas",
-      // form = "Medium Size", quantity = Some(Quantity(6f)), weight = None, volume = None),
-      // Ingredient(3L, name = "Medium Shrimp",
-      // form = "Cleaned", quantity = None, weight = Some(Weight(1f, WeightType.POUNDS)), volume = None),
-      // Ingredient(4L, name = "Garlic Cloves", form = "Minced", quantity = Some(Quantity(2f)), weight = None, volume = None),
-      // Ingredient(5L, name = "Salt", form = "Kosher", quantity = None, weight = None, volume = None),
-      // Ingredient(6L, name = "Pepper", form = "Black", quantity = None, weight = None, volume = None),
-      // Ingredient(7L, name = "Lime", form = "Zested; Juiced", quantity = Some(Quantity(2f)), weight = None, volume = None)
-    }]),
+    },
+    {
+      id: "2",
+      name: "Corn Tortillas",
+      form: Nothing,
+      quantity: Just({value: 6}),
+      weight: Nothing,
+      volume: Nothing
+    },
+    {
+      id: "3",
+      name: "Medium Shrimp",
+      form: Just("Cleaned"),
+      quantity: Nothing,
+      weight: Just({value: 1.0, type: "POUNDS"}),
+      volume: Nothing
+    },
+    {
+      id: "4",
+      name: "Garlic Cloves",
+      form: Just("Minced"),
+      quantity: Just({value: 2}),
+      weight: Nothing,
+      volume: Nothing
+    },
+    {
+      id: "5",
+      name: "Salt",
+      form: Nothing,
+      quantity: Nothing,
+      weight: Nothing,
+      volume: Nothing
+    },
+    {
+      id: "6",
+      name: "Black pepper",
+      form: Just("Ground"),
+      quantity: Nothing,
+      weight: Nothing,
+      volume: Nothing
+    },
+    {
+      id: "7",
+      name: "Fresh lime",
+      form: Just("Zested"),
+      quantity: Just({value: 2}),
+      weight: Nothing,
+      volume: Nothing
+    }
+  ]),
   steps: Just([
     "Clean the shrimp; remove shells thoroughly; set aside",
     "Mince the garlic",

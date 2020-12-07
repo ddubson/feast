@@ -16,7 +16,7 @@ export type WeightType = "NONE" | "POUNDS";
 
 export type WeightTypeAbbrev = "" | "lbs";
 
-export type IngredientForm = "Chopped" | "Diced";
+export type IngredientForm = "Chopped" | "Diced" | "Cleaned" | "Minced" | "Ground" | "Zested";
 
 export interface Weight {
   value: number;

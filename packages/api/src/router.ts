@@ -1,12 +1,8 @@
 import {Express, Request, Response} from "express";
-import {APIMessage} from "./types";
+import {RecipeNotFound, ResultOrApiMessage} from "./types";
 import {identity} from "purify-ts/Function";
 import {Recipe} from "@ddubson/feast-domain";
 import {AppConfig} from "./config";
-
-const recipeNotFound: APIMessage = {message: "Recipe not found."}
-
-type ResultOrApiMessage<RESULT> = RESULT | APIMessage
 
 export const router = (app: Express) => {
   app.get("/api/hello", (req: Request, res: Response) => {
@@ -21,7 +17,7 @@ export const router = (app: Express) => {
 
   app.get("/api/recipes/:id", (req: Request, res: Response) => {
     AppConfig.recipeStore.fetchRecipeById(req.params.id, ({recipe}) => {
-      res.json(recipe.mapOrDefault<ResultOrApiMessage<Recipe>>(identity, recipeNotFound))
+      res.json(recipe.mapOrDefault<ResultOrApiMessage<Recipe>>(identity, RecipeNotFound))
     })
   });
 }
