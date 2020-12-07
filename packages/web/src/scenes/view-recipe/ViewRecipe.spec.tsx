@@ -2,7 +2,7 @@ import * as React from "react";
 import {buildRecipeDetail} from "../../test-helpers/helpers/Builders";
 import {buildComponent} from "../../test-helpers/helpers/RenderApp";
 import {textsOf} from "../../test-helpers/helpers/TestExtensions";
-import RecipeOverviewScene from "./RecipeOverviewScene";
+import ViewRecipe from "./ViewRecipe";
 import {Volumes} from "@feast/domain";
 import {Just, Nothing} from "purify-ts";
 import {render, waitFor} from "@testing-library/react";
@@ -56,7 +56,7 @@ test("recipe loads successfully", () => {
   }));
 
   ({getByLabelText, getAllByLabelText, getAllByTestId} = render(buildComponent(
-      <RecipeOverviewScene recipesGateway={stubRecipesGateway} recipeId={recipeId} />))
+      <ViewRecipe recipesGateway={stubRecipesGateway} recipeId={recipeId} />))
   );
 
   waitFor(() => {

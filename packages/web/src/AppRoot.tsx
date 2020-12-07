@@ -3,26 +3,25 @@ import {Route, Router, Switch} from "react-router-dom";
 import {DIContainerContext} from "./AppConfig";
 import FixedHeader from "./FixedHeader";
 import CreateRecipeScene from "./scenes/add-recipe/CreateRecipeScene";
-import RecipeOverviewScene from "./scenes/view-recipe/RecipeOverviewScene";
-import RecipesDashboardScene from "./scenes/view-all-recipes/RecipesDashboardScene";
+import ViewRecipe from "./scenes/view-recipe/ViewRecipe";
+import ViewAllRecipes from "./scenes/view-all-recipes/ViewAllRecipes";
 import "./styles/main.scss";
 import {LoggedoutScene, LoginScene} from "./scenes/login/LoginScene";
 import browserHistory from "./browser/History";
 
-const AppContainer: React.FC = ({children}) => {
-  return (
-    <React.Fragment>
+const AppContainer: React.FC = ({children}) =>
+  (
+    <>
       <FixedHeader />
-      <div className="app-body">
+      <section className="p-m-3">
         {children}
-      </div>
-    </React.Fragment>
+      </section>
+    </>
   );
-};
 
 export const AppRoot = () => {
   return (
-    <React.Fragment>
+    <>
       <DIContainerContext.Consumer>
         {({recipesGateway}) => (
           <Router history={browserHistory}>
@@ -32,7 +31,7 @@ export const AppRoot = () => {
 
               <Route path={"/"} exact={true} render={() =>
                 <AppContainer>
-                  <RecipesDashboardScene recipesGateway={recipesGateway} />
+                  <ViewAllRecipes recipesGateway={recipesGateway} />
                 </AppContainer>
               } />
               <Route path={"/create-recipe"} exact={true} render={({history}) =>
@@ -42,13 +41,13 @@ export const AppRoot = () => {
               } />
               <Route path={"/recipe/:id"} render={({match}) =>
                 <AppContainer>
-                  <RecipeOverviewScene recipesGateway={recipesGateway} recipeId={match.params.id} />
+                  <ViewRecipe recipesGateway={recipesGateway} recipeId={match.params.id} />
                 </AppContainer>
               } />
             </Switch>
           </Router>
         )}
       </DIContainerContext.Consumer>
-    </React.Fragment>
+    </>
   );
 };

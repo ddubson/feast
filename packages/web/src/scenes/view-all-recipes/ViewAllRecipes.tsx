@@ -19,7 +19,7 @@ const renderRecipes = (maybeRecipes: Maybe<Recipe[]>) =>
       NoRecipesYet,
     );
 
-function RecipesDashboardScene({recipesGateway}: { recipesGateway: RecipesGateway }) {
+function ViewAllRecipes({recipesGateway}: { recipesGateway: RecipesGateway }) {
   const [maybeRecipes, setRecipes] = useState<Maybe<Recipe[]>>(() => (Nothing));
 
   useEffect(() => {
@@ -40,4 +40,4 @@ function RecipesDashboardScene({recipesGateway}: { recipesGateway: RecipesGatewa
   );
 }
 
-export default RecipesDashboardScene;
+export default ViewAllRecipes;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import RecipesDashboardScene from "./RecipesDashboardScene";
+import ViewAllRecipes from "./ViewAllRecipes";
 import {buildRecipe} from "../../test-helpers/helpers/Builders";
 import {buildComponent} from "../../test-helpers/helpers/RenderApp";
 import {render, waitFor} from "@testing-library/react";
@@ -10,7 +10,7 @@ test("all recipes load successfully", async () => {
     buildRecipe({name: "Great Recipe"})]);
 
   const {getByText} = render(
-    buildComponent(<RecipesDashboardScene recipesGateway={stubRecipesGateway} />));
+    buildComponent(<ViewAllRecipes recipesGateway={stubRecipesGateway} />));
 
   await waitFor(() => {
     expect(getByText("Great Recipe")).toBeTruthy();
@@ -20,7 +20,7 @@ test("all recipes load successfully", async () => {
 test("displays 'No Recipes yet' when no recipes are available", async () => {
   const recipesGateway = new StubRecipesGateway([]);
   const {getByText} = render(
-    buildComponent(<RecipesDashboardScene recipesGateway={recipesGateway} />));
+    buildComponent(<ViewAllRecipes recipesGateway={recipesGateway} />));
 
   await waitFor(() => {
     expect(getByText("No recipes yet.")).toBeTruthy();

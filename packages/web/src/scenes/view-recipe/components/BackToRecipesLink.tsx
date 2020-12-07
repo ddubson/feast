@@ -1,8 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {Button} from "primereact/button";
 
 export const BackToRecipesLink = () => (
   <Link to={"/"}>
-    <button className="ui button">Back to Recipes</button>
+    <Button className="p-primary-button p-button-sm">Back to Recipes</Button>
   </Link>
 );

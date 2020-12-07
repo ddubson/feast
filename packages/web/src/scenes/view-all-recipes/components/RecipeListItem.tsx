@@ -5,15 +5,15 @@ import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 
 const RecipeListItem = ({recipe}: { recipe: Recipe }) => {
-  const header = <>{recipe.name}</>;
+  const header = <div>{recipe.name}</div>;
   const footer = <span>
     <Link to={`/recipe/${recipe.id}`}>
-      <Button label="Open" style={{marginRight: '0.25em'}} />
+      <Button label="Open" className={"open-recipe-button p-button-sm"} />
     </Link>
   </span>;
 
   return (
-    <Card className={"recipe-card p-m-5 p-p-2"} header={header} footer={footer} />
+    <Card className={"p-m-5 p-p-2"} header={header} footer={footer} />
   );
 };
 

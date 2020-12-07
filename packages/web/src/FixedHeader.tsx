@@ -2,7 +2,7 @@ import React from "react";
 import {Toolbar} from "primereact/toolbar";
 
 const FixedHeader = () => {
-  const leftBar = () => <h1>Feast!</h1>
+  const leftBar = () => <h3>Feast!</h3>
   const rightBar = () => <></>
 
   return (

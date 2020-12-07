@@ -38,7 +38,11 @@ prereqs:
 install: prereqs
 	@yarn install
 
-api-start:
+api-build:
+	@echo "Building Feast API"
+	@yarn workspace @feast/api build
+
+api-start: api-build
 	@echo "Starting Feast API"
 	@yarn workspace @feast/api start
 

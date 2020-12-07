@@ -27,7 +27,7 @@ const renderStep = (step: StepPresenter) => (
 
 const NoRecipe = () => <div>No recipe!</div>;
 
-const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
+const ViewRecipe = (props: RecipeOverviewSceneProps) => {
   const {recipesGateway, recipeId} = props;
   const [recipePresenter, setRecipePresenter] = useState<Maybe<RecipeDetailPresenter>>(() => Nothing);
 
@@ -37,35 +37,34 @@ const RecipeOverviewScene = (props: RecipeOverviewSceneProps) => {
       .catch(() => setRecipePresenter(Nothing));
   }, [recipesGateway, recipeId]);
 
-  return (
-    <div>
-      <BackToRecipesLink />
+  const recipes = (r: RecipeDetailPresenter) => (
+    <section className="p-mt-2">
+      <h3>{r.name}</h3>
 
-      {recipePresenter.mapOrDefault(
-        (r: RecipeDetailPresenter) => (
-          <>
-            <h3>{r.name}</h3>
+      <Panel header="Ingredients" className="p-mt-2">
+        {r.ingredients.mapOrDefault(
+          (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
+          (<div>No ingredients!</div>))
+        }
+      </Panel>
+      <Panel header="Instructions" className="p-mt-2">
+        {r.steps.mapOrDefault(
+          (steps: StepPresenter[]) =>
+            <div>{steps.map(renderStep)}</div>,
+          (<div>No instructions yet.</div>),
+        )
+        }
+      </Panel>
+    </section>
+  )
 
-            <Panel header="Ingredients" className="p-mt-2">
-              {r.ingredients.mapOrDefault(
-                (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
-                (<div>No ingredients!</div>))
-              }
-            </Panel>
-            <Panel header="Instructions" className="p-mt-2">
-              {r.steps.mapOrDefault(
-                (steps: StepPresenter[]) =>
-                  <div>{steps.map(renderStep)}</div>,
-                (<div>No instructions yet.</div>),
-              )
-              }
-            </Panel>
-          </>
-        ),
-        <NoRecipe />,
-      )}
-    </div>
-  );
+  const recipesOrNothing = recipePresenter.mapOrDefault(recipes, <NoRecipe />);
+
+  return <div>
+    <BackToRecipesLink />
+
+    {recipesOrNothing}
+  </div>
 };
 
-export default RecipeOverviewScene;
+export default ViewRecipe;
