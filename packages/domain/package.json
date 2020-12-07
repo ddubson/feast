@@ -1,8 +1,10 @@
 {
   "name": "@ddubson/feast-domain",
-  "version": "0.1.0",
+  "version": "1.2.0",
   "main": "dist/index.js",
-  "files": ["dist/*"],
+  "files": [
+    "dist/*"
+  ],
   "license": "MIT",
   "scripts": {
     "build": "tsc -p .",
