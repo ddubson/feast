@@ -31,7 +31,7 @@ help: ## Describe all make tasks (default task)
 
 all-env-var-check:
 	@echo "Ensure env vars are set in the environment"
-#$(call env_var_check,PG_CONNECTION_STRING)
+	$(call env_var_check,PG_CONNECTION_STRING)
 
 prereqs:
 	$(call ensure_program_exists,yarn)
