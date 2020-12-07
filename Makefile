@@ -31,18 +31,19 @@ help: ## Describe all make tasks (default task)
 
 all-env-var-check:
 	@echo "Ensure env vars are set in the environment"
+#$(call env_var_check,PG_CONNECTION_STRING)
 
 prereqs:
 	$(call ensure_program_exists,yarn)
 
-install: prereqs
+install: prereqs all-env-var-check
 	@yarn install
 
 api-build:
 	@echo "Building Feast API"
 	@yarn workspace @feast/api build
 
-api-start: api-build
+api-start: api-build all-env-var-check
 	@echo "Starting Feast API"
 	@yarn workspace @feast/api start
 

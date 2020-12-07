@@ -1,9 +1,8 @@
 import {Express, Request, Response} from "express";
-import {RecipeRepository} from "./recipes/RecipeRepository";
 import {APIMessage} from "./types";
 import {identity} from "purify-ts/Function";
-import {Maybe} from "purify-ts/Maybe";
 import {Recipe} from "@feast/domain";
+import {AppConfig} from "./config";
 
 const recipeNotFound: APIMessage = {message: "Recipe not found."}
 
@@ -15,12 +14,14 @@ export const router = (app: Express) => {
   })
 
   app.get("/api/recipes", (req: Request, res: Response) => {
-    res.json(RecipeRepository().fetchAllRecipes())
-  })
+    AppConfig.recipeStore.fetchAllRecipes((recipesResponse) => {
+      res.json(recipesResponse.recipes)
+    });
+  });
 
   app.get("/api/recipes/:id", (req: Request, res: Response) => {
-    const maybeRecipe: Maybe<Recipe> = RecipeRepository().fetchById(req.params.id);
-
-    res.json(maybeRecipe.mapOrDefault<ResultOrApiMessage<Recipe>>(identity, recipeNotFound))
+    AppConfig.recipeStore.fetchRecipeById(req.params.id, ({recipe}) => {
+      res.json(recipe.mapOrDefault<ResultOrApiMessage<Recipe>>(identity, recipeNotFound))
+    })
   });
 }
