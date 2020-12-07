@@ -80,4 +80,4 @@ open-webapp:
 	@open https://feast-web.netlify.app
 
 domain-publish:
-	@npm login --registry=https://npm.pkg.github.com
+	lerna publish minor
