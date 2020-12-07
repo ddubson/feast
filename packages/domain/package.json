@@ -1,9 +1,9 @@
 {
-  "name": "@feast/domain",
-  "version": "1.1.0",
+  "name": "@ddubson/feast-domain",
+  "version": "0.1.0",
   "main": "dist/index.js",
+  "files": ["dist/*"],
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "tsc -p .",
     "clean": "rimraf dist/"
