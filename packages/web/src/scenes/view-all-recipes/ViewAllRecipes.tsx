@@ -1,7 +1,7 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
 import * as shortid from "shortid";
-import {Recipe} from "@feast/domain";
+import {Recipe} from "@ddubson/feast-domain";
 import RecipeListItem from "./components/RecipeListItem";
 import {RecipesGateway} from "../../application/gateways/RecipesGateway";
 

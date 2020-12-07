@@ -1,6 +1,6 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import React, {useEffect, useState} from "react";
-import {RecipeDetail} from "@feast/domain";
+import {RecipeDetail} from "@ddubson/feast-domain";
 import IngredientPresenter from "../../presenters/IngredientPresenter";
 import RecipeDetailPresenter from "../../presenters/RecipeDetailPresenter";
 import StepPresenter from "../../presenters/StepPresenter";

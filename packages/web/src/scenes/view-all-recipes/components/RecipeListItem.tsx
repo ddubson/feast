@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
-import {Recipe} from "@feast/domain";
+import {Recipe} from "@ddubson/feast-domain";
 import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 

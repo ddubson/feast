@@ -1,7 +1,7 @@
 import {Express, Request, Response} from "express";
 import {APIMessage} from "./types";
 import {identity} from "purify-ts/Function";
-import {Recipe} from "@feast/domain";
+import {Recipe} from "@ddubson/feast-domain";
 import {AppConfig} from "./config";
 
 const recipeNotFound: APIMessage = {message: "Recipe not found."}

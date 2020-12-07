@@ -1,9 +1,9 @@
 import axios from "axios";
 import {HttpRecipesGateway} from "./HttpRecipesGateway";
 import {buildIngredient, buildRecipe, buildRecipeDetail} from "../../test-helpers/helpers/Builders";
-import {Volumes} from "@feast/domain";
+import {Volumes} from "@ddubson/feast-domain";
 import {RecipeDetailDto} from "./RecipeDtoTypes";
-import {Recipe} from "@feast/domain";
+import {Recipe} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
 import MockAdapter from "axios-mock-adapter";
 

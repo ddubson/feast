@@ -1,6 +1,6 @@
-import {Ingredient, IngredientForm, Recipe, RecipeDetail, VolumeMeasure, WeightType} from "@feast/domain";
+import {Ingredient, IngredientForm, Recipe, RecipeDetail, VolumeMeasure, WeightType} from "@ddubson/feast-domain";
 import {Just, Maybe} from "purify-ts/Maybe";
-import {cookingVolumeApiToCookingVolume} from "@feast/domain";
+import {cookingVolumeApiToCookingVolume} from "@ddubson/feast-domain";
 
 type VolumeType = "TABLESPOON";
 

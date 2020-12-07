@@ -1,5 +1,5 @@
 import {Maybe} from "purify-ts";
-import {RecipeDetail} from "@feast/domain";
+import {RecipeDetail} from "@ddubson/feast-domain";
 import IngredientPresenter, {toIngredientPresenters} from "./IngredientPresenter";
 import StepPresenter, {toStepPresenters} from "./StepPresenter";
 

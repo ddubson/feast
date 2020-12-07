@@ -1,5 +1,5 @@
 import {RecipesGateway} from "../../../application/gateways/RecipesGateway";
-import {Recipe, RecipeDetail} from "@feast/domain";
+import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
 import {emptyRecipe, emptyRecipeDetail} from "../../helpers/Builders";
 
 export default class StubRecipesGateway implements RecipesGateway {

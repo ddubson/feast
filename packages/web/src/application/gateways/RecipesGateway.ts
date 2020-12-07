@@ -1,4 +1,4 @@
-import {Recipe, RecipeDetail, WithoutId} from "@feast/domain";
+import {Recipe, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
 
 export interface RecipesGateway {
   saveRecipe(recipe: WithoutId<Recipe>): Promise<Recipe>;

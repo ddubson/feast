@@ -1,4 +1,4 @@
-import {Recipe, RecipeDetail} from "@feast/domain";
+import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
 import { Maybe } from "purify-ts";
 
 type PagedResponse = {

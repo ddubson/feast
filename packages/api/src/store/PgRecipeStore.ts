@@ -1,5 +1,5 @@
 import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from "./RecipeStore";
-import {RecipeDetail} from "@feast/domain";
+import {RecipeDetail} from "@ddubson/feast-domain";
 import shortid from "shortid";
 import {Maybe} from "purify-ts/Maybe";
 import {garlicLimeShrimp} from "./SampleRecipes";

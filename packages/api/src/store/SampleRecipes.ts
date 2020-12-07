@@ -1,4 +1,4 @@
-import {RecipeDetail, VolumeMeasure, Volumes, WithoutId } from "@feast/domain";
+import {RecipeDetail, VolumeMeasure, Volumes, WithoutId } from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts/Maybe";
 
 export const garlicLimeShrimp: WithoutId<RecipeDetail> = {

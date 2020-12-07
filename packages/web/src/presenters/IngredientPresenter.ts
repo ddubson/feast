@@ -6,7 +6,7 @@ import {
   VolumeMeasure, Weight,
   WeightType,
   WeightTypeAbbrev
-} from "@feast/domain";
+} from "@ddubson/feast-domain";
 
 export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<IngredientPresenter[]> => {
   return ingredients.mapOrDefault(

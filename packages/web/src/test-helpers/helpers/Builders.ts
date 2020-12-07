@@ -1,4 +1,4 @@
-import {Ingredient, Recipe, RecipeDetail, Step } from "@feast/domain";
+import {Ingredient, Recipe, RecipeDetail, Step } from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
 import shortid from "shortid";
 

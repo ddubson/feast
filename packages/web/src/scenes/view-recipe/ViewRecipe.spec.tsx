@@ -3,7 +3,7 @@ import {buildRecipeDetail} from "../../test-helpers/helpers/Builders";
 import {buildComponent} from "../../test-helpers/helpers/RenderApp";
 import {textsOf} from "../../test-helpers/helpers/TestExtensions";
 import ViewRecipe from "./ViewRecipe";
-import {Volumes} from "@feast/domain";
+import {Volumes} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
 import {render, waitFor} from "@testing-library/react";
 import StubRecipesGateway from "../../test-helpers/test-doubles/gateways/StubRecipesGateway";

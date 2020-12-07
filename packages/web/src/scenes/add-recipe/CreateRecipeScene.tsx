@@ -2,7 +2,7 @@ import update from "immutability-helper";
 import React, {ChangeEvent, FormEvent, PureComponent} from "react";
 import * as shortid from "shortid";
 import {DIContainerContext} from "../../AppConfig";
-import {Ingredient, RecipeDetail, WithoutId} from "@feast/domain";
+import {Ingredient, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
 import {BackToRecipesLink} from "../view-recipe/components/BackToRecipesLink";
 import { Nothing } from "purify-ts";
 

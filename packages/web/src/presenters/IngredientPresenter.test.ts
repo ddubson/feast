@@ -1,5 +1,5 @@
 import {buildIngredient} from "../test-helpers/helpers/Builders";
-import {Volumes} from "@feast/domain";
+import {Volumes} from "@ddubson/feast-domain";
 import IngredientPresenter from "./IngredientPresenter";
 import {Just, Nothing } from "purify-ts";
 

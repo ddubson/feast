@@ -1,5 +1,5 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import {Step} from "@feast/domain";
+import {Step} from "@ddubson/feast-domain";
 
 export const toStepPresenters = (steps: Maybe<Step[]>): Maybe<StepPresenter[]> => {
   return steps.mapOrDefault(
