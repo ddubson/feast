@@ -1,10 +1,10 @@
 {
   "name": "@feast/web",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "license": "MIT",
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.13.3",
-    "@feast/domain": "0.1.0",
+    "@feast/domain": "^1.1.0",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "history": "^4.10.1",
