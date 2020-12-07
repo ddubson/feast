@@ -20,6 +20,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: make install
+    - run: PG_CONNECTION_STRING=stub make install
     - run: make build
     - run: make test
