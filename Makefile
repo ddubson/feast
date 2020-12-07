@@ -41,18 +41,22 @@ install: prereqs all-env-var-check
 
 api-build:
 	@echo "Building Feast API"
-	@yarn workspace @feast/api build
+	@yarn workspace @ddubson/feast-api build
 
-api-start: api-build all-env-var-check
+api-clean:
+	@echo "Cleaning Feast API artifacts"
+	@yarn workspace @ddubson/feast-api clean
+
+api-start: api-clean api-build all-env-var-check
 	@echo "Starting Feast API"
-	@yarn workspace @feast/api start
+	@yarn workspace @ddubson/feast-api start
 
 web-start:
 	@echo "Starting Feast Web"
-	@yarn workspace @feast/web start
+	@yarn workspace @ddubson/feast-web start
 
 web-test-watch:
-	@yarn workspace @feast/web test:watch
+	@yarn workspace @ddubson/feast-web test:watch
 
 lint:
 	@yarn lint
