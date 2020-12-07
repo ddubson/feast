@@ -1,7 +1,7 @@
 import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from "../RecipeStore";
-import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
+import {Ingredient, Recipe, RecipeDetail} from "@ddubson/feast-domain";
 import shortid from "shortid";
-import {Maybe} from "purify-ts/Maybe";
+import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import {garlicLimeShrimp} from "../SampleRecipes";
 import {Pool, QueryResult} from "pg";
 
@@ -25,8 +25,48 @@ class PgRecipeStore implements RecipeStore {
   }
 
   fetchRecipeById(recipeId: string, onSuccess: (fetchRecipeByIdResponse: FetchRecipeByIdResponse) => void): void {
-    console.log("Fetch recipe by id called.");
-    onSuccess({recipe: Maybe.fromNullable(recipes[0])})
+    const recipe = {
+      text: "SELECT name FROM recipes WHERE id = $1",
+      values: [recipeId]
+    };
+    const ingredients = {
+      text: "SELECT  * FROM recipe_ingredients WHERE recipe_id = $1",
+      values: [recipeId]
+    };
+
+    const recipeQuery = this.db.query(recipe);
+    const ingredientQuery = this.db.query(ingredients);
+
+    Promise.all([recipeQuery, ingredientQuery]).then((values: QueryResult[]) => {
+      const [recipeResult, ingredientResult] = values;
+      const [recipe] = recipeResult.rows;
+      const recipeDetail: RecipeDetail = {
+        id: recipe.id,
+        name: recipe.name,
+        ingredients: Just(ingredientResult.rows.map(row => ({
+          id: row.id,
+          name: row.name,
+          form: Nothing,
+          weight: Nothing,
+          quantity: Nothing,
+          volume: Nothing
+        }))),
+        steps: Nothing
+      };
+      onSuccess({
+        recipe: Just(recipeDetail)
+      });
+    }).catch(error => {
+      console.error(error);
+    });
+
+    // this.db.query(recipe).then((result: QueryResult) => {
+    //   onSuccess({
+    //     recipe: Maybe.fromNullable(recipes[0])
+    //   });
+    // }).catch((error) => {
+    //   console.error("Fetch from store error: ", error);
+    // });
   }
 }
 
