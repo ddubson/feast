@@ -1,4 +1,4 @@
-![Feast CI Pipeline](https://github.com/ddubson/feast/workflows/Node.js%20CI/badge.svg)
+![Feast CI Pipeline](https://github.com/ddubson/feast/workflows/Feast%20CI%20Pipeline/badge.svg)
 [![codebeat badge](https://codebeat.co/badges/6b21a97f-2129-4f59-994e-f2098526e7c6)](https://codebeat.co/projects/github-com-ddubson-feast-main)
 [![Maintainability](https://api.codeclimate.com/v1/badges/517ed4cf27196fb7c2b0/maintainability)](https://codeclimate.com/github/ddubson/feast/maintainability)
 
