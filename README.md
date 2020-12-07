@@ -50,6 +50,7 @@ Run `make open-webapp` to launch site in browser
     - [React Hooks examples](https://usehooks.com/)
 - Modular typescript approach with Lerna and Yarn workspaces
     - [Yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
+    - [Publishing packages to GitHub Packages with Yarn + Lerna](https://viewsource.io/publishing-and-installing-private-github-packages-using-yarn-and-lerna/)
 - Build management: Self-documenting Makefile
     - [More on self-documenting Makefiles](https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html)
 - Sass styling approach: **7-1 pattern** 

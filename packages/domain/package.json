@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "dist/index.js",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "tsc -p .",
     "clean": "rimraf dist/"
@@ -14,5 +15,13 @@
   },
   "dependencies": {
     "purify-ts": "0.16.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/ddubson/feast",
+    "directory": "packages/domain"
   }
 }
