@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "main": "dist/application.js",
   "files": [
-    "dist/"
+    "dist/*"
   ],
   "license": "MIT",
   "scripts": {
@@ -27,5 +27,10 @@
     "purify-ts": "0.16.1",
     "shortid": "^2.2.15"
   },
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/ddubson/feast",
+    "directory": "packages/api"
+  }
 }

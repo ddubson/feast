@@ -62,5 +62,10 @@
     "node-sass": "4.14.1",
     "react-scripts": "4.0.1",
     "typescript": "4.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/ddubson/feast",
+    "directory": "packages/web"
   }
 }
