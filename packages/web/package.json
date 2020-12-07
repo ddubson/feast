@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.13.3",
-    "@feast/domain": "^1.1.0",
+    "@ddubson/feast-domain": "^1.1.0",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "history": "^4.10.1",

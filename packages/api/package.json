@@ -12,7 +12,7 @@
     "build": "tsc -p ."
   },
   "devDependencies": {
-    "@feast/domain": "^1.1.0",
+    "@ddubson/feast-domain": "^1.1.0",
     "@types/cors": "^2.8.7",
     "@types/express": "^4.17.8",
     "@types/pg": "^7.14.7",
