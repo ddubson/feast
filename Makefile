@@ -68,16 +68,13 @@ test:
 	@echo "Run all test cases"
 	@yarn test-all
 
-stop:
-	@echo "Stop process(es) gracefully (SIGTERM > SIGKILL ideally)"
-
 build:
 	@yarn build-all
 
 clean:
 	@yarn clean-all
 
-ship-it: install lint build test
+ship-it: install clean build test
 	@echo "Ready to ship!"
 
 open-webapp:
