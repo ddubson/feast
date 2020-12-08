@@ -4,7 +4,7 @@
 
 # feast
 
-Recipe aggregator app. You can find it deployed on Netlify @ https://bit.ly/feast-web
+Recipe aggregator app personal project written mostly in Typescript.
 
 The composition of this repository is as follows:
 
@@ -19,12 +19,32 @@ Composition made possible by: Lerna + Yarn workspaces
 - GNU Make
 - Node 15.x+
 - Yarn 1.20+
+- PostgreSQL 13.x
 
 ## Getting started
 
+### Database initialization
 
+The database in this project is PostgreSQL 13.x.
 
-## Web (React / Typescript with PurifyTS)
+The following connection string env variable is required to run the API locally:
+
+```shell
+export PG_CONNECTION_STRING=postgresql://feast_sa@127.0.0.1:5432/feast_db?currentSchema=public
+```
+
+The connection is based on a Feast Service Account (`feast_sa`) user that has access to 
+`feast_db` Database, using the `public` default schema.
+
+### Build check
+
+To verify that everything builds fine, run:
+
+```shell
+make install build
+```
+
+## Web App
 
 ### Running & Building
 
@@ -34,14 +54,8 @@ Composition made possible by: Lerna + Yarn workspaces
 Run:
 
 ```
-make start
+make install web-start
 ```
-
-## Deployment
-
-[Netlify Site](https://app.netlify.com/sites/feast-web/overview)
-
-Run `make open-webapp` to launch site in browser
 
 ## Practices, Techniques, Tools
 
