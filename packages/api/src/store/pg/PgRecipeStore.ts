@@ -2,6 +2,7 @@ import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from "../
 import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts/Maybe";
 import {Pool, QueryResult} from "pg";
+import {Maybe} from "purify-ts";
 
 class PgRecipeStore implements RecipeStore {
   constructor(private db: Pool) {
@@ -43,18 +44,20 @@ class PgRecipeStore implements RecipeStore {
       const [recipe] = recipeResult.rows;
       const [stepRow] = stepsResult.rows;
 
-      const formattedSteps = stepRow.steps.split("|").map((value: string, index: number) => ({stepNumber: index + 1, value}));
-
+      const formattedSteps = stepRow.steps.split("|").map((value: string, index: number) => ({
+        stepNumber: index + 1,
+        value
+      }));
       const recipeDetail: RecipeDetail = {
         id: recipe.id,
         name: recipe.name,
         ingredients: Just(ingredientResult.rows.map(row => ({
           id: row.id,
           name: row.name,
-          form: Nothing,
-          weight: Nothing,
-          quantity: Nothing,
-          volume: Nothing
+          form: Maybe.fromNullable(row.form),
+          weight: row.measure_type === "weight" ? Just({value: row.weight, type: row.weight_type}) : Nothing,
+          quantity: row.measure_type === "quantity" ? Just({value: row.quantity}) : Nothing,
+          volume: row.measure_type === "volume" ? Just({value: row.volume, type: row.volume_type}) : Nothing
         }))),
         steps: Just(formattedSteps)
       };

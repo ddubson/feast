@@ -55,6 +55,10 @@ web-start:
 	@echo "Starting Feast Web"
 	@yarn workspace @ddubson/feast-web start
 
+web-build:
+	@echo "Building Feast Web"
+	@yarn workspace @ddubson/feast-web build
+
 web-test-watch:
 	@yarn workspace @ddubson/feast-web test:watch
 

@@ -1,5 +1,4 @@
 import {Maybe} from "purify-ts/Maybe";
-import {CookingVolume} from "./Volumes";
 
 export type WithoutId<T> = Omit<T, "id">
 
@@ -12,9 +11,7 @@ export interface Step {
   value: string;
 }
 
-export type WeightType = "NONE" | "POUNDS";
-
-export type WeightTypeAbbrev = "" | "lbs";
+export type WeightType = "pounds";
 
 export type IngredientForm = "Chopped" | "Diced" | "Cleaned" | "Minced" | "Ground" | "Zested";
 
@@ -25,7 +22,7 @@ export interface Weight {
 
 export interface VolumeMeasure {
   value: number;
-  volumeType: CookingVolume;
+  type: "tablespoon" | string;
 }
 
 export interface Ingredient {

@@ -1,11 +1,9 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
 import {
   Ingredient,
-  IngredientForm,
-  singleOrPlural,
+  IngredientForm, Quantity,
   VolumeMeasure, Weight,
-  WeightType,
-  WeightTypeAbbrev
+  WeightType
 } from "@ddubson/feast-domain";
 
 export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<IngredientPresenter[]> => {
@@ -14,11 +12,13 @@ export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<
     Nothing);
 };
 
+export const singleOrPlural = (volumeMeasure: VolumeMeasure): string => `tablespoon${volumeMeasure.value > 1 ? "s" : ""}`;
+
 export default class IngredientPresenter {
-  private readonly WeightDisplayLookup: { [key in WeightType]: WeightTypeAbbrev; } = {
-    NONE: "",
-    POUNDS: "lbs",
+  private readonly WeightDisplayLookup: { [key in WeightType]: "lbs"; } = {
+    pounds: "lbs",
   };
+
 
   constructor(private ingredient: Ingredient) {
   }
@@ -50,7 +50,7 @@ export default class IngredientPresenter {
   }
 
   get displayQuantity(): string {
-    return this.ingredient.quantity.mapOrDefault((q) => `${q.value}`, ``);
+    return this.ingredient.quantity.mapOrDefault((q: Quantity) => `${q.value}`, ``);
   }
 
   get displayWeight(): string {

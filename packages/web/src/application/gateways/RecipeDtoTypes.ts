@@ -1,8 +1,5 @@
 import {Ingredient, IngredientForm, Recipe, RecipeDetail, VolumeMeasure, WeightType} from "@ddubson/feast-domain";
 import {Just, Maybe} from "purify-ts/Maybe";
-import {cookingVolumeApiToCookingVolume} from "@ddubson/feast-domain";
-
-type VolumeType = "TABLESPOON";
 
 export interface StepDto {
   stepNumber: number;
@@ -32,7 +29,7 @@ export interface IngredientDto {
   };
   volume: {
     value: number;
-    type: VolumeType;
+    type: "tablespoon" | string;
   } | null;
 }
 
@@ -67,7 +64,7 @@ export const toIngredient = (ingredientDto: IngredientDto): Ingredient => {
     })),
     volume: Maybe.fromNullable(volume).chain<VolumeMeasure>((v) => Just({
       value: v.value,
-      volumeType: cookingVolumeApiToCookingVolume[v.type],
+      type: v.type,
     })),
   };
 };

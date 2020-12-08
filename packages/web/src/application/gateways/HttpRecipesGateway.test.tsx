@@ -1,7 +1,6 @@
 import axios from "axios";
 import {HttpRecipesGateway} from "./HttpRecipesGateway";
 import {buildIngredient, buildRecipe, buildRecipeDetail} from "../../test-helpers/helpers/Builders";
-import {Volumes} from "@ddubson/feast-domain";
 import {RecipeDetailDto} from "./RecipeDtoTypes";
 import {Recipe} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
@@ -54,7 +53,7 @@ const expectedRecipeDetail = buildRecipeDetail({
       quantity: Nothing,
       volume: Just({
         value: 2,
-        volumeType: Volumes.tablespoon,
+        type: "tablespoon",
       }),
     }),
   ]),
@@ -78,7 +77,7 @@ const response: RecipeDetailDto = {
       form: "Diced",
       quantity: null,
       weight: null,
-      volume: {value: 2, type: "TABLESPOON"},
+      volume: {value: 2, type: "tablespoon"},
     },
   ],
   steps: [

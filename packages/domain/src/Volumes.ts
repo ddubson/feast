@@ -1,24 +1,12 @@
 import {VolumeMeasure} from "./types";
 
-type VolumeLabel = "Tablespoon";
-
-type VolumeLabelAbbrev = "Tbsp";
-
 type VolumeUnitOfMeasure = "milliliters" | "liters";
-
-type VolumeLabelPlural = "tablespoons";
-
-type VolumeLabelSingular = "tablespoon";
-
-export const VolumeLabelPluralsLookup: { [key in VolumeLabel]: VolumeLabelPlural } = {
-  Tablespoon: "tablespoons",
-};
 
 export interface CookingVolume {
   value: number;
   unitOfMeasurement: VolumeUnitOfMeasure;
-  label: VolumeLabel;
-  abbreviation: VolumeLabelAbbrev;
+  label: "Tablespoon" | string;
+  abbreviation: "Tbsp" | string;
 }
 
 const tablespoon: CookingVolume = {
@@ -28,14 +16,6 @@ const tablespoon: CookingVolume = {
   abbreviation: "Tbsp",
 };
 
-export const singleOrPlural = (volumeMeasure: VolumeMeasure): VolumeLabelSingular | VolumeLabelPlural => {
-  return (volumeMeasure.value === 1) ? "tablespoon" : VolumeLabelPluralsLookup[volumeMeasure.volumeType.label];
-};
-
 export const Volumes = {
   tablespoon,
-};
-
-export const cookingVolumeApiToCookingVolume: { [key in string]: CookingVolume } = {
-  TABLESPOON: Volumes.tablespoon,
 };

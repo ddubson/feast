@@ -1,7 +1,6 @@
 import {buildIngredient} from "../test-helpers/helpers/Builders";
-import {Volumes} from "@ddubson/feast-domain";
-import IngredientPresenter from "./IngredientPresenter";
-import {Just, Nothing } from "purify-ts";
+import IngredientPresenter, {singleOrPlural} from "./IngredientPresenter";
+import {Just, Nothing} from "purify-ts";
 
 describe("IngredientPresenter", () => {
   let ingredientPresenter: IngredientPresenter;
@@ -21,7 +20,7 @@ describe("IngredientPresenter", () => {
     describe("when an ingredient is based off of weight", () => {
       beforeEach(() => {
         ingredientPresenter = new IngredientPresenter(buildIngredient({
-          quantity: Nothing, weight: Just({value: 5.0, type: "POUNDS"}), volume: Nothing,
+          quantity: Nothing, weight: Just({value: 5.0, type: "pounds"}), volume: Nothing,
         }));
       });
 
@@ -33,7 +32,7 @@ describe("IngredientPresenter", () => {
     describe("when an ingredient is based off of volume", () => {
       beforeEach(() => {
         ingredientPresenter = new IngredientPresenter(buildIngredient({
-          quantity: Nothing, weight: Nothing, volume: Just({value: 2, volumeType: Volumes.tablespoon}),
+          quantity: Nothing, weight: Nothing, volume: Just({value: 2, type: "tablespoon"}),
         }));
       });
 
@@ -65,3 +64,8 @@ describe("IngredientPresenter", () => {
     });
   });
 });
+
+test("singleOrPlural", () => {
+  expect(singleOrPlural({value: 1, type: "tablespoon"})).toEqual("tablespoon");
+  expect(singleOrPlural({value: 2, volumeType: "tablespoon"})).toEqual("tablespoons");
+})
