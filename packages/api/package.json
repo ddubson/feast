@@ -24,8 +24,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.5.1",
-    "purify-ts": "0.16.1",
-    "shortid": "^2.2.15"
+    "purify-ts": "0.16.1"
   },
   "private": true,
   "repository": {

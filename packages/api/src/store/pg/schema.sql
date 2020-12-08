@@ -16,3 +16,10 @@ CREATE TABLE IF NOT EXISTS "public".recipe_ingredients (
     recipe_id SERIAL,
     CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES "public".recipes(id)
 );
+
+CREATE TABLE IF NOT EXISTS "public".recipe_steps (
+    id SERIAL PRIMARY KEY,
+    steps VARCHAR (10000) NULL,
+    recipe_id SERIAL,
+    CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES "public".recipes(id)
+);

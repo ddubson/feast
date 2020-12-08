@@ -1,11 +1,7 @@
 import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from "../RecipeStore";
-import {Ingredient, Recipe, RecipeDetail} from "@ddubson/feast-domain";
-import shortid from "shortid";
-import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import {garlicLimeShrimp} from "../SampleRecipes";
+import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
+import {Just, Nothing} from "purify-ts/Maybe";
 import {Pool, QueryResult} from "pg";
-
-const recipes: RecipeDetail[] = [garlicLimeShrimp].map(r => ({...r, id: shortid.generate()}));
 
 class PgRecipeStore implements RecipeStore {
   constructor(private db: Pool) {
@@ -30,16 +26,25 @@ class PgRecipeStore implements RecipeStore {
       values: [recipeId]
     };
     const ingredients = {
-      text: "SELECT  * FROM recipe_ingredients WHERE recipe_id = $1",
+      text: "SELECT * FROM recipe_ingredients WHERE recipe_id = $1",
+      values: [recipeId]
+    };
+    const steps = {
+      text: "SELECT steps FROM recipe_steps WHERE recipe_id = $1",
       values: [recipeId]
     };
 
     const recipeQuery = this.db.query(recipe);
     const ingredientQuery = this.db.query(ingredients);
+    const stepsQuery = this.db.query(steps);
 
-    Promise.all([recipeQuery, ingredientQuery]).then((values: QueryResult[]) => {
-      const [recipeResult, ingredientResult] = values;
+    Promise.all([recipeQuery, ingredientQuery, stepsQuery]).then((values: QueryResult[]) => {
+      const [recipeResult, ingredientResult, stepsResult] = values;
       const [recipe] = recipeResult.rows;
+      const [stepRow] = stepsResult.rows;
+
+      const formattedSteps = stepRow.steps.split("|").map((value: string, index: number) => ({stepNumber: index + 1, value}));
+
       const recipeDetail: RecipeDetail = {
         id: recipe.id,
         name: recipe.name,
@@ -51,7 +56,7 @@ class PgRecipeStore implements RecipeStore {
           quantity: Nothing,
           volume: Nothing
         }))),
-        steps: Nothing
+        steps: Just(formattedSteps)
       };
       onSuccess({
         recipe: Just(recipeDetail)
@@ -59,14 +64,6 @@ class PgRecipeStore implements RecipeStore {
     }).catch(error => {
       console.error(error);
     });
-
-    // this.db.query(recipe).then((result: QueryResult) => {
-    //   onSuccess({
-    //     recipe: Maybe.fromNullable(recipes[0])
-    //   });
-    // }).catch((error) => {
-    //   console.error("Fetch from store error: ", error);
-    // });
   }
 }
 
