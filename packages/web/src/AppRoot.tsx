@@ -36,7 +36,7 @@ export const AppRoot = () => {
               } />
               <Route path={"/recipe/new"} exact={true} render={({history}) =>
                 <AppContainer>
-                  <AddRecipeScene goToScene={history.push} />
+                  <AddRecipeScene saveRecipe={recipesGateway.saveRecipe.bind(recipesGateway)} goToScene={history.push} />
                 </AppContainer>
               } />
               <Route path={"/recipe/:id"} render={({match}) =>

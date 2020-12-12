@@ -4,9 +4,11 @@ import {fireEvent, render, RenderResult} from "@testing-library/react";
 
 test("recipe is added when user fills out form and clicks 'Add Recipe'", () => {
   const goToSceneSpy = jest.fn();
-  const page = AddRecipeScenePage(render(buildComponent(<AddRecipeScene goToScene={goToSceneSpy} />)));
+  const saveRecipeSpy = jest.fn();
+  const page = AddRecipeScenePage(render(buildComponent(<AddRecipeScene saveRecipe={saveRecipeSpy} goToScene={goToSceneSpy} />)));
   page.type("Recipe name", "Garlic Lime Shrimp");
   page.clickAddRecipe();
+  expect(saveRecipeSpy).toHaveBeenCalledWith({ name: "Garlic Lime Shrimp"});
   expect(goToSceneSpy).toHaveBeenCalledWith("/");
 });
 

@@ -20,23 +20,25 @@ export interface IngredientDto {
   id: string;
   name: string;
   form: string | null;
-  quantity: {
+  quantity?: {
     value: number;
   };
-  weight: {
+  weight?: {
     value: number;
     type: string;
   };
-  volume: {
+  volume?: {
     value: number;
     type: "tablespoon" | string;
-  } | null;
+  };
 }
 
-export const toRecipes = (recipeResponse: Recipe[]) => recipeResponse.map((dto) => ({
+export const toRecipe = (dto: RecipeDto) => ({
   id: dto.id,
   name: dto.name,
-}));
+})
+
+export const toRecipes = (recipeResponse: Recipe[]) => recipeResponse.map(toRecipe);
 
 export const toRecipeDetail = (recipeDto: RecipeDetailDto): RecipeDetail => {
   const {id, name, steps, ingredients} = recipeDto;

@@ -20,4 +20,8 @@ export const router = (app: Express) => {
       res.json(recipe.mapOrDefault<ResultOrApiMessage<Recipe>>(identity, RecipeNotFound))
     })
   });
+
+  app.post("/api/recipes", (req: Request, res: Response) => {
+    console.log("Saving recipe.");
+  });
 }

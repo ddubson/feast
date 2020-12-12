@@ -5,12 +5,11 @@ import {RecipesGateway} from "./application/gateways/RecipesGateway";
 
 const baseURL = process.env.REACT_APP_RECIPES_API_URI;
 export const recipesApiClient: AxiosInstance = axios.create({baseURL: baseURL });
+const recipesGateway = new HttpRecipesGateway(recipesApiClient);
 
 export interface DIContainer {
   recipesGateway: RecipesGateway;
 }
-
-const recipesGateway = new HttpRecipesGateway(recipesApiClient);
 
 export const diContainer: DIContainer = {
   recipesGateway,

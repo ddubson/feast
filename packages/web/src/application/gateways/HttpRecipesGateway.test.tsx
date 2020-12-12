@@ -2,7 +2,7 @@ import axios from "axios";
 import {HttpRecipesGateway} from "./HttpRecipesGateway";
 import {buildIngredient, buildRecipe, buildRecipeDetail} from "../../test-helpers/helpers/Builders";
 import {RecipeDetailDto} from "./RecipeDtoTypes";
-import {Recipe} from "@ddubson/feast-domain";
+import {Recipe, WithoutId} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
 import MockAdapter from "axios-mock-adapter";
 
@@ -32,6 +32,23 @@ describe("findById", () => {
 
     const foundRecipe = await recipesGateway.findById(recipeId);
     expect(foundRecipe).toEqual(expectedRecipeDetail);
+  });
+});
+
+describe("saveRecipe", () => {
+  test("saves recipe when provided a valid recipe", async () => {
+    const mockAxios = new MockAdapter(axios);
+    const recipesGateway = new HttpRecipesGateway(axios);
+    const recipe: WithoutId<Recipe> = {
+      name: "Garlic Lime Shrimp"
+    };
+
+    mockAxios
+      .onPost(`/api/recipes`, { name: "Garlic Lime Shrimp" })
+      .reply(200, { id: 1, name: "Garlic Lime Shrimp"});
+
+    const foundRecipe = await recipesGateway.saveRecipe(recipe);
+    expect(foundRecipe).toEqual({ id: 1, name: "Garlic Lime Shrimp"});
   });
 });
 
@@ -68,15 +85,11 @@ const response: RecipeDetailDto = {
       name: "Great Ingredient",
       form: "Chopped",
       quantity: {value: 2},
-      weight: null,
-      volume: null,
     },
     {
       id: expectedRecipeDetail.ingredients.orDefault([])[1].id,
       name: "Another Great Ingredient",
       form: "Diced",
-      quantity: null,
-      weight: null,
       volume: {value: 2, type: "tablespoon"},
     },
   ],

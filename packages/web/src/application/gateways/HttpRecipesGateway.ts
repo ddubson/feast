@@ -1,14 +1,16 @@
 import {RecipesGateway} from "./RecipesGateway";
-import {toRecipeDetail, toRecipes} from "./RecipeDtoTypes";
-import { AxiosInstance, AxiosResponse } from "axios";
-import { Recipe, RecipeDetail } from "@ddubson/feast-domain";
+import {toRecipe, toRecipeDetail, toRecipes} from "./RecipeDtoTypes";
+import {AxiosInstance, AxiosResponse} from "axios";
+import {Recipe, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
 
 export class HttpRecipesGateway implements RecipesGateway {
   constructor(private api: AxiosInstance) {
   }
 
-  public saveRecipe(recipe: Recipe): Promise<Recipe> {
-    return this.api.post("/api/recipes", recipe);
+  public saveRecipe(recipe: WithoutId<Recipe>): Promise<Recipe> {
+    return this.api.post("/api/recipes", recipe)
+      .then((response: AxiosResponse) => response.data)
+      .then(toRecipe);
   }
 
   public findAll(): Promise<Recipe[]> {
