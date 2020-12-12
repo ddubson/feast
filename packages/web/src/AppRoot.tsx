@@ -2,7 +2,7 @@ import * as React from "react";
 import {Route, Router, Switch} from "react-router-dom";
 import {DIContainerContext} from "./AppConfig";
 import FixedHeader from "./FixedHeader";
-import CreateRecipeScene from "./scenes/add-recipe/CreateRecipeScene";
+import AddRecipeScene from "./scenes/add-recipe/AddRecipeScene";
 import ViewRecipe from "./scenes/view-recipe/ViewRecipe";
 import ViewAllRecipes from "./scenes/view-all-recipes/ViewAllRecipes";
 import "./styles/main.scss";
@@ -34,9 +34,9 @@ export const AppRoot = () => {
                   <ViewAllRecipes recipesGateway={recipesGateway} />
                 </AppContainer>
               } />
-              <Route path={"/create-recipe"} exact={true} render={({history}) =>
+              <Route path={"/recipe/new"} exact={true} render={({history}) =>
                 <AppContainer>
-                  <CreateRecipeScene goToScene={history.push} />
+                  <AddRecipeScene goToScene={history.push} />
                 </AppContainer>
               } />
               <Route path={"/recipe/:id"} render={({match}) =>
