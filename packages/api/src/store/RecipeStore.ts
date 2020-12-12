@@ -1,4 +1,4 @@
-import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
+import {Recipe, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
 import { Maybe } from "purify-ts";
 
 type PagedResponse = {
@@ -19,6 +19,8 @@ export interface RecipeStore {
   fetchAllRecipes(onSuccess: (fetchAllResponse: FetchAllRecipesResponse) => void): void;
 
   fetchRecipeById(recipeId: string, onSuccess: (fetchRecipeByIdResponse: FetchRecipeByIdResponse) => void): void;
+
+  saveRecipe(recipe: WithoutId<Recipe>, onSuccess: (savedRecipe: Recipe) => void): void;
 }
 
 export { FetchAllRecipesResponse, FetchRecipeByIdResponse };

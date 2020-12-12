@@ -8,7 +8,11 @@ export class HttpRecipesGateway implements RecipesGateway {
   }
 
   public saveRecipe(recipe: WithoutId<Recipe>): Promise<Recipe> {
-    return this.api.post("/api/recipes", recipe)
+    return this.api.post("/api/recipes", recipe, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then((response: AxiosResponse) => response.data)
       .then(toRecipe);
   }

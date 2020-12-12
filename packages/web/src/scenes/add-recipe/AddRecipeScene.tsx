@@ -8,7 +8,7 @@ import {Recipe, WithoutId} from "@ddubson/feast-domain";
 
 export interface AddRecipeSceneProps {
   goToScene: (location: string) => void;
-  saveRecipe: (recipe: WithoutId<Recipe>) => void;
+  saveRecipe: (recipe: WithoutId<Recipe>) => Promise<Recipe>;
 };
 
 const AddRecipeScene = ({goToScene, saveRecipe}: AddRecipeSceneProps) => {
@@ -20,9 +20,9 @@ const AddRecipeScene = ({goToScene, saveRecipe}: AddRecipeSceneProps) => {
 
     saveRecipe({
       name: recipeName.orDefault("")
-    });
-
-    goToScene("/");
+    }).then((savedRecipe) => {
+      goToScene("/");
+    }).catch((e) => console.error(e));
   };
 
   return (

@@ -22,6 +22,8 @@ export const router = (app: Express) => {
   });
 
   app.post("/api/recipes", (req: Request, res: Response) => {
-    console.log("Saving recipe.");
+    recipeStore.saveRecipe({ name: req.body.name }, (savedRecipe => {
+      res.json(savedRecipe);
+    }));
   });
 }

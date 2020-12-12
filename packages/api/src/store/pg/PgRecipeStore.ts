@@ -1,5 +1,5 @@
 import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from "../RecipeStore";
-import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
+import {Recipe, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts/Maybe";
 import {Pool, QueryResult} from "pg";
 import {Maybe} from "purify-ts";
@@ -9,7 +9,7 @@ class PgRecipeStore implements RecipeStore {
   }
 
   fetchAllRecipes(onSuccess: (fetchAllResponse: FetchAllRecipesResponse) => void): void {
-    const query = "SELECT id, name FROM recipes LIMIT 1";
+    const query = "SELECT id, name FROM recipes";
 
     this.db.query(query).then((response: QueryResult) => {
       const recipes: Recipe[] = response.rows.map(row => ({
@@ -68,6 +68,19 @@ class PgRecipeStore implements RecipeStore {
       console.error(error);
     });
   }
+
+  saveRecipe(recipe: WithoutId<Recipe>, onSuccess: (savedRecipe: Recipe) => void): void {
+    const query = {
+      text: "INSERT INTO recipes (name) VALUES ($1) RETURNING id, name",
+      values: [recipe.name]
+    }
+
+    this.db.query(query).then((result: QueryResult) => {
+      const [savedRecipe] = result.rows;
+      onSuccess({ id: savedRecipe.id, name: savedRecipe})
+    })
+  }
 }
+
 
 export default PgRecipeStore;
