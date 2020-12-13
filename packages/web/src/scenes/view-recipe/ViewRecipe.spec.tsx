@@ -1,9 +1,8 @@
 import * as React from "react";
-import {buildRecipeDetail} from "../../test-helpers/helpers/Builders";
+import {buildIngredient, buildRecipeDetail} from "../../test-helpers/helpers/Builders";
 import {buildComponent} from "../../test-helpers/helpers/RenderApp";
 import {textsOf} from "../../test-helpers/helpers/TestExtensions";
 import ViewRecipe from "./ViewRecipe";
-import {Volumes} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
 import {render, waitFor} from "@testing-library/react";
 import StubRecipesGateway from "../../test-helpers/test-doubles/gateways/StubRecipesGateway";
@@ -20,38 +19,32 @@ test("recipe loads successfully", async () => {
       {stepNumber: 2, value: "Do that"},
     ]),
     ingredients: Just([
-      {
+      buildIngredient({
         id: "1",
         name: "An ingredient",
         form: Just("Chopped"),
         quantity: Just({
           value: 1,
-        }),
-        weight: Nothing,
-        volume: Nothing,
-      },
-      {
+        })
+      }),
+      buildIngredient({
         id: "2",
         name: "Another ingredient",
         form: Just("Diced"),
-        quantity: Nothing,
         weight: Just({
           value: 2.0,
           type: "pounds",
         }),
-        volume: Nothing,
-      },
-      {
+      }),
+      buildIngredient({
         id: "3",
         name: "Yet Another Ingredient",
         form: Nothing,
-        quantity: Nothing,
-        weight: Nothing,
         volume: Just({
           value: 2,
-          type: Volumes.tablespoon,
+          type: "tablespoon",
         }),
-      },
+      }),
     ]),
   }));
 

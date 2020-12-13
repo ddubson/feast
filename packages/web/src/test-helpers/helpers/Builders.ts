@@ -13,7 +13,7 @@ export const buildIngredient = (ingredient?: Partial<Ingredient>): Ingredient =>
     id: shortid.generate(),
     name: "Great Ingredient",
     form: Just("Chopped"),
-    quantity: Just({value: 2}),
+    quantity: Nothing,
     weight: Nothing,
     volume: Nothing,
   };

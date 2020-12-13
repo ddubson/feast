@@ -1,16 +1,8 @@
-import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import {
-  Ingredient,
-  IngredientForm, Quantity,
-  VolumeMeasure, Weight,
-  WeightType
-} from "@ddubson/feast-domain";
+import {Maybe} from "purify-ts/Maybe";
+import {Ingredient, IngredientForm, Quantity, VolumeMeasure, Weight, WeightType} from "@ddubson/feast-domain";
 
-export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<IngredientPresenter[]> => {
-  return ingredients.mapOrDefault(
-    (ing: Ingredient[]) => Just(ing.map((ingredient) => new IngredientPresenter(ingredient))),
-    Nothing);
-};
+export const toIngredientPresenters = (ingredients: Maybe<Ingredient[]>): Maybe<IngredientPresenter[]> =>
+  ingredients.map((ing: Ingredient[]) => ing.map((i: Ingredient) => new IngredientPresenter(i)));
 
 export const singleOrPlural = (volumeMeasure: VolumeMeasure): string => `tablespoon${volumeMeasure.value > 1 ? "s" : ""}`;
 
@@ -18,7 +10,6 @@ export default class IngredientPresenter {
   private readonly WeightDisplayLookup: { [key in WeightType]: "lbs"; } = {
     pounds: "lbs",
   };
-
 
   constructor(private ingredient: Ingredient) {
   }
