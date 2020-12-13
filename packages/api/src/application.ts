@@ -1,13 +1,13 @@
-import express, {Request, Response} from "express";
-import * as path from "path";
-import {router} from "./router";
-import cors from "cors";
+import express, { Request, Response } from 'express';
+import * as path from 'path';
+import cors from 'cors';
+import { router } from './router';
 
 const app = express();
 
 // Serve the static files from the React app
-app.use(express.static(path.join(__dirname, "dist/")));
-app.use(cors({origin: "*"}))
+app.use(express.static(path.join(__dirname, 'dist/')));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 router(app);

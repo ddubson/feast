@@ -65,6 +65,9 @@ web-test-watch:
 lint:
 	@yarn lint-all
 
+lint-fix:
+	@yarn lint-all-fix
+
 test:
 	@echo "Run all test cases"
 	@yarn test-all
