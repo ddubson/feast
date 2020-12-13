@@ -39,7 +39,7 @@ const ViewRecipe = (props: RecipeOverviewSceneProps) => {
 
   const recipes = (r: RecipeDetailPresenter) => (
     <section className="p-mt-2">
-      <h3>{r.name}</h3>
+      <h3 aria-label="Recipe name">{r.name}</h3>
 
       <Panel header="Ingredients" className="p-mt-2">
         {r.ingredients.mapOrDefault(

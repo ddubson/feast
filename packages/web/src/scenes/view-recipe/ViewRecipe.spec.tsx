@@ -9,8 +9,8 @@ import {render, waitFor} from "@testing-library/react";
 import StubRecipesGateway from "../../test-helpers/test-doubles/gateways/StubRecipesGateway";
 import {RecipesGateway} from "../../application/gateways/RecipesGateway";
 
-test("recipe loads successfully", () => {
-  let getByText, getByLabelText, getAllByLabelText, getAllByTestId;
+test("recipe loads successfully", async () => {
+  let getByLabelText, getAllByLabelText, getAllByTestId;
   const recipeId = "123";
   let stubRecipesGateway: RecipesGateway;
   stubRecipesGateway = new StubRecipesGateway(null, buildRecipeDetail({
@@ -37,7 +37,7 @@ test("recipe loads successfully", () => {
         quantity: Nothing,
         weight: Just({
           value: 2.0,
-          type: "POUNDS",
+          type: "pounds",
         }),
         volume: Nothing,
       },
@@ -49,7 +49,7 @@ test("recipe loads successfully", () => {
         weight: Nothing,
         volume: Just({
           value: 2,
-          volumeType: Volumes.tablespoon,
+          type: Volumes.tablespoon,
         }),
       },
     ]),
@@ -59,7 +59,7 @@ test("recipe loads successfully", () => {
       <ViewRecipe recipesGateway={stubRecipesGateway} recipeId={recipeId} />))
   );
 
-  waitFor(() => {
+  await waitFor(() => {
     expect(getByLabelText("Recipe name").textContent).toEqual("Great Recipe");
     expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("1 An ingredient - Chopped");
     expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("2 lbs Another ingredient - Diced");

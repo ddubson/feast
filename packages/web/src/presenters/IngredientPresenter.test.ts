@@ -67,5 +67,5 @@ describe("IngredientPresenter", () => {
 
 test("singleOrPlural", () => {
   expect(singleOrPlural({value: 1, type: "tablespoon"})).toEqual("tablespoon");
-  expect(singleOrPlural({value: 2, volumeType: "tablespoon"})).toEqual("tablespoons");
+  expect(singleOrPlural({value: 2, type: "tablespoon"})).toEqual("tablespoons");
 })

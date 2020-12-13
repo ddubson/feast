@@ -2,14 +2,14 @@ import {buildComponent} from "../../test-helpers/helpers/RenderApp";
 import AddRecipeScene from "./AddRecipeScene";
 import {fireEvent, render, RenderResult, waitFor} from "@testing-library/react";
 
-test("recipe is added when user fills out form and clicks 'Add Recipe'", () => {
+test("recipe is added when user fills out form and clicks 'Add Recipe'", async () => {
   const goToSceneSpy = jest.fn()
-  const saveRecipeSpy = jest.fn().mockResolvedValue({});;
+  const saveRecipeSpy = jest.fn().mockResolvedValue({});
   const page = AddRecipeScenePage(render(buildComponent(<AddRecipeScene saveRecipe={saveRecipeSpy}
                                                                         goToScene={goToSceneSpy} />)));
   page.type("Recipe name", "Garlic Lime Shrimp");
   page.clickAddRecipe();
-  waitFor(() => {
+  await waitFor(() => {
     expect(saveRecipeSpy).toHaveBeenCalledWith({name: "Garlic Lime Shrimp"});
     expect(goToSceneSpy).toHaveBeenCalledWith("/");
   })

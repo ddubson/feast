@@ -27,7 +27,9 @@
     "test:watch": "./node_modules/.bin/react-scripts test",
     "test": "./node_modules/.bin/react-scripts test --watchAll=false",
     "eject": "./node_modules/.bin/react-scripts eject",
-    "clean": "rimraf build/"
+    "lint": "eslint src/",
+    "clean": "rimraf build/",
+    "compile": "tsc -p . --noEmit"
   },
   "eslintConfig": {
     "extends": [

@@ -63,10 +63,7 @@ web-test-watch:
 	@yarn workspace @ddubson/feast-web test:watch
 
 lint:
-	@yarn lint
-
-lint-fix:
-	@yarn lint --fix
+	@yarn lint-all
 
 test:
 	@echo "Run all test cases"
@@ -78,7 +75,10 @@ build:
 clean:
 	@yarn clean-all
 
-ship-it: install clean build test
+compile:
+	@yarn compile-all
+
+ship-it: install clean build compile lint test
 	@echo "Ready to ship!"
 
 open-webapp:
