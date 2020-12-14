@@ -13,7 +13,7 @@ const RecipeListItem = ({recipe}: { recipe: Recipe }) => {
   </span>;
 
   return (
-    <Card className={"p-m-5 p-p-2"} header={header} footer={footer} />
+    <Card className="p-mt-2 p-mr-3 p-p-2" header={header} footer={footer} />
   );
 };
 

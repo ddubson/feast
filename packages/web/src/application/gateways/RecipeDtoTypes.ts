@@ -49,7 +49,7 @@ export const toRecipeDetail = (recipeDto: RecipeDetailDto): RecipeDetail => {
       stepNumber: x.stepNumber,
       value: x.value,
     }))),
-    ingredients: Just(ingredients.map(toIngredient)),
+    ingredients: Maybe.fromNullable(ingredients).map(i => i.map(toIngredient)),
   };
 };
 

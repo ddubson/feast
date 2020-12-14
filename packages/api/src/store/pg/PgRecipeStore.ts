@@ -1,8 +1,8 @@
-import { Recipe, RecipeDetail, WithoutId } from '@ddubson/feast-domain';
-import { Just, Nothing } from 'purify-ts/Maybe';
-import { Pool, QueryResult } from 'pg';
-import { Maybe } from 'purify-ts';
-import { FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore } from '../RecipeStore';
+import {Ingredient, Recipe, RecipeDetail, Step, WithoutId} from '@ddubson/feast-domain';
+import {Just, Nothing} from 'purify-ts/Maybe';
+import {Pool, QueryResult} from 'pg';
+import {Maybe} from 'purify-ts';
+import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from '../RecipeStore';
 
 class PgRecipeStore implements RecipeStore {
   constructor(private db: Pool) {
@@ -17,7 +17,7 @@ class PgRecipeStore implements RecipeStore {
         name: row.name,
       }));
 
-      onSuccess({ recipes, paging: { total: response.rowCount } });
+      onSuccess({recipes, paging: {total: response.rowCount}});
     });
   }
 
@@ -44,22 +44,24 @@ class PgRecipeStore implements RecipeStore {
       const [recipe] = recipeResult.rows;
       const [stepRow] = stepsResult.rows;
 
-      const formattedSteps = stepRow.steps.split('|').map((value: string, index: number) => ({
+      const formattedSteps: Step[] = stepRow?.steps.split('|').map((value: string, index: number) => ({
         stepNumber: index + 1,
         value,
       }));
+      const ingredients: Ingredient[] = ingredientResult?.rows?.map((row) => ({
+        id: row.id,
+        name: row.name,
+        form: Maybe.fromNullable(row.form),
+        weight: row.measure_type === 'weight' ? Just({value: row.weight, type: row.weight_type}) : Nothing,
+        quantity: row.measure_type === 'quantity' ? Just({value: row.quantity}) : Nothing,
+        volume: row.measure_type === 'volume' ? Just({value: row.volume, type: row.volume_type}) : Nothing,
+      }));
+
       const recipeDetail: RecipeDetail = {
         id: recipe.id,
         name: recipe.name,
-        ingredients: Just(ingredientResult.rows.map((row) => ({
-          id: row.id,
-          name: row.name,
-          form: Maybe.fromNullable(row.form),
-          weight: row.measure_type === 'weight' ? Just({ value: row.weight, type: row.weight_type }) : Nothing,
-          quantity: row.measure_type === 'quantity' ? Just({ value: row.quantity }) : Nothing,
-          volume: row.measure_type === 'volume' ? Just({ value: row.volume, type: row.volume_type }) : Nothing,
-        }))),
-        steps: Just(formattedSteps),
+        ingredients: ingredients && ingredients.length > 0 ? Just(ingredients) : Nothing,
+        steps: formattedSteps && formattedSteps.length > 0 ? Just(formattedSteps) : Nothing,
       };
       onSuccess({
         recipe: Just(recipeDetail),
@@ -77,7 +79,7 @@ class PgRecipeStore implements RecipeStore {
 
     this.db.query(query).then((result: QueryResult) => {
       const [savedRecipe] = result.rows;
-      onSuccess({ id: savedRecipe.id, name: savedRecipe });
+      onSuccess({id: savedRecipe.id, name: savedRecipe});
     });
   }
 }

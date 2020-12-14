@@ -30,17 +30,15 @@ function ViewAllRecipes({recipesGateway}: { recipesGateway: RecipesGateway }) {
 
   return (
     <div className="recipe-dashboard">
-      <div className="recipe-list">
-        <h2 className="">Recipes</h2>
-        <section>
-          <Link to="/recipe/new">
-            <Button className="p-button-sm" icon="pi pi-plus" label="New Recipe" />
-          </Link>
-        </section>
-        <section className="p-d-flex">
-          {renderRecipes(maybeRecipes)}
-        </section>
-      </div>
+      <section className="p-mt-2">
+        <Link to="/recipe/new">
+          <Button className="p-button-sm" icon="pi pi-plus" label="New Recipe" />
+        </Link>
+      </section>
+      <h2 className="p-mt-2">Recipes</h2>
+      <section className="p-mt-2 p-d-flex">
+        {renderRecipes(maybeRecipes)}
+      </section>
     </div>
   );
 }
