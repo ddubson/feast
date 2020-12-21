@@ -1,5 +1,5 @@
 import {Ingredient, Recipe, RecipeDetail, Step, WithoutId} from '@ddubson/feast-domain';
-import {Just, Nothing} from 'purify-ts/Maybe';
+import {Just} from 'purify-ts/Maybe';
 import {Pool, QueryResult} from 'pg';
 import {Maybe} from 'purify-ts';
 import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from '../RecipeStore';
@@ -52,16 +52,15 @@ class PgRecipeStore implements RecipeStore {
         id: row.id,
         name: row.name,
         form: Maybe.fromNullable(row.form),
-        weight: row.measure_type === 'weight' ? Just({value: row.weight, type: row.weight_type}) : Nothing,
-        quantity: row.measure_type === 'quantity' ? Just({value: row.quantity}) : Nothing,
-        volume: row.measure_type === 'volume' ? Just({value: row.volume, type: row.volume_type}) : Nothing,
+        weight: Maybe.fromPredicate(() => row.measure_type === 'weight', {value: row.weight, type: row.weight_type}),
+        quantity: Maybe.fromPredicate(() => row.measure_type === 'quantity', {value: row.quantity}),
+        volume: Maybe.fromPredicate(() => row.measure_type === 'volume', {value: row.volume, type: row.volume_type}),
       }));
-
       const recipeDetail: RecipeDetail = {
         id: recipe.id,
         name: recipe.name,
-        ingredients: ingredients && ingredients.length > 0 ? Just(ingredients) : Nothing,
-        steps: formattedSteps && formattedSteps.length > 0 ? Just(formattedSteps) : Nothing,
+        ingredients: Maybe.fromPredicate(() => ingredients && ingredients.length > 0, ingredients),
+        steps: Maybe.fromPredicate(() => formattedSteps && formattedSteps.length > 0, formattedSteps),
       };
       onSuccess({
         recipe: Just(recipeDetail),

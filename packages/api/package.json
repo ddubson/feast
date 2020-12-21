@@ -7,7 +7,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --config nodemon.json src/index.ts",
+    "start": "ts-node src/application.ts",
+    "start:watch": "nodemon",
     "start:debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "clean": "rimraf dist/",
     "build": "tsc -p .",
@@ -24,6 +25,7 @@
     "eslint": "7.14.0",
     "eslint-plugin-import": "2.22.1",
     "nodemon": "^2.0.6",
+    "ts-node": "^9.1.1",
     "typescript": "4.0.3"
   },
   "dependencies": {

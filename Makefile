@@ -49,7 +49,8 @@ api-clean:
 
 api-start: all-env-var-check
 	@echo "Starting Feast API"
-	@yarn workspace @ddubson/feast-api start
+	@yarn workspace @ddubson/feast-api clean
+	@yarn workspace @ddubson/feast-api start:watch
 
 api-start-debug: all-env-var-check
 	@echo "Starting Feast API in Debug Mode"

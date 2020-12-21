@@ -4,7 +4,7 @@ import { Recipe } from '@ddubson/feast-domain';
 import { RecipeNotFound, ResultOrApiMessage } from './types';
 import { recipeStore } from './config';
 
-export const router = (app: Express) => {
+export const router = (app: Express): void => {
   app.get('/api/hello', (req: Request, res: Response) => {
     res.send('Hello, World!');
   });
