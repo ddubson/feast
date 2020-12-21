@@ -7,7 +7,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "node dist/application.js",
+    "start": "nodemon --config nodemon.json src/index.ts",
+    "start:debug": "nodemon --config nodemon.json --inspect-brk src/index.ts",
     "clean": "rimraf dist/",
     "build": "tsc -p .",
     "lint": "eslint -c .eslintrc.json src/**/*.ts",
@@ -22,15 +23,15 @@
     "@typescript-eslint/parser": "^4.9.1",
     "eslint": "7.14.0",
     "eslint-plugin-import": "2.22.1",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.6",
     "typescript": "4.0.3"
   },
   "dependencies": {
+    "@ddubson/feast-domain": "^1.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.5.1",
-    "purify-ts": "0.16.1",
-    "@ddubson/feast-domain": "^1.1.0"
+    "purify-ts": "0.16.1"
   },
   "private": true,
   "repository": {
