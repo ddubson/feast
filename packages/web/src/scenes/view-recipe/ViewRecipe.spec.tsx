@@ -9,22 +9,19 @@ import {RecipeDetail} from "@ddubson/feast-domain";
 
 test("recipe loads successfully", async () => {
   const deps = dependencies(sampleRecipeDetail);
-  const {getByLabelText, getAllByLabelText, getAllByTestId} = render(buildComponent(
-    <ViewRecipe findRecipeById={deps.findRecipeByIdSpy}
-                deleteRecipe={deps.deleteRecipeSpy}
-                goToScene={deps.goToSceneSpy}
-                recipeId={deps.recipeId} />));
+  const page = ViewRecipePage(render(
+    buildComponent(<ViewRecipe findRecipeById={deps.findRecipeByIdSpy}
+                               deleteRecipe={deps.deleteRecipeSpy}
+                               goToScene={deps.goToSceneSpy}
+                               recipeId={deps.recipeId} />)));
 
   await waitFor(() => {
-    expect(getByLabelText("Recipe name").textContent).toEqual("Great Recipe");
-    expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("1 An ingredient - Chopped");
-    expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("2 lbs Another ingredient - Diced");
-    expect(textsOf(getAllByLabelText("Recipe ingredient"))).toContain("2 tablespoons Yet Another Ingredient ");
-    const instructionSet = textsOf(getAllByTestId("instruction-step"));
-    expect(instructionSet).toEqual([
-      "1: Do this",
-      "2: Do that",
-    ]);
+    expect(page.getRecipeName()).toEqual("Great Recipe");
+    const displayedIngredients = page.getAllIngredients();
+    expect(displayedIngredients).toContain("1 An ingredient - Chopped");
+    expect(displayedIngredients).toContain("2 lbs Another ingredient - Diced");
+    expect(displayedIngredients).toContain("2 tablespoons Yet Another Ingredient ");
+    expect(page.getAllSteps()).toEqual(["1: Do this", "2: Do that"]);
   })
 });
 
@@ -43,6 +40,9 @@ test("user is able to delete the recipe they are viewing", async () => {
 });
 
 const ViewRecipePage = (renderResult: RenderResult) => ({
+  getRecipeName: () => renderResult.getByLabelText("Recipe name").textContent,
+  getAllIngredients: () => textsOf(renderResult.getAllByLabelText("Recipe ingredient")),
+  getAllSteps: () => textsOf(renderResult.getAllByTestId("instruction-step")),
   clickDeleteRecipe: () => {
     fireEvent.click(renderResult.getByLabelText("Delete forever"));
   }
