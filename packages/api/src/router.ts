@@ -26,4 +26,10 @@ export const router = (app: Express): void => {
       res.json(savedRecipe);
     }));
   });
+
+  app.delete('/api/recipes/:id', (req: Request, res: Response) => {
+    recipeStore.deleteRecipe(req.params.id, () => {
+      res.send();
+    });
+  });
 };

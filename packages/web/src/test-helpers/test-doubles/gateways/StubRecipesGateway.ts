@@ -24,4 +24,8 @@ export default class StubRecipesGateway implements RecipesGateway {
   public saveRecipe(recipe: Recipe): Promise<Recipe> {
     return Promise.resolve(this.savedRecipe);
   }
+
+  public deleteRecipe(id: string): Promise<boolean> {
+    throw new Error("not implemented yet");
+  }
 }

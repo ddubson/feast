@@ -28,4 +28,9 @@ export class HttpRecipesGateway implements RecipesGateway {
       .then((response: AxiosResponse) => response.data)
       .then(toRecipeDetail);
   }
+
+  public deleteRecipe(id: string): Promise<boolean> {
+    return this.api.delete(`api/recipes/${id}`)
+      .then((response: AxiosResponse) => response.status === 200)
+  }
 }

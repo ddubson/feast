@@ -6,4 +6,6 @@ export interface RecipesGateway {
   findAll(): Promise<Recipe[]>;
 
   findById(id: string): Promise<RecipeDetail>;
+
+  deleteRecipe(id: string): Promise<boolean>;
 }

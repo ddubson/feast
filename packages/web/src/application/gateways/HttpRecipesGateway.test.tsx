@@ -6,50 +6,56 @@ import {Recipe, WithoutId} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
 import MockAdapter from "axios-mock-adapter";
 
-describe("findAll", () => {
-  test("resolves recipes response", async () => {
-    const mockAxios = new MockAdapter(axios);
-    const recipesGateway = new HttpRecipesGateway(axios);
+test("findAll - resolves recipes response", async () => {
+  const mockAxios = new MockAdapter(axios);
+  const recipesGateway = new HttpRecipesGateway(axios);
 
-    mockAxios
-      .onGet(`/api/recipes`)
-      .reply(200, [expectedRecipe]);
+  mockAxios
+    .onGet(`/api/recipes`)
+    .reply(200, [expectedRecipe]);
 
-    const foundRecipes: Recipe[] = await recipesGateway.findAll();
-    expect(foundRecipes).toEqual([expectedRecipe]);
-  });
+  const foundRecipes: Recipe[] = await recipesGateway.findAll();
+  expect(foundRecipes).toEqual([expectedRecipe]);
 });
 
-describe("findById", () => {
-  test("provided a valid recipe id, resolves a recipe", async () => {
-    const mockAxios = new MockAdapter(axios);
-    const recipesGateway = new HttpRecipesGateway(axios);
-    const recipeId = "123";
+test("findById - provided a valid recipe id, resolves a recipe", async () => {
+  const mockAxios = new MockAdapter(axios);
+  const recipesGateway = new HttpRecipesGateway(axios);
+  const recipeId = "123";
 
-    mockAxios
-      .onGet(`/api/recipes/${recipeId}`)
-      .reply(200, response);
+  mockAxios
+    .onGet(`/api/recipes/${recipeId}`)
+    .reply(200, response);
 
-    const foundRecipe = await recipesGateway.findById(recipeId);
-    expect(foundRecipe).toEqual(expectedRecipeDetail);
-  });
+  const foundRecipe = await recipesGateway.findById(recipeId);
+  expect(foundRecipe).toEqual(expectedRecipeDetail);
 });
 
-describe("saveRecipe", () => {
-  test("saves recipe when provided a valid recipe", async () => {
-    const mockAxios = new MockAdapter(axios);
-    const recipesGateway = new HttpRecipesGateway(axios);
-    const recipe: WithoutId<Recipe> = {
-      name: "Garlic Lime Shrimp"
-    };
+test("saveRecipe - saves recipe when provided a valid recipe", async () => {
+  const mockAxios = new MockAdapter(axios);
+  const recipesGateway = new HttpRecipesGateway(axios);
+  const recipe: WithoutId<Recipe> = {
+    name: "Garlic Lime Shrimp"
+  };
 
-    mockAxios
-      .onPost(`/api/recipes`, { name: "Garlic Lime Shrimp" })
-      .reply(200, { id: 1, name: "Garlic Lime Shrimp"});
+  mockAxios
+    .onPost(`/api/recipes`, {name: "Garlic Lime Shrimp"})
+    .reply(200, {id: 1, name: "Garlic Lime Shrimp"});
 
-    const foundRecipe = await recipesGateway.saveRecipe(recipe);
-    expect(foundRecipe).toEqual({ id: 1, name: "Garlic Lime Shrimp"});
-  });
+  const foundRecipe = await recipesGateway.saveRecipe(recipe);
+  expect(foundRecipe).toEqual({id: 1, name: "Garlic Lime Shrimp"});
+});
+
+test("deleteRecipe - when provided a valid id, deletes a recipe", async () => {
+  const mockAxios = new MockAdapter(axios);
+  const recipesGateway = new HttpRecipesGateway(axios);
+
+  mockAxios
+    .onDelete(`/api/recipes/1`)
+    .reply(200);
+
+  const deleted = await recipesGateway.deleteRecipe("1");
+  expect(deleted).toBeTruthy();
 });
 
 const expectedRecipe = buildRecipe();

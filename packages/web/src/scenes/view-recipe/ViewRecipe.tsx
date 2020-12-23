@@ -1,5 +1,5 @@
 import {Just, Maybe, Nothing} from "purify-ts/Maybe";
-import React, {useEffect, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {RecipeDetail} from "@ddubson/feast-domain";
 import IngredientPresenter from "../../presenters/IngredientPresenter";
 import RecipeDetailPresenter from "../../presenters/RecipeDetailPresenter";
@@ -8,10 +8,14 @@ import {BackToRecipesLink} from "./components/BackToRecipesLink";
 import shortid from "shortid";
 import {RecipesGateway} from "../../application/gateways/RecipesGateway";
 import {Panel} from "primereact/panel";
+import {Toolbar} from "primereact/toolbar";
+import {Button} from "primereact/button";
 
 interface RecipeOverviewSceneProps {
-  recipesGateway: RecipesGateway
+  recipesGateway: RecipesGateway;
+  deleteRecipe: (recipeId: string) => Promise<boolean>;
   recipeId: string;
+  goToScene: (location: string) => void;
 }
 
 const renderIngredient = ({form, displayCulinaryMeasure, name}: IngredientPresenter) => {
@@ -28,7 +32,7 @@ const renderStep = (step: StepPresenter) => (
 const NoRecipe = () => <div>No recipe!</div>;
 
 const ViewRecipe = (props: RecipeOverviewSceneProps) => {
-  const {recipesGateway, recipeId} = props;
+  const {recipesGateway, recipeId, deleteRecipe, goToScene} = props;
   const [recipePresenter, setRecipePresenter] = useState<Maybe<RecipeDetailPresenter>>(() => Nothing);
 
   useEffect(() => {
@@ -37,7 +41,16 @@ const ViewRecipe = (props: RecipeOverviewSceneProps) => {
       .catch(() => setRecipePresenter(Nothing));
   }, [recipesGateway, recipeId]);
 
-  const recipes = (r: RecipeDetailPresenter) => (
+  const onDeleteClick = (event: FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    deleteRecipe(recipeId).then(() => {
+      goToScene("/");
+    }).catch((error) => {
+      console.error(error);
+    });
+  };
+
+  const recipe = (r: RecipeDetailPresenter) => (
     <section className="p-mt-2">
       <h3 aria-label="Recipe name">{r.name}</h3>
 
@@ -58,12 +71,19 @@ const ViewRecipe = (props: RecipeOverviewSceneProps) => {
     </section>
   )
 
-  const recipesOrNothing = recipePresenter.mapOrDefault(recipes, <NoRecipe />);
+  const recipeOrNothing = recipePresenter.mapOrDefault(recipe, <NoRecipe />);
+  const toolbar = () => (<>
+    <Button icon="pi pi-times" className="p-button-danger"
+            onClick={onDeleteClick}
+            aria-label={"Delete forever"} label={"Delete forever"} />
+  </>);
 
   return <div>
     <BackToRecipesLink />
 
-    {recipesOrNothing}
+    {recipeOrNothing}
+
+    <Toolbar className={"p-mt-3"} left={toolbar} />
   </div>
 };
 

@@ -4,53 +4,15 @@ import {buildComponent} from "../../test-helpers/helpers/RenderApp";
 import {textsOf} from "../../test-helpers/helpers/TestExtensions";
 import ViewRecipe from "./ViewRecipe";
 import {Just, Nothing} from "purify-ts";
-import {render, waitFor} from "@testing-library/react";
+import {fireEvent, render, RenderResult, waitFor} from "@testing-library/react";
 import StubRecipesGateway from "../../test-helpers/test-doubles/gateways/StubRecipesGateway";
-import {RecipesGateway} from "../../application/gateways/RecipesGateway";
+import {RecipeDetail} from "@ddubson/feast-domain";
 
 test("recipe loads successfully", async () => {
-  let getByLabelText, getAllByLabelText, getAllByTestId;
-  const recipeId = "123";
-  let stubRecipesGateway: RecipesGateway;
-  stubRecipesGateway = new StubRecipesGateway(null, buildRecipeDetail({
-    name: "Great Recipe",
-    steps: Just([
-      {stepNumber: 1, value: "Do this"},
-      {stepNumber: 2, value: "Do that"},
-    ]),
-    ingredients: Just([
-      buildIngredient({
-        id: "1",
-        name: "An ingredient",
-        form: Just("Chopped"),
-        quantity: Just({
-          value: 1,
-        })
-      }),
-      buildIngredient({
-        id: "2",
-        name: "Another ingredient",
-        form: Just("Diced"),
-        weight: Just({
-          value: 2.0,
-          type: "pounds",
-        }),
-      }),
-      buildIngredient({
-        id: "3",
-        name: "Yet Another Ingredient",
-        form: Nothing,
-        volume: Just({
-          value: 2,
-          type: "tablespoon",
-        }),
-      }),
-    ]),
-  }));
-
-  ({getByLabelText, getAllByLabelText, getAllByTestId} = render(buildComponent(
-      <ViewRecipe recipesGateway={stubRecipesGateway} recipeId={recipeId} />))
-  );
+  const deps = dependencies(sampleRecipeDetail);
+  const {getByLabelText, getAllByLabelText, getAllByTestId} = render(buildComponent(
+    <ViewRecipe recipesGateway={deps.stubRecipesGateway} deleteRecipe={deps.deleteRecipeSpy} goToScene={deps.goToSceneSpy}
+                recipeId={deps.recipeId} />));
 
   await waitFor(() => {
     expect(getByLabelText("Recipe name").textContent).toEqual("Great Recipe");
@@ -63,4 +25,67 @@ test("recipe loads successfully", async () => {
       "2: Do that",
     ]);
   })
+});
+
+test("user is able to delete the recipe they are viewing", async () => {
+  const deps = dependencies(sampleRecipeDetail);
+  const page = ViewRecipePage(render(buildComponent(
+    <ViewRecipe recipesGateway={deps.stubRecipesGateway} deleteRecipe={deps.deleteRecipeSpy}
+                goToScene={deps.goToSceneSpy} recipeId={deps.recipeId} />)));
+
+  page.clickDeleteRecipe();
+
+  await waitFor(() => {
+    expect(deps.deleteRecipeSpy).toHaveBeenCalledWith(deps.recipeId);
+    expect(deps.goToSceneSpy).toHaveBeenCalledWith("/")
+  });
+});
+
+const ViewRecipePage = (renderResult: RenderResult) => ({
+  clickDeleteRecipe: () => {
+    fireEvent.click(renderResult.getByLabelText("Delete forever"));
+  }
+});
+
+const dependencies = (recipeDetail: RecipeDetail) => ({
+  recipeId: "123",
+  goToSceneSpy: jest.fn(),
+  deleteRecipeSpy: jest.fn().mockResolvedValue({}),
+  stubRecipesGateway: new StubRecipesGateway(null, recipeDetail)
+})
+
+const sampleRecipeDetail = buildRecipeDetail({
+  name: "Great Recipe",
+  steps: Just([
+    {stepNumber: 1, value: "Do this"},
+    {stepNumber: 2, value: "Do that"},
+  ]),
+  ingredients: Just([
+    buildIngredient({
+      id: "1",
+      name: "An ingredient",
+      form: Just("Chopped"),
+      quantity: Just({
+        value: 1,
+      })
+    }),
+    buildIngredient({
+      id: "2",
+      name: "Another ingredient",
+      form: Just("Diced"),
+      weight: Just({
+        value: 2.0,
+        type: "pounds",
+      }),
+    }),
+    buildIngredient({
+      id: "3",
+      name: "Yet Another Ingredient",
+      form: Nothing,
+      volume: Just({
+        value: 2,
+        type: "tablespoon",
+      }),
+    }),
+  ]),
 });

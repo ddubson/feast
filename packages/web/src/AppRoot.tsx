@@ -39,9 +39,12 @@ export const AppRoot = () => {
                   <AddRecipeScene saveRecipe={recipesGateway.saveRecipe.bind(recipesGateway)} goToScene={history.push} />
                 </AppContainer>
               } />
-              <Route path={"/recipe/:id"} render={({match}) =>
+              <Route path={"/recipe/:id"} render={({match, history}) =>
                 <AppContainer>
-                  <ViewRecipe recipesGateway={recipesGateway} recipeId={match.params.id} />
+                  <ViewRecipe recipesGateway={recipesGateway}
+                              deleteRecipe={recipesGateway.deleteRecipe.bind(recipesGateway)}
+                              goToScene={history.push}
+                              recipeId={match.params.id} />
                 </AppContainer>
               } />
             </Switch>

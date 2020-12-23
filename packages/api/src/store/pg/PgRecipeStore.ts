@@ -81,6 +81,17 @@ class PgRecipeStore implements RecipeStore {
       onSuccess({id: savedRecipe.id, name: savedRecipe});
     });
   }
+
+  deleteRecipe(recipeId: string, onSuccess: () => void): void {
+    const deleteRecipe = {
+      text: 'DELETE FROM recipes WHERE id = $1',
+      values: [recipeId]
+    };
+
+    this.db.query(deleteRecipe).then(() => {
+      onSuccess();
+    });
+  }
 }
 
 export default PgRecipeStore;

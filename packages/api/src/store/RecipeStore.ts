@@ -22,6 +22,8 @@ export interface RecipeStore {
                   onSuccess: (fetchRecipeByIdResponse: FetchRecipeByIdResponse) => void): void;
 
   saveRecipe(recipe: WithoutId<Recipe>, onSuccess: (savedRecipe: Recipe) => void): void;
+
+  deleteRecipe(recipeId: string, onSuccess: () => void): void;
 }
 
 export { FetchAllRecipesResponse, FetchRecipeByIdResponse };

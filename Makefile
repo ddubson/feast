@@ -47,7 +47,7 @@ api-clean:
 	@echo "Cleaning Feast API artifacts"
 	@yarn workspace @ddubson/feast-api clean
 
-api-start: all-env-var-check
+api-start: domain-clean domain-build all-env-var-check
 	@echo "Starting Feast API"
 	@yarn workspace @ddubson/feast-api clean
 	@yarn workspace @ddubson/feast-api start:watch
@@ -56,7 +56,15 @@ api-start-debug: all-env-var-check
 	@echo "Starting Feast API in Debug Mode"
 	@yarn workspace @ddubson/feast-api start:debug
 
-web-start:
+domain-clean:
+	@echo "Cleaning Feast Domain artifacts"
+	@yarn workspace @ddubson/feast-domain clean
+
+domain-build: domain-clean
+	@echo "Building Feast Domain..."
+	@yarn workspace @ddubson/feast-domain build
+
+web-start: domain-clean domain-build
 	@echo "Starting Feast Web"
 	@yarn workspace @ddubson/feast-web start
 

@@ -13,13 +13,17 @@ CREATE TABLE IF NOT EXISTS "public".recipe_ingredients (
     weight_type VARCHAR (100) NULL,
     volume DECIMAL NULL,
     volume_type VARCHAR (100) NULL,
-    recipe_id SERIAL,
-    CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES "public".recipes(id)
+    recipe_id SERIAL ,
+    CONSTRAINT fk_recipe FOREIGN KEY (recipe_id)
+        REFERENCES "public".recipes(id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "public".recipe_steps (
     id SERIAL PRIMARY KEY,
     steps VARCHAR (10000) NULL,
     recipe_id SERIAL,
-    CONSTRAINT fk_recipe FOREIGN KEY (recipe_id) REFERENCES "public".recipes(id)
+    CONSTRAINT fk_recipe FOREIGN KEY (recipe_id)
+        REFERENCES "public".recipes(id)
+        ON DELETE CASCADE
 );
