@@ -41,7 +41,7 @@ export const AppRoot = () => {
               } />
               <Route path={"/recipe/:id"} render={({match, history}) =>
                 <AppContainer>
-                  <ViewRecipe recipesGateway={recipesGateway}
+                  <ViewRecipe findRecipeById={recipesGateway.findById.bind(recipesGateway)}
                               deleteRecipe={recipesGateway.deleteRecipe.bind(recipesGateway)}
                               goToScene={history.push}
                               recipeId={match.params.id} />

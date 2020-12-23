@@ -6,13 +6,12 @@ import RecipeDetailPresenter from "../../presenters/RecipeDetailPresenter";
 import StepPresenter from "../../presenters/StepPresenter";
 import {BackToRecipesLink} from "./components/BackToRecipesLink";
 import shortid from "shortid";
-import {RecipesGateway} from "../../application/gateways/RecipesGateway";
 import {Panel} from "primereact/panel";
 import {Toolbar} from "primereact/toolbar";
 import {Button} from "primereact/button";
 
 interface RecipeOverviewSceneProps {
-  recipesGateway: RecipesGateway;
+  findRecipeById: (recipeId: string) => Promise<RecipeDetail>;
   deleteRecipe: (recipeId: string) => Promise<boolean>;
   recipeId: string;
   goToScene: (location: string) => void;
@@ -32,14 +31,14 @@ const renderStep = (step: StepPresenter) => (
 const NoRecipe = () => <div>No recipe!</div>;
 
 const ViewRecipe = (props: RecipeOverviewSceneProps) => {
-  const {recipesGateway, recipeId, deleteRecipe, goToScene} = props;
+  const {findRecipeById, recipeId, deleteRecipe, goToScene} = props;
   const [recipePresenter, setRecipePresenter] = useState<Maybe<RecipeDetailPresenter>>(() => Nothing);
 
   useEffect(() => {
-    recipesGateway.findById(recipeId)
+    findRecipeById(recipeId)
       .then((recipe: RecipeDetail) => setRecipePresenter(Just(new RecipeDetailPresenter(recipe))))
       .catch(() => setRecipePresenter(Nothing));
-  }, [recipesGateway, recipeId]);
+  }, [findRecipeById, deleteRecipe, recipeId]);
 
   const onDeleteClick = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
