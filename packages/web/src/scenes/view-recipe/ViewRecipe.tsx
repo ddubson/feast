@@ -20,12 +20,14 @@ interface RecipeOverviewSceneProps {
 const renderIngredient = ({form, displayCulinaryMeasure, name}: IngredientPresenter) => {
   const resolvedForm = form.mapOrDefault((f) => `- ${f}`, ``);
   return (
-    <div key={shortid.generate()} aria-label="Recipe ingredient">{displayCulinaryMeasure} {name} {resolvedForm}</div>
+    <div key={shortid.generate()}
+         aria-label="Recipe ingredient">{displayCulinaryMeasure} {name} {resolvedForm}</div>
   );
 };
 
 const renderStep = (step: StepPresenter) => (
-  <div key={shortid.generate()} data-testid="instruction-step">{step.stepNumber}: {step.stepValue}</div>
+  <div key={shortid.generate()}
+       data-testid="instruction-step">{step.stepNumber}: {step.stepValue}</div>
 );
 
 const NoRecipe = () => <div>No recipe!</div>;
@@ -52,27 +54,28 @@ const ViewRecipe = (props: RecipeOverviewSceneProps) => {
   const recipe = (r: RecipeDetailPresenter) => (
     <section className="p-mt-2">
       <h3 aria-label="Recipe name">{r.name}</h3>
-
-      <Panel header="Ingredients" className="p-mt-2">
-        {r.ingredients.mapOrDefault(
-          (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
-          (<div>No ingredients!</div>))
-        }
-      </Panel>
-      <Panel header="Instructions" className="p-mt-2">
-        {r.steps.mapOrDefault(
-          (steps: StepPresenter[]) =>
-            <div>{steps.map(renderStep)}</div>,
-          (<div>No instructions yet.</div>),
-        )
-        }
-      </Panel>
+      <section className="p-grid">
+        <Panel header="Ingredients" className="p-col-12 p-md-6 p-lg-3 p-mt-2">
+          {r.ingredients.mapOrDefault(
+            (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
+            (<div>No ingredients!</div>))
+          }
+        </Panel>
+        <Panel header="Instructions" className="p-col-12 p-md-6 p-lg-9 p-mt-2">
+          {r.steps.mapOrDefault(
+            (steps: StepPresenter[]) =>
+              <div>{steps.map(renderStep)}</div>,
+            (<div>No instructions yet.</div>),
+          )
+          }
+        </Panel>
+      </section>
     </section>
   )
 
   const recipeOrNothing = recipePresenter.mapOrDefault(recipe, <NoRecipe />);
   const toolbar = () => (<>
-    <Button icon="pi pi-times" className="p-button-danger"
+    <Button icon="pi pi-times" className="p-button-sm p-button-danger"
             onClick={onDeleteClick}
             aria-label={"Delete forever"} label={"Delete forever"} />
   </>);
