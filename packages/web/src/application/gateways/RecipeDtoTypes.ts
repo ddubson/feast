@@ -45,11 +45,11 @@ export const toRecipeDetail = (recipeDto: RecipeDetailDto): RecipeDetail => {
   return {
     id,
     name,
-    steps: Maybe.fromNullable(steps).map((stepDto: StepDto[]) => stepDto.map(x => ({
-      stepNumber: x.stepNumber,
-      value: x.value,
-    }))),
-    ingredients: Maybe.fromNullable(ingredients).map(i => i.map(toIngredient)),
+    steps: (steps || []).map((stepDto: StepDto) => ({
+      stepNumber: stepDto.stepNumber,
+      value: stepDto.value,
+    })),
+    ingredients: (ingredients || []).map(toIngredient),
   };
 };
 

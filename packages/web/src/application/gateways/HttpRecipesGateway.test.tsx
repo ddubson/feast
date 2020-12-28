@@ -2,7 +2,7 @@ import axios from "axios";
 import {HttpRecipesGateway} from "./HttpRecipesGateway";
 import {buildIngredient, buildRecipe, buildRecipeDetail} from "../../test-helpers/helpers/Builders";
 import {RecipeDetailDto} from "./RecipeDtoTypes";
-import {Recipe, WithoutId} from "@ddubson/feast-domain";
+import {Recipe, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
 import {Just, Nothing} from "purify-ts";
 import MockAdapter from "axios-mock-adapter";
 
@@ -34,16 +34,21 @@ test("findById - provided a valid recipe id, resolves a recipe", async () => {
 test("saveRecipe - saves recipe when provided a valid recipe", async () => {
   const mockAxios = new MockAdapter(axios);
   const recipesGateway = new HttpRecipesGateway(axios);
-  const recipe: WithoutId<Recipe> = {
-    name: "Garlic Lime Shrimp"
+  const recipe: WithoutId<RecipeDetail> = {
+    name: "Garlic Lime Shrimp",
+    ingredients: [],
+    steps: []
   };
 
   mockAxios
-    .onPost(`/api/recipes`, {name: "Garlic Lime Shrimp"})
-    .reply(200, {id: 1, name: "Garlic Lime Shrimp"});
+    .onPost(`/api/recipes`, {name: "Garlic Lime Shrimp", ingredients: [], steps: []})
+    .reply(200, {
+      id: 1, name: "Garlic Lime Shrimp",
+      ingredients: [], steps: []
+    });
 
   const foundRecipe = await recipesGateway.saveRecipe(recipe);
-  expect(foundRecipe).toEqual({id: 1, name: "Garlic Lime Shrimp"});
+  expect(foundRecipe).toEqual({id: 1, name: "Garlic Lime Shrimp", ingredients: [], steps: []});
 });
 
 test("deleteRecipe - when provided a valid id, deletes a recipe", async () => {
@@ -61,11 +66,11 @@ test("deleteRecipe - when provided a valid id, deletes a recipe", async () => {
 const expectedRecipe = buildRecipe();
 
 const expectedRecipeDetail = buildRecipeDetail({
-  steps: Just([
+  steps: [
     {stepNumber: 1, value: "Do this first"},
     {stepNumber: 2, value: "Do that"},
-  ]),
-  ingredients: Just([
+  ],
+  ingredients: [
     buildIngredient({
       form: Just("Chopped"),
       quantity: Just({value: 2}),
@@ -79,7 +84,7 @@ const expectedRecipeDetail = buildRecipeDetail({
         type: "tablespoon",
       }),
     }),
-  ]),
+  ],
 });
 
 const response: RecipeDetailDto = {
@@ -87,13 +92,13 @@ const response: RecipeDetailDto = {
   name: "Great Recipe",
   ingredients: [
     {
-      id: expectedRecipeDetail.ingredients.orDefault([])[0].id,
+      id: expectedRecipeDetail.ingredients[0].id,
       name: "Great Ingredient",
       form: "Chopped",
       quantity: {value: 2},
     },
     {
-      id: expectedRecipeDetail.ingredients.orDefault([])[1].id,
+      id: expectedRecipeDetail.ingredients[1].id,
       name: "Another Great Ingredient",
       form: "Diced",
       volume: {value: 2, type: "tablespoon"},

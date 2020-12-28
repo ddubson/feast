@@ -72,10 +72,10 @@ web-build:
 	@echo "Building Feast Web"
 	@yarn workspace @ddubson/feast-web build
 
-web-test-watch:
+web-test-watch: ## Run web tests in watch mode
 	@yarn workspace @ddubson/feast-web test:watch
 
-lint:
+lint: ## Lint all projects
 	@yarn lint-all
 
 lint-fix:

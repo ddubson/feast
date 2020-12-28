@@ -57,11 +57,11 @@ const dependencies = (recipeDetail: RecipeDetail) => ({
 
 const sampleRecipeDetail = buildRecipeDetail({
   name: "Great Recipe",
-  steps: Just([
+  steps: [
     {stepNumber: 1, value: "Do this"},
     {stepNumber: 2, value: "Do that"},
-  ]),
-  ingredients: Just([
+  ],
+  ingredients: [
     buildIngredient({
       id: "1",
       name: "An ingredient",
@@ -88,5 +88,5 @@ const sampleRecipeDetail = buildRecipeDetail({
         type: "tablespoon",
       }),
     }),
-  ]),
+  ]
 });

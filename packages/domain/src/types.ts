@@ -13,7 +13,8 @@ export interface Step {
 
 export type WeightType = "pounds";
 
-export type IngredientForm = "Chopped" | "Diced" | "Cleaned" | "Minced" | "Ground" | "Zested";
+export type IngredientForm =
+  "N/A" | "Chopped" | "Diced" | "Cleaned" | "Minced" | "Ground" | "Zested";
 
 export interface Weight {
   value: number;
@@ -40,6 +41,6 @@ export interface Recipe {
 }
 
 export interface RecipeDetail extends Recipe {
-  ingredients: Maybe<Ingredient[]>;
-  steps: Maybe<Step[]>;
+  ingredients: Ingredient[];
+  steps: Step[];
 }

@@ -1,4 +1,4 @@
-import {Ingredient, Recipe, RecipeDetail, Step, WithoutId} from '@ddubson/feast-domain';
+import {Ingredient, Quantity, Recipe, RecipeDetail, Step, WithoutId} from '@ddubson/feast-domain';
 import {Just} from 'purify-ts/Maybe';
 import {Pool, QueryResult} from 'pg';
 import {Maybe} from 'purify-ts';
@@ -60,8 +60,8 @@ class PgRecipeStore implements RecipeStore {
       const recipeDetail: RecipeDetail = {
         id: recipe.id,
         name: recipe.name,
-        ingredients: Maybe.fromPredicate(() => ingredients && ingredients.length > 0, ingredients),
-        steps: Maybe.fromPredicate(() => formattedSteps && formattedSteps.length > 0, formattedSteps),
+        ingredients: Maybe.fromPredicate(() => ingredients && ingredients.length > 0, ingredients).orDefault([]),
+        steps: Maybe.fromPredicate(() => formattedSteps && formattedSteps.length > 0, formattedSteps).orDefault([]),
       };
       onSuccess({
         recipe: Just(recipeDetail),
@@ -71,16 +71,42 @@ class PgRecipeStore implements RecipeStore {
     });
   }
 
-  saveRecipe(recipe: WithoutId<Recipe>, onSuccess: (savedRecipe: Recipe) => void): void {
-    const query = {
+  saveRecipe(recipe: WithoutId<RecipeDetail>, onSuccess: (savedRecipe: Recipe) => void): void {
+    const recipeQuery = {
       text: 'INSERT INTO recipes (name) VALUES ($1) RETURNING id, name',
       values: [recipe.name],
     };
-
-    this.db.query(query).then((result: QueryResult) => {
-      const [savedRecipe] = result.rows;
-      onSuccess({id: savedRecipe.id, name: savedRecipe});
+    const ingredientsQuery = (recipeId: string, ingredient: WithoutId<Ingredient>) => ({
+      text: `
+          INSERT INTO recipe_ingredients (name, measure_type, form, quantity, weight,
+                                          weight_type, volume, volume_type, recipe_id)
+          VALUES ($1, 'quantity', $2, $3, null, null, null, null, $4)
+      `,
+      values: [
+        ingredient.name,
+        ingredient.form.orDefault(null),
+        ingredient.quantity.mapOrDefault((q: Quantity) => q.value, null),
+        recipeId
+      ],
     });
+
+    (async () => {
+      try {
+        await this.db.query("BEGIN");
+        const recipeQueryResult = await this.db.query(recipeQuery)
+        const [savedRecipe] = recipeQueryResult.rows;
+
+        for (const ingredient of recipe.ingredients) {
+          await this.db.query(ingredientsQuery(savedRecipe.id, ingredient));
+        }
+
+        await this.db.query("COMMIT");
+        onSuccess({id: savedRecipe.id, name: savedRecipe.name});
+      } catch (e) {
+        await this.db.query("ROLLBACK");
+        throw e;
+      }
+    })().catch(e => console.error(e.stack));
   }
 
   deleteRecipe(recipeId: string, onSuccess: () => void): void {

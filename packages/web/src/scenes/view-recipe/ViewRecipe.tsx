@@ -56,20 +56,17 @@ const ViewRecipe = (props: RecipeOverviewSceneProps) => {
       <h3 aria-label="Recipe name">{r.name}</h3>
       <section className="p-grid">
         <Panel header="Ingredients" className="p-col-12 p-md-6 p-lg-3 p-mt-2">
-          {r.ingredients.mapOrDefault(
-            (ingredients) => (<div>{ingredients.map(renderIngredient)}</div>),
-            (<div>No ingredients!</div>))
+          {Maybe.fromPredicate(() => r.ingredients.length > 0,
+            (<div>{r.ingredients.map(renderIngredient)}</div>))
+            .orDefault((<div>No ingredients!</div>))
           }
         </Panel>
         <Panel header="Instructions" className="p-col-12 p-md-6 p-lg-9 p-mt-2">
-          {r.steps.mapOrDefault(
-            (steps: StepPresenter[]) =>
-              <div>{steps.map(renderStep)}</div>,
-            (<div>No instructions yet.</div>),
-          )
-          }
-        </Panel>
-      </section>
+          {Maybe.fromPredicate(() => r.steps.length > 0,
+          (<div>{r.steps.map(renderStep)}</div>))
+            .orDefault((<div>No instructions yet.</div>))
+        }
+      </Panel></section>
     </section>
   )
 

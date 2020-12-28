@@ -33,7 +33,7 @@ The following connection string env variable is required to run the API locally:
 export PG_CONNECTION_STRING=postgresql://feast_sa@127.0.0.1:5432/feast_db?currentSchema=public
 ```
 
-The connection is based on a Feast Service Account (`feast_sa`) user that has access to 
+The connection is based on a Feast Service Account (`feast_sa`) user that has access to
 `feast_db` Database, using the `public` default schema.
 
 ### Build check
@@ -48,7 +48,7 @@ make install build
 
 ### Running & Building
 
-> On Windows, run `npm install --global --production windows-build-tools` from an elevated shell to install required 
+> On Windows, run `npm install --global --production windows-build-tools` from an elevated shell to install required
 > runtime tools to be able to install `node-gyp` transitive dependency
 
 Run:
@@ -67,9 +67,12 @@ make install web-start
     - [Publishing packages to GitHub Packages with Yarn + Lerna](https://viewsource.io/publishing-and-installing-private-github-packages-using-yarn-and-lerna/)
 - Build management: Self-documenting Makefile
     - [More on self-documenting Makefiles](https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html)
-- Sass styling approach: **7-1 pattern** 
+- Sass styling approach: **7-1 pattern**
     - [About 7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
     - [In-depth on 7-1 pattern](https://hugogiraudel.com/2015/06/18/styling-react-components-in-sass/)
     - [Understanding Sass architecture](https://sass-guidelin.es/#architecture)
 - Code linting by ESLint Typescript
 - Logging framework: Winston
+- Data store with PostgreSQL and Pg Node client library
+    - Using client pooling for connection management
+    - [Using transactions for multi-query requests](https://node-postgres.com/features/transactions)

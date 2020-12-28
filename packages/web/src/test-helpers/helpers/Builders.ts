@@ -25,8 +25,8 @@ export const buildRecipeDetail = (recipe?: Partial<RecipeDetail>): RecipeDetail 
   const defaultRecipe: RecipeDetail = {
     id: shortid.generate(),
     name: "Great Recipe",
-    steps: Just([buildStep()]),
-    ingredients: Just([buildIngredient()]),
+    steps: [buildStep()],
+    ingredients: [buildIngredient()],
   };
 
   return {...defaultRecipe, ...recipe};

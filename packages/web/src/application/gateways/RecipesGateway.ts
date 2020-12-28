@@ -1,7 +1,9 @@
 import {Recipe, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
 
+export type SaveRecipe = (recipe: WithoutId<RecipeDetail>) => Promise<RecipeDetail>;
+
 export interface RecipesGateway {
-  saveRecipe(recipe: WithoutId<Recipe>): Promise<Recipe>;
+  saveRecipe: SaveRecipe
 
   findAll(): Promise<Recipe[]>;
 

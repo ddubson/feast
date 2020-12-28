@@ -1,16 +1,16 @@
 import {RecipesGateway} from "../../../application/gateways/RecipesGateway";
-import {Recipe, RecipeDetail} from "@ddubson/feast-domain";
-import {emptyRecipe, emptyRecipeDetail} from "../../helpers/Builders";
+import {Recipe, RecipeDetail, WithoutId} from "@ddubson/feast-domain";
+import { emptyRecipeDetail} from "../../helpers/Builders";
 
 export default class StubRecipesGateway implements RecipesGateway {
   private readonly resolvedRecipes: Recipe[];
   private readonly resolvedRecipeDetails: RecipeDetail;
-  private readonly savedRecipe: Recipe;
+  private readonly savedRecipe: RecipeDetail;
 
-  constructor(onFindAll?: Recipe[], onFindById?: RecipeDetail, onSaveRecipe?: Recipe) {
+  constructor(onFindAll?: Recipe[], onFindById?: RecipeDetail, onSaveRecipe?: RecipeDetail) {
     this.resolvedRecipes = onFindAll || [];
     this.resolvedRecipeDetails = onFindById || emptyRecipeDetail;
-    this.savedRecipe = onSaveRecipe || emptyRecipe;
+    this.savedRecipe = onSaveRecipe || emptyRecipeDetail;
   }
 
   public findAll(): Promise<Recipe[]> {
@@ -21,7 +21,7 @@ export default class StubRecipesGateway implements RecipesGateway {
     return Promise.resolve(this.resolvedRecipeDetails);
   }
 
-  public saveRecipe(recipe: Recipe): Promise<Recipe> {
+  public saveRecipe(recipe: WithoutId<RecipeDetail>): Promise<RecipeDetail> {
     return Promise.resolve(this.savedRecipe);
   }
 
