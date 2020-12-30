@@ -3,6 +3,7 @@ import {Just} from 'purify-ts/Maybe';
 import {Pool, QueryResult} from 'pg';
 import {Maybe} from 'purify-ts';
 import {FetchAllRecipesResponse, FetchRecipeByIdResponse, RecipeStore} from '../RecipeStore';
+import logger from "../../logger-config";
 
 class PgRecipeStore implements RecipeStore {
   constructor(private db: Pool) {
@@ -66,7 +67,7 @@ class PgRecipeStore implements RecipeStore {
         recipe: Just(recipeDetail),
       });
     }).catch((error) => {
-      console.error(error);
+      logger.error(error);
     });
   }
 

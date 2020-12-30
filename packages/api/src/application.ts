@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import * as path from 'path';
 import cors from 'cors';
 import { router } from './router';
+import logger from "./logger-config";
 
 const app = express();
 
@@ -19,4 +20,4 @@ app.get('*', (request: Request, response: Response) => {
 const port = process.env.PORT || 8080;
 app.listen(port);
 
-console.log(`App is listening on port ${port}`);
+logger.info(`App is listening on port ${port}`);

@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import logger from "../../logger-config";
 
 export const pgPool = (pgConnectionString: string): Pool => {
   const pool = new Pool({
@@ -6,9 +7,9 @@ export const pgPool = (pgConnectionString: string): Pool => {
   });
 
   pool.connect().then(() => {
-    console.log('psql database connection established.');
+    logger.info('psql database connection established.');
   }).catch((error) => {
-    console.error('psql connection could not be established: ', error);
+    logger.error('psql connection could not be established: ', error);
   });
 
   return pool;
