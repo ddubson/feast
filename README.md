@@ -72,3 +72,4 @@ make install web-start
     - [In-depth on 7-1 pattern](https://hugogiraudel.com/2015/06/18/styling-react-components-in-sass/)
     - [Understanding Sass architecture](https://sass-guidelin.es/#architecture)
 - Code linting by ESLint Typescript
+- Logging framework: Winston
