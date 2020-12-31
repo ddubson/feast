@@ -24,9 +24,9 @@ const AddRecipeScene = ({goToScene, saveRecipe}: AddRecipeSceneProps) => {
 
     saveRecipe({
       name: recipeName.orDefault(""),
-      ingredients: ingredients.map(i => ({ ...i, id: 'STUB' })),
+      ingredients: ingredients.map(i => ({...i, id: 'STUB'})),
       steps: []
-    }).then((savedRecipe) => {
+    }).then((savedRecipe: RecipeDetail) => {
       goToScene("/");
     }).catch((e) => console.error(e));
   };
@@ -38,6 +38,7 @@ const AddRecipeScene = ({goToScene, saveRecipe}: AddRecipeSceneProps) => {
         <section className="p-mt-3">
           <h3 className="p-mb-1">Recipe name</h3>
           <InputText
+            required
             id="recipeName"
             aria-label="Recipe name"
             label="Recipe name"
@@ -45,7 +46,7 @@ const AddRecipeScene = ({goToScene, saveRecipe}: AddRecipeSceneProps) => {
             onChange={onRecipeNameChange} />
         </section>
 
-        <NewIngredientSection onNewIngredient={onNewIngredient}/>
+        <NewIngredientSection ingredients={ingredients} onNewIngredient={onNewIngredient} />
 
         <Button type="submit"
                 className="p-mt-3"

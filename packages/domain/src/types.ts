@@ -16,6 +16,8 @@ export type WeightType = "pounds";
 export type IngredientForm =
   "N/A" | "Chopped" | "Diced" | "Cleaned" | "Minced" | "Ground" | "Zested";
 
+export type UnitOfMeasure = "weight" | "quantity" | "volume";
+
 export interface Weight {
   value: number;
   type: WeightType;

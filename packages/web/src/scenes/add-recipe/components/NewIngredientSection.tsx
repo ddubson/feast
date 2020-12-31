@@ -1,22 +1,22 @@
 import React, {FormEvent, useState} from "react";
 import {Button} from "primereact/button";
 import {Ingredient, WithoutId} from "@ddubson/feast-domain";
-import IngredientPresenter, {toIngredientPresenter} from "../../../presenters/IngredientPresenter";
+import {toIngredientPresenter} from "../../../presenters/IngredientPresenter";
 import CurrentIngredientsList from "./CurrentIngredientsList";
 import AddIngredient from "./AddIngredient";
 import {Panel} from "primereact/panel";
 
 type NewIngredientSectionProps = {
   onNewIngredient: (ingredient: WithoutId<Ingredient>) => void;
+  ingredients: WithoutId<Ingredient>[];
 };
 
-const NewIngredientSection: React.FC<NewIngredientSectionProps> = ({onNewIngredient}: NewIngredientSectionProps) => {
-  const [ingredients, setIngredients] = useState<IngredientPresenter[]>([]);
+const NewIngredientSection: React.FC<NewIngredientSectionProps> = ({ingredients, onNewIngredient}: NewIngredientSectionProps) => {
   const [showAddIngredientPanel, setShowAddIngredientPanel] = useState<boolean>(false);
+
   const onAddIngredient = (ingredient: WithoutId<Ingredient>) => {
-    setIngredients([...ingredients, toIngredientPresenter(ingredient)]);
-    onNewIngredient(ingredient);
     setShowAddIngredientPanel(false);
+    onNewIngredient(ingredient);
   };
   const onNewIngredientClick = (event: FormEvent) => {
     event.preventDefault();
@@ -25,11 +25,13 @@ const NewIngredientSection: React.FC<NewIngredientSectionProps> = ({onNewIngredi
 
   return (
     <Panel className={"p-mt-3"} header="Current Ingredients">
-      <CurrentIngredientsList ingredientPresenters={ingredients} />
-      <Button aria-label={"New ingredient"} className="p-my-3" onClick={onNewIngredientClick}
+      <CurrentIngredientsList ingredientPresenters={ingredients.map(toIngredientPresenter)} />
+      <Button aria-label={"New ingredient"}
+              className="p-my-3"
+              onClick={onNewIngredientClick}
               disabled={showAddIngredientPanel}
               label={"New ingredient"} />
-      <AddIngredient isVisible={showAddIngredientPanel} onAddIngredient={onAddIngredient} />
+      {showAddIngredientPanel && <AddIngredient onAddIngredient={onAddIngredient} />}
     </Panel>
   )
 };

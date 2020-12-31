@@ -77,3 +77,6 @@ make install web-start
     - Using client pooling for connection management
     - [Using transactions for multi-query requests](https://node-postgres.com/features/transactions)
 - Logging framework: Winston
+- Data store with PostgreSQL and Pg Node client library
+    - Using client pooling for connection management
+    - [Using transactions for multi-query requests](https://node-postgres.com/features/transactions)
