@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import {AppRoot} from "./AppRoot";
+import {StateProvider} from "./application/Store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppRoot />
+    <StateProvider>
+      <AppRoot />
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
