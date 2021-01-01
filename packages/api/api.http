@@ -1,1 +1,11 @@
 GET http://localhost:8080/api/recipes
+
+###
+
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "email": "d.dubson@gmail.com",
+  "password": "test123"
+}
