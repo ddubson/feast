@@ -102,3 +102,8 @@ open-webapp:
 
 domain-publish:
 	lerna publish minor
+
+start-win: ## Start local development on Windows (Powershell)
+	@powershell -NoProfile -new_console:sV "pg_ctl start" &
+	@powershell -NoProfile -new_console:sH "make web-start" &
+	@timeout 10 && powershell -NoProfile -new_console:sH "make api-start" &
