@@ -1,5 +1,6 @@
 import {Express, Request, Response} from "express";
 import passport from "passport";
+import logger from "../logger-config";
 
 const enum Routes {
   LOGIN = "/auth/login",
@@ -8,8 +9,6 @@ const enum Routes {
 
 export const authRoutes = (app: Express): void => {
   app.post(Routes.LOGIN, (req: Request, res: Response, next) => {
-    // TODO: Validation logic
-
     return passport.authenticate('local-login', (error, token, userData) => {
       if (error) {
         if (error.name === 'IncorrectCredentialsError') {

@@ -1,3 +1,9 @@
+CREATE TABLE IF NOT EXISTS "public".user_accounts (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(200) NOT NULL UNIQUE,
+    passwordHash TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS "public".recipes (
     id SERIAL PRIMARY KEY,
     name VARCHAR (500) NOT NULL

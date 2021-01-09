@@ -1,4 +1,4 @@
-import {Strategy as PassportLocalStrategy} from "passport-local";
+import {Strategy} from "passport-local";
 import {Maybe} from "purify-ts/Maybe";
 import {sign} from "jsonwebtoken";
 import {compare} from "bcryptjs";
@@ -18,7 +18,7 @@ const comparePassword = (userProvidedPassword: string,
   compare(userProvidedPassword, storedPassword, onCompareDone);
 };
 
-const localLoginStrategy = new PassportLocalStrategy({
+const localLoginStrategy = new Strategy({
   usernameField: 'email',
   passwordField: 'password',
   session: false,
