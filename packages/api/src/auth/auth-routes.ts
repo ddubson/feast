@@ -1,6 +1,5 @@
 import {Express, Request, Response} from "express";
 import passport from "passport";
-import logger from "../logger-config";
 
 const enum Routes {
   LOGIN = "/auth/login",

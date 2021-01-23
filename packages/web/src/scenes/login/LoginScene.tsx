@@ -1,19 +1,46 @@
-import React from "react";
+import React, {FormEvent, useState} from "react";
 import {Redirect} from "react-router-dom";
+import {InputText} from "primereact/inputtext";
+import {Button} from "primereact/button";
 
 export const LoginScene: React.FC = () => {
-  // const {loginWithRedirect} = useAuth0();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const onEmailChange = (e: FormEvent<HTMLInputElement>) => { setEmail((e.target as any).value)};
+  const onPasswordChange = (e: FormEvent<HTMLInputElement>) => { setPassword((e.target as any).value)};
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    //TODO: left off here, call user backend point to get login token
+    12312
+  }
 
   return (
-    <div className="ui container segment mtxxl">
-      <div className="row">
-        <h1 className="ui header center aligned blue">Feast</h1>
-        <h3 className="ui header center aligned">A place for recipes.</h3>
-      </div>
-      <div className="row center-text mtxl">
-        <button className="ui primary center floated button">Log in</button>
-      </div>
-    </div>
+    <section>
+      <form action={"/"} onSubmit={onSubmit}>
+        <h2>Login</h2>
+        <div>
+          <InputText
+            name={"email"}
+            onChange={onEmailChange}
+            value={email} />
+        </div>
+        <div>
+          <InputText
+            type="password"
+            name="password"
+            onChange={onPasswordChange}
+            value={password}
+          />
+        </div>
+
+        <div className="button-line">
+          <Button type="submit" label="Log in" />
+        </div>
+      </form>
+    </section>
   );
 };
 
