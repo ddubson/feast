@@ -33,10 +33,7 @@ all-env-var-check:
 	@echo "Ensure env vars are set in the environment"
 	$(call env_var_check,PG_CONNECTION_STRING)
 
-prereqs:
-	$(call ensure_program_exists,yarn)
-
-install: prereqs all-env-var-check
+install: all-env-var-check
 	@yarn install
 
 api-build:
@@ -120,3 +117,6 @@ start-win: ## Start local development on Windows (Powershell)
 start-mac: ## Start local development on Mac (terminal)
 	@make api-start &
 	@make web-start
+
+setup-mac: ## Installs/sets up required tools on a MacOS device
+	@zsh scripts/setup-mac.sh

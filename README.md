@@ -23,6 +23,16 @@ Composition made possible by: Lerna + Yarn workspaces
 
 ## Getting started
 
+### MacOS
+
+Run Makefile target:
+
+```
+make setup-mac
+```
+
+Sets up yarn, and a fresh database with seed data
+
 ### Database initialization
 
 The database in this project is PostgreSQL 13.x.
