@@ -44,7 +44,8 @@ export default class IngredientPresenter {
   }
 
   get displayVolume(): string {
-    return this.ingredient.volume.mapOrDefault((q: VolumeMeasure) => `${q.value} ${singleOrPlural(q)}`, ``);
+    return this.ingredient.volume
+      .mapOrDefault((q: VolumeMeasure) => `${q.value} ${q.type} of ${this.ingredient.name}`, ``);
   }
 
   get displayForm(): string {

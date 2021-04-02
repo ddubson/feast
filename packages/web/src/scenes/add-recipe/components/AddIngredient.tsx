@@ -1,7 +1,7 @@
 import {
   Ingredient,
   IngredientForm,
-  UnitOfMeasure,
+  UnitOfMeasure, VolumeMeasure,
   WithoutId
 } from "@ddubson/feast-domain";
 import React, {FormEvent, useState} from "react";
@@ -20,6 +20,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({onAddIngredient}: AddIngre
   const [form, setForm] = useState<Maybe<IngredientForm>>(Nothing);
   const [unitOfMeasure, setUnitOfMeasure] = useState<Maybe<UnitOfMeasure>>(Nothing);
   const [quantity, setQuantity] = useState<Maybe<string>>(Nothing);
+  const [volumeMeasure, setVolumeMeasure] = useState<Maybe<VolumeMeasure>>(Nothing);
 
   const onNameChange = (event: FormEvent<HTMLInputElement>) =>
     setName(Just((event.target as any).value));
@@ -37,8 +38,11 @@ const AddIngredient: React.FC<AddIngredientProps> = ({onAddIngredient}: AddIngre
       form: form,
       quantity: quantity.map(q => ({value: +q})),
       weight: Nothing,
-      volume: Nothing
+      volume: volumeMeasure
     });
+  };
+  const onAddVolumeMeasure = (volumeMeasure: VolumeMeasure) => {
+    setVolumeMeasure(volumeMeasure);
   };
 
   return (
@@ -84,7 +88,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({onAddIngredient}: AddIngre
           onChange={onQuantityChange}
         />
       </div>
-      <AddVolumeMeasure />
+      <AddVolumeMeasure onAddVolumeMeasure={onAddVolumeMeasure}/>
       <div>
         <Button
           aria-label="Add ingredient"

@@ -1,10 +1,15 @@
 import {InputText} from "primereact/inputtext";
 import {Dropdown} from "primereact/dropdown";
 import React, {FormEvent, useState} from "react";
-import {VolumeMeasureType} from "@ddubson/feast-domain";
+import {VolumeMeasure, VolumeMeasureType} from "@ddubson/feast-domain";
 import {Nothing, Maybe, Just} from "purify-ts";
+import {Button} from "primereact/button";
 
-const AddVolumeMeasure: React.FC = () => {
+type AddVolumeMeasureProps = {
+  onAddVolumeMeasure: (volumeMeasure: VolumeMeasure) => void;
+};
+
+const AddVolumeMeasure: React.FC<AddVolumeMeasureProps> = ({ onAddVolumeMeasure }: AddVolumeMeasureProps) => {
   const [amount, setAmount] = useState<Maybe<string>>(Nothing);
   const [volumeType, setVolumeType] = useState<Maybe<string>>(Nothing)
 
@@ -14,6 +19,14 @@ const AddVolumeMeasure: React.FC = () => {
 
   const onVolumeTypeChange = (event: any) => {
     setVolumeType(Just((event.target as any).value));
+  };
+
+  const onSubmit = () => {
+    const volumeMeasure: VolumeMeasure = {
+      value: +amount,
+      type: volumeType
+    }
+    onAddVolumeMeasure(volumeMeasure);
   };
 
   return (
@@ -34,6 +47,10 @@ const AddVolumeMeasure: React.FC = () => {
         value={volumeType.orDefault("")}
         onChange={onVolumeTypeChange}
       />
+      <Button aria-label={"Add volume measure"}
+              className="p-my-3"
+              onClick={onSubmit}
+              label={"Add volume measure"} />
     </div>
   )
 };

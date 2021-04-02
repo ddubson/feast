@@ -123,7 +123,7 @@ test("user is able to save a recipe with at least one ingredient measured in vol
     expect(page.newIngredientButton()).not.toBeDisabled();
     expect(page.ingredientsDisplayed()).toEqual([
       "2 cups of Flour",
-      "4x Potato, Chopped"
+      "4x Potato, Diced"
     ])
     expect(saveRecipeSpy).toHaveBeenCalledWith({
       name: "Pancakes",
