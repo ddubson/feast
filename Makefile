@@ -107,3 +107,7 @@ start-win: ## Start local development on Windows (Powershell)
 	@powershell -NoProfile -new_console:sV "pg_ctl start" &
 	@powershell -NoProfile -new_console:sH "make web-start" &
 	@timeout 10 && powershell -NoProfile -new_console:sH "make api-start" &
+
+start-mac: ## Start local development on Mac (terminal)
+	@make api-start &
+	@make web-start
