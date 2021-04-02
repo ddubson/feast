@@ -75,6 +75,15 @@ web-build:
 web-test-watch: ## Run web tests in watch mode
 	@yarn workspace @ddubson/feast-web test:watch
 
+stop-api: ## Stop Feast API
+	@lsof -ti tcp:8080 | xargs kill -SIGKILL
+
+stop-web: ## Stop Feast Web
+	@lsof -ti tcp:3000 | xargs kill -SIGTERM
+
+stop-all: stop-api stop-web ## Stop all Feast processes
+	@echo "Stopped all processes!"
+
 lint: ## Lint all projects
 	@yarn lint-all
 
