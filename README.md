@@ -27,6 +27,24 @@ Composition made possible by: Lerna + Yarn workspaces
 
 The database in this project is PostgreSQL 13.x.
 
+### [Optional] Installing Postgres on MacOS
+
+The best way is to use Homebrew:
+
+```bash
+# Install postgres locally
+brew install postgresql
+
+# Start Postgres locally on port 5432
+brew services start postgresql
+
+# Use Postgres client to connect to default database
+psql postgres
+```
+
+The schema for the datase is located [here](https://github.com/ddubson/feast/blob/main/packages/api/src/store/pg/schema.sql)
+and some initial data is located [here](https://github.com/ddubson/feast/blob/main/packages/api/src/store/pg/initial_data.sql)
+
 The following connection string env variable is required to run the API locally:
 
 ```shell
