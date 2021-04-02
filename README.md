@@ -4,7 +4,7 @@
 
 # feast
 
-Recipe aggregator app personal project written mostly in Typescript.
+Recipe management app mostly in Typescript.
 
 The composition of this repository is as follows:
 
@@ -107,3 +107,4 @@ make install web-start
 
 ## Design Choices
 - Jan 2021 (ish) - Opted to name the pages "scenes" after this blog post ... 
+- State Management: React Context API a simple solution to sharing state between components ...

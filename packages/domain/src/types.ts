@@ -23,9 +23,11 @@ export interface Weight {
   type: WeightType;
 }
 
+export type VolumeMeasureType = "tablespoon" | "teaspoon" | "cup";
+
 export interface VolumeMeasure {
   value: number;
-  type: "tablespoon" | string;
+  type: VolumeMeasureType;
 }
 
 export interface Ingredient {

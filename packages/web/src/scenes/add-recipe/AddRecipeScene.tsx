@@ -17,14 +17,14 @@ const AddRecipeScene = ({goToScene, saveRecipe}: AddRecipeSceneProps) => {
   const [ingredients, setIngredients] = useState<WithoutId<Ingredient>[]>([]);
   const onRecipeNameChange = (e: FormEvent<HTMLInputElement>) => setRecipeName(Just((e.target as any).value))
   const onNewIngredient = (ingredient: WithoutId<Ingredient>) => {
-    setIngredients([...ingredients, ingredient]);
+    setIngredients([...ingredients, ingredient]); // here
   }
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     saveRecipe({
       name: recipeName.orDefault(""),
-      ingredients: ingredients.map(i => ({...i, id: 'STUB'})),
+      ingredients: ingredients.map(i => ({...i, id: 'STUB'})), // here
       steps: []
     }).then((savedRecipe: RecipeDetail) => {
       goToScene("/");

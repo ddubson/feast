@@ -1,9 +1,15 @@
-import {Ingredient, IngredientForm, UnitOfMeasure, WithoutId} from "@ddubson/feast-domain";
+import {
+  Ingredient,
+  IngredientForm,
+  UnitOfMeasure,
+  WithoutId
+} from "@ddubson/feast-domain";
 import React, {FormEvent, useState} from "react";
 import {Just, Maybe, Nothing} from "purify-ts";
 import {InputText} from "primereact/inputtext";
 import {Dropdown} from "primereact/dropdown";
 import {Button} from "primereact/button";
+import AddVolumeMeasure from "./AddVolumeMeasure";
 
 type AddIngredientProps = {
   onAddIngredient: (ingredient: WithoutId<Ingredient>) => void;
@@ -78,6 +84,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({onAddIngredient}: AddIngre
           onChange={onQuantityChange}
         />
       </div>
+      <AddVolumeMeasure />
       <div>
         <Button
           aria-label="Add ingredient"

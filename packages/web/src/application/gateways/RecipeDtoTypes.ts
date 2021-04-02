@@ -29,7 +29,7 @@ export interface IngredientDto {
   };
   volume?: {
     value: number;
-    type: "tablespoon" | string;
+    type: "tablespoon" | "teaspoon" | "cup";
   };
 }
 
