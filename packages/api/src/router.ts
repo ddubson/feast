@@ -6,6 +6,10 @@ import {recipeStore} from './config';
 import {Maybe} from "purify-ts/Maybe";
 
 export const router = (app: Express): void => {
+  app.get('/', (req: Request, res: Response) => {
+    res.send('Welcome to the Feast API');
+  });
+
   app.get('/api/hello', (req: Request, res: Response) => {
     res.send('Hello, World!');
   });

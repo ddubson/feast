@@ -7,9 +7,9 @@ export const pgPool = (pgConnectionString: string): Pool => {
   });
 
   pool.connect().then(() => {
-    logger.info('psql database connection established.');
+    logger.info('✅ psql database connection established.');
   }).catch((error) => {
-    logger.error('psql connection could not be established: ', error);
+    logger.error('❌ psql connection could not be established: ', error);
   });
 
   return pool;
