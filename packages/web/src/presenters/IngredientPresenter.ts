@@ -3,7 +3,7 @@ import {
   Ingredient,
   IngredientForm,
   Quantity,
-  VolumeMeasure,
+  VolumeMeasure, VolumeMeasureTypePlural,
   Weight,
   WeightType,
   WithoutId
@@ -15,13 +15,10 @@ export const toIngredientPresenter = (ingredient: WithoutId<Ingredient> | Ingred
 export const toIngredientPresenters = (ingredients: Ingredient[]): IngredientPresenter[] =>
   ingredients.map((i: Ingredient) => new IngredientPresenter(i));
 
-export const singleOrPlural = (volumeMeasure: VolumeMeasure): string => `tablespoon${volumeMeasure.value > 1 ? "s" : ""}`;
+export const singleOrPlural = (volumeMeasure: VolumeMeasure): string =>
+  volumeMeasure.value === 0 ? volumeMeasure.type : VolumeMeasureTypePlural[volumeMeasure.type];
 
 export default class IngredientPresenter {
-  private readonly WeightDisplayLookup: { [key in WeightType]: "lbs"; } = {
-    pounds: "lbs",
-  };
-
   constructor(private ingredient: Ingredient | WithoutId<Ingredient>) {
   }
 
@@ -33,7 +30,7 @@ export default class IngredientPresenter {
     return this.ingredient.form;
   }
 
-  get displayCulinaryMeasure(): string {
+  get renderIngredientText(): string {
     if (this.ingredient.quantity.isJust()) {
       return this.displayQuantity;
     } else if (this.ingredient.weight.isJust()) {
@@ -58,7 +55,7 @@ export default class IngredientPresenter {
 
   get displayWeight(): string {
     return this.ingredient.weight.mapOrDefault((q: Weight) => {
-      const weightTypeDisplay = this.WeightDisplayLookup[q.type];
+      const weightTypeDisplay = WeightTypeAbbr[q.type];
       return `${q.value} ${weightTypeDisplay}`;
     }, ``);
   }

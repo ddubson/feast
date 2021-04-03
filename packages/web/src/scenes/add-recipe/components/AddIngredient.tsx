@@ -41,7 +41,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({onAddIngredient}: AddIngre
       volume: volumeMeasure
     });
   };
-  const onAddVolumeMeasure = (volumeMeasure: VolumeMeasure) => {
+  const onAddVolumeMeasure = (volumeMeasure: Maybe<VolumeMeasure>) => {
     setVolumeMeasure(volumeMeasure);
   };
 

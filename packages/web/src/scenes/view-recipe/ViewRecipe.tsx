@@ -17,11 +17,11 @@ interface RecipeOverviewSceneProps {
   goToScene: (location: string) => void;
 }
 
-const renderIngredient = ({form, displayCulinaryMeasure, name}: IngredientPresenter) => {
+const renderIngredient = ({form, renderIngredientText, name}: IngredientPresenter) => {
   const resolvedForm = form.mapOrDefault((f) => `- ${f}`, ``);
   return (
     <div key={shortid.generate()}
-         aria-label="Recipe ingredient">{displayCulinaryMeasure} {name} {resolvedForm}</div>
+         aria-label="Recipe ingredient">{renderIngredientText}, {resolvedForm}</div>
   );
 };
 

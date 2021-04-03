@@ -6,7 +6,7 @@ import {Nothing, Maybe, Just} from "purify-ts";
 import {Button} from "primereact/button";
 
 type AddVolumeMeasureProps = {
-  onAddVolumeMeasure: (volumeMeasure: VolumeMeasure) => void;
+  onAddVolumeMeasure: (volumeMeasure: Maybe<VolumeMeasure>) => void;
 };
 
 const AddVolumeMeasure: React.FC<AddVolumeMeasureProps> = ({ onAddVolumeMeasure }: AddVolumeMeasureProps) => {
@@ -24,9 +24,9 @@ const AddVolumeMeasure: React.FC<AddVolumeMeasureProps> = ({ onAddVolumeMeasure 
   const onSubmit = () => {
     const volumeMeasure: VolumeMeasure = {
       value: +amount,
-      type: volumeType
+      type: volumeType.orDefault("") as VolumeMeasureType
     }
-    onAddVolumeMeasure(volumeMeasure);
+    onAddVolumeMeasure(Just(volumeMeasure));
   };
 
   return (
@@ -59,7 +59,7 @@ const volumeTypeOptions: { [key in VolumeMeasureType | ""]: { name: string, valu
   "": {name: "", value: ""},
   "tablespoon": {name: "Tablespoon", value: "tablespoon"},
   "teaspoon": {name: "Teaspoon", value: "teaspoon"},
-  "cup": {name: "Cup ", value: "cup"},
+  "cup": {name: "Cup", value: "cup"},
 }
 
 export default AddVolumeMeasure;

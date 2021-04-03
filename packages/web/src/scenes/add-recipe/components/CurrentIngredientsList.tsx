@@ -7,7 +7,7 @@ type CurrentIngredientsListProp = { ingredientPresenters: IngredientPresenter[] 
 const CurrentIngredientsList: React.FC<CurrentIngredientsListProp> =
   ({ingredientPresenters}: CurrentIngredientsListProp = {ingredientPresenters: []}) => {
     const ingredientsList = <ul>{ingredientPresenters.map((presenter, i) => (
-      <li aria-label="ingredient" key={i}>{presenter.displayCulinaryMeasure}</li>
+      <li aria-label="ingredient" key={i}>{presenter.renderIngredientText}</li>
     ))}</ul>
 
     return <>
