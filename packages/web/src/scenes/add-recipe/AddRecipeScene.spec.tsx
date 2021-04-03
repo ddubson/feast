@@ -25,15 +25,11 @@ test("recipe is added when user fills out form and clicks 'Add Recipe'", async (
 
 test("user is able to save a recipe with at least one ingredient measured in units of quantity", async () => {
   const ingredient1 = buildIngredient({
-    name: "Garlic",
+    name: "Garlic Cloves",
     form: Just("Diced"),
     quantity: Just({value: 2}),
   });
-  const ingredient2 = buildIngredient({
-    name: "Potato",
-    form: Just("Chopped"),
-    quantity: Just({value: 3}),
-  });
+  const ingredient2 = potatoesIngredient();
   const goToSceneSpy = jest.fn();
   const saveRecipeSpy: SaveRecipe = jest.fn().mockResolvedValue({});
   const page = AddRecipeScenePage(goToSceneSpy, saveRecipeSpy);
@@ -58,19 +54,19 @@ test("user is able to save a recipe with at least one ingredient measured in uni
     expect(page.newIngredientSectionVisible()).toBeFalsy();
     expect(page.newIngredientButton()).not.toBeDisabled();
     expect(page.ingredientsDisplayed()).toEqual([
-      "2x Garlic, Diced",
-      "3x Potato, Chopped"
+      "2 Garlic Cloves, Diced",
+      "3 Potatoes, Chopped"
     ])
     expect(saveRecipeSpy).toHaveBeenCalledWith({
       name: "Garlic Lime Shrimp",
       ingredients: [buildIngredient({
         id: "STUB",
-        name: "Garlic",
+        name: "Garlic Cloves",
         form: Just("Diced"),
         quantity: Just({value: 2})
       }), buildIngredient({
         id: "STUB",
-        name: "Potato",
+        name: "Potatoes",
         form: Just("Chopped"),
         quantity: Just({value: 3})
       })],
@@ -80,20 +76,8 @@ test("user is able to save a recipe with at least one ingredient measured in uni
 });
 
 test("user is able to save a recipe with at least one ingredient measured in volume", async () => {
-  const ingredient1 = buildIngredient({
-    name: "Flour",
-    form: Nothing,
-    quantity: Nothing,
-    volume: Just({
-      value: 2,
-      type: "cup"
-    })
-  });
-  const ingredient2 = buildIngredient({
-    name: "Potato",
-    form: Just("Diced"),
-    quantity: Just({value: 4}),
-  });
+  const ingredient1 = flourIngredient();
+  const ingredient2 = potatoesIngredient();
   const goToSceneSpy = jest.fn();
   const saveRecipeSpy: SaveRecipe = jest.fn().mockResolvedValue({});
   const page = AddRecipeScenePage(goToSceneSpy, saveRecipeSpy);
@@ -202,3 +186,19 @@ const AddRecipeScenePage = (goToSceneSpy: (location: string) => void, saveRecipe
     }
   });
 };
+
+const flourIngredient = () => buildIngredient({
+  name: "Flour",
+  form: Nothing,
+  quantity: Nothing,
+  volume: Just({
+    value: 2,
+    type: "cup"
+  })
+});
+
+const potatoesIngredient = () => buildIngredient({
+  name: "Potatoes",
+  form: Just("Diced"),
+  quantity: Just({value: 4}),
+});

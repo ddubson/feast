@@ -2,12 +2,12 @@ import IngredientPresenter from "../../../presenters/IngredientPresenter";
 import React from "react";
 import {Maybe} from "purify-ts";
 
-type CurrentIngredientsListProp = { ingredientPresenters: IngredientPresenter[] };
+type CurrentIngredientsListProps = { ingredientPresenters: IngredientPresenter[] };
 
-const CurrentIngredientsList: React.FC<CurrentIngredientsListProp> =
-  ({ingredientPresenters}: CurrentIngredientsListProp = {ingredientPresenters: []}) => {
+const CurrentIngredientsList: React.FC<CurrentIngredientsListProps> =
+  ({ingredientPresenters}: CurrentIngredientsListProps = {ingredientPresenters: []}) => {
     const ingredientsList = <ul>{ingredientPresenters.map((presenter, i) => (
-      <li aria-label="ingredient" key={i}>{presenter.renderIngredientText}</li>
+      <li aria-label="ingredient" key={i}>{presenter.renderIngredientText}, {presenter.displayForm}</li>
     ))}</ul>
 
     return <>

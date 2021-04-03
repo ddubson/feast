@@ -5,7 +5,7 @@ import {
   Quantity,
   VolumeMeasure, VolumeMeasureTypePlural,
   Weight,
-  WeightType,
+  WeightType, WeightTypeAbbr,
   WithoutId
 } from "@ddubson/feast-domain";
 
@@ -15,8 +15,8 @@ export const toIngredientPresenter = (ingredient: WithoutId<Ingredient> | Ingred
 export const toIngredientPresenters = (ingredients: Ingredient[]): IngredientPresenter[] =>
   ingredients.map((i: Ingredient) => new IngredientPresenter(i));
 
-export const singleOrPlural = (volumeMeasure: VolumeMeasure): string =>
-  volumeMeasure.value === 0 ? volumeMeasure.type : VolumeMeasureTypePlural[volumeMeasure.type];
+export const singleOrPlural: (volumeMeasure: VolumeMeasure) => string = (volumeMeasure) =>
+  volumeMeasure.value > 1 ? VolumeMeasureTypePlural[volumeMeasure.type] : volumeMeasure.type;
 
 export default class IngredientPresenter {
   constructor(private ingredient: Ingredient | WithoutId<Ingredient>) {
@@ -42,7 +42,7 @@ export default class IngredientPresenter {
 
   get displayVolume(): string {
     return this.ingredient.volume
-      .mapOrDefault((q: VolumeMeasure) => `${q.value} ${q.type} of ${this.ingredient.name}`, ``);
+      .mapOrDefault((q: VolumeMeasure) => `${q.value} ${singleOrPlural(q)} of ${this.ingredient.name}`, ``);
   }
 
   get displayForm(): string {
@@ -50,13 +50,11 @@ export default class IngredientPresenter {
   }
 
   get displayQuantity(): string {
-    return this.ingredient.quantity.mapOrDefault((q: Quantity) => `${q.value}`, ``);
+    return this.ingredient.quantity.mapOrDefault((q: Quantity) => `${q.value} ${this.ingredient.name}`, ``);
   }
 
   get displayWeight(): string {
-    return this.ingredient.weight.mapOrDefault((q: Weight) => {
-      const weightTypeDisplay = WeightTypeAbbr[q.type];
-      return `${q.value} ${weightTypeDisplay}`;
-    }, ``);
+    return this.ingredient.weight
+      .mapOrDefault((q: Weight) => `${q.value} ${WeightTypeAbbr[q.type]}`, ``);
   }
 }

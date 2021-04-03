@@ -8,14 +8,14 @@ export interface CookingVolume {
   id: VolumeMeasureType,
   value: number;
   unitOfMeasurement: VolumeUnitOfMeasure;
-  abbreviation: "Tbsp" | string;
+  abbreviation: VolumeMeasureAbbr;
 }
 
 const tablespoon: CookingVolume = {
   id: "tablespoon",
   value: 14.7868,
   unitOfMeasurement: "milliliters",
-  abbreviation: "Tbsp",
+  abbreviation: "tbsp",
 };
 
 export const VolumeMeasureTypePlural: { [key in VolumeMeasureType]: string } = {
