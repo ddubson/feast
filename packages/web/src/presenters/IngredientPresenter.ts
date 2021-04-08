@@ -3,9 +3,10 @@ import {
   Ingredient,
   IngredientForm,
   Quantity,
-  VolumeMeasure, VolumeMeasureTypePlural,
+  VolumeMeasure,
+  VolumeMeasureTypePlural,
   Weight,
-  WeightType, WeightTypeAbbr,
+  WeightTypeAbbr,
   WithoutId
 } from "@ddubson/feast-domain";
 
@@ -32,11 +33,11 @@ export default class IngredientPresenter {
 
   get renderIngredientText(): string {
     if (this.ingredient.quantity.isJust()) {
-      return this.displayQuantity;
+      return `${this.displayQuantity}, ${this.displayForm}`;
     } else if (this.ingredient.weight.isJust()) {
       return this.displayWeight;
     } else {
-      return this.displayVolume;
+      return `${this.displayVolume} of ${this.displayForm}`;
     }
   }
 

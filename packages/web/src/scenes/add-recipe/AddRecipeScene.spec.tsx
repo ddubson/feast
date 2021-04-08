@@ -55,7 +55,7 @@ test("user is able to save a recipe with at least one ingredient measured in uni
     expect(page.newIngredientButton()).not.toBeDisabled();
     expect(page.ingredientsDisplayed()).toEqual([
       "2 Garlic Cloves, Diced",
-      "3 Potatoes, Chopped"
+      "4 Potatoes, Chopped"
     ])
     expect(saveRecipeSpy).toHaveBeenCalledWith({
       name: "Garlic Lime Shrimp",
@@ -107,7 +107,7 @@ test("user is able to save a recipe with at least one ingredient measured in vol
     expect(page.newIngredientButton()).not.toBeDisabled();
     expect(page.ingredientsDisplayed()).toEqual([
       "2 cups of Flour",
-      "4x Potato, Diced"
+      "4 Potatoes, Diced"
     ])
     expect(saveRecipeSpy).toHaveBeenCalledWith({
       name: "Pancakes",
@@ -189,8 +189,6 @@ const AddRecipeScenePage = (goToSceneSpy: (location: string) => void, saveRecipe
 
 const flourIngredient = () => buildIngredient({
   name: "Flour",
-  form: Nothing,
-  quantity: Nothing,
   volume: Just({
     value: 2,
     type: "cup"

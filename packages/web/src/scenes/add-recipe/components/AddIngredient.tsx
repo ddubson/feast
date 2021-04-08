@@ -32,6 +32,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({onAddIngredient}: AddIngre
   };
   const onQuantityChange = (event: FormEvent<HTMLInputElement>) =>
     setQuantity(Just((event.target as any).value))
+
   const onAddIngredientSubmit = () => {
     onAddIngredient({
       name: name.orDefault(""),

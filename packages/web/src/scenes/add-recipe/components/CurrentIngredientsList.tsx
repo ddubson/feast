@@ -7,14 +7,13 @@ type CurrentIngredientsListProps = { ingredientPresenters: IngredientPresenter[]
 const CurrentIngredientsList: React.FC<CurrentIngredientsListProps> =
   ({ingredientPresenters}: CurrentIngredientsListProps = {ingredientPresenters: []}) => {
     const ingredientsList = <ul>{ingredientPresenters.map((presenter, i) => (
-      <li aria-label="ingredient" key={i}>{presenter.renderIngredientText}, {presenter.displayForm}</li>
+      <li aria-label="ingredient" key={i}>{presenter.renderIngredientText}</li>
     ))}</ul>
 
     return <>
       {Maybe.fromPredicate(() => ingredientPresenters.length > 0, ingredientsList)
         .orDefault(<p>No ingredients yet.</p>)}
     </>
-  }
-;
+  };
 
 export default CurrentIngredientsList;
